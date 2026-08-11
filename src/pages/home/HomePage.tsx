@@ -1,15 +1,17 @@
 // Importa la sección principal
 import HeroSection from '../../components/hero/HeroSection'
 
+// Importa la sección de servicios
+import Category from '../../components/category/category'
+
 // Página principal
 function HomePage() {
   return (
     <main>
-      {/* Sección principal con video */}
       <HeroSection />
+      <Category />
     </main>
   )
 }
 
-// Exporta la página
 export default HomePage
