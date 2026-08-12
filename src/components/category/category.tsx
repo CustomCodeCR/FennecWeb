@@ -336,37 +336,15 @@ function Category() {
         </div>
       </div>
 
-      {/* Modal */}
+           {/* Vista del servicio en pantalla completa */}
       {modalOpen && selectedCategory && (
-        <div
-          className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4"
-          onClick={closeModal}
-        >
-          {/* Caja del modal */}
-          <div
-            className="relative bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(event) => event.stopPropagation()}
-          >
-            {/* Botón X */}
-            <button
-              type="button"
-              onClick={closeModal}
-              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-gray-700 text-xl hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
-              aria-label="Cerrar"
-            >
-              ✕
-            </button>
-
-            {/* Imagen grande */}
-            <img
-              src={selectedCategory.image}
-              alt={selectedCategory.name.replace('<br/>', ' ')}
-              className="w-full h-56 md:h-72 object-cover rounded-t-2xl"
-            />
-
-            {/* Información */}
-            <div className="p-6 md:p-8 text-left">
-              <h2 className="text-2xl md:text-3xl font-bold mb-5">
+        <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
+          
+          {/* Barra superior */}
+          <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
+            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+              
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900">
                 <span
                   dangerouslySetInnerHTML={{
                     __html: selectedCategory.name,
@@ -374,23 +352,49 @@ function Category() {
                 />
               </h2>
 
+              {/* Botón X */}
+              <button
+                type="button"
+                onClick={closeModal}
+                className="w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center text-xl text-gray-700 hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
+                aria-label="Cerrar"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          {/* Contenido */}
+          <div className="max-w-6xl mx-auto px-6 py-10">
+            
+            {/* Imagen */}
+            <img
+              src={selectedCategory.image}
+              alt={selectedCategory.name.replace('<br/>', ' ')}
+              className="w-full h-[300px] md:h-[450px] object-cover rounded-2xl"
+            />
+
+            {/* Información */}
+            <div className="max-w-4xl mx-auto mt-10 text-left">
+              
               <div
-                className="text-gray-600 leading-7 space-y-3"
+                className="text-gray-700 text-base md:text-lg leading-8 space-y-4"
                 dangerouslySetInnerHTML={{
                   __html: selectedCategory.content,
                 }}
               />
 
               {/* Botón cerrar */}
-              <div className="mt-8 flex justify-end">
+              <div className="mt-10 flex justify-end">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="bg-red-500 text-white font-semibold px-6 py-3 rounded-xl hover:bg-red-600 transition-colors cursor-pointer"
+                  className="bg-red-500 text-white font-semibold px-8 py-3 rounded-xl hover:bg-red-600 transition-colors cursor-pointer"
                 >
                   Cerrar
                 </button>
               </div>
+
             </div>
           </div>
         </div>
