@@ -1,22 +1,19 @@
-// Importa la sección principal
 import HeroSection from '../../components/hero/HeroSection'
-
-// Importa la sección de servicios
 import Category from '../../components/category/category'
-
-// Importa la sección de rastreo y cotización
 import Track from '../../components/track/track'
+import Nosotros from '../../components/nosotros/Nosotros'
+import DataComponent from '../../components/datos/DataComponent'
 
-// Página principal
 function HomePage() {
   return (
     <main>
       <HeroSection />
       <Category />
       <Track />
+      <Nosotros />
+      <DataComponent />
     </main>
   )
 }
 
-// Exporta la página principal
 export default HomePage
