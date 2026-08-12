@@ -5,7 +5,7 @@ import HeroSection from '../../components/hero/HeroSection'
 import Category from '../../components/category/category'
 
 // Importa la sección de rastreo y cotización
-import Track from '../../components/track/Track'
+import Track from '../../components/track/track'
 
 // Página principal
 function HomePage() {
