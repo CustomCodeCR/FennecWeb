@@ -1,26 +1,71 @@
-// Importa la sección principal
+import type { ReactNode } from 'react'
+
 import HeroSection from '../../components/hero/HeroSection'
-
-// Importa la sección de servicios
 import Category from '../../components/category/category'
-
-// Importa la sección de rastreo y cotización
 import Track from '../../components/track/track'
-
-// Importa la sección Nosotros
 import Nosotros from '../../components/nosotros/Nosotros'
+import DataComponent from '../../components/datos/DataComponent'
+import ScrollTopButton from '../../components/scrolltop/ScrollTopButton'
 
-// Página principal
+interface HomeSectionProps {
+  children: ReactNode
+  variant?: 'light' | 'soft'
+}
+
+function HomeSection({
+  children,
+  variant = 'light',
+}: HomeSectionProps) {
+  return (
+    <section className={`home-section home-section-${variant}`}>
+      <div className="home-section-container">
+        {children}
+      </div>
+    </section>
+  )
+}
+
 function HomePage() {
   return (
-    <main>
+    <main className="home-page">
       <HeroSection />
-      <Category />
-      <Track />
-      <Nosotros />
+
+      <HomeSection>
+        <div className="home-section-heading">
+          <span className="home-eyebrow">
+            NUESTROS SERVICIOS
+          </span>
+
+          <h2>
+            Soluciones logísticas para cada necesidad
+          </h2>
+
+          <p>
+            Conectamos tu carga con diferentes destinos de forma segura,
+            eficiente y confiable.
+          </p>
+        </div>
+
+        <Category />
+      </HomeSection>
+
+      <HomeSection variant="soft">
+        <Track />
+      </HomeSection>
+
+      <HomeSection>
+        <Nosotros />
+      </HomeSection>
+
+      <DataComponent />
+
+      <ScrollTopButton />
     </main>
   )
 }
 
+<<<<<<< HEAD
 // Exporta la página principal
+=======
+>>>>>>> origin/develop
 export default HomePage
