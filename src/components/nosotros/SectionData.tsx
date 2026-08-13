@@ -1,11 +1,10 @@
-// Define los datos que recibe el componente
 interface SectionDataProps {
+  imageSrc: string
   titles: string[]
   contents: string[]
   imageFirst: boolean
 }
 
-// Componente reutilizable para mostrar información
 function SectionData({
   titles,
   contents,
@@ -13,14 +12,14 @@ function SectionData({
 }: SectionDataProps) {
   return (
     <div
-      className={`flex flex-col lg:flex-row items-center gap-8 ${
+      className={`about-container ${
         imageFirst ? '' : 'lg:flex-row-reverse'
       }`}
     >
-      {/* Video de la sección Nosotros */}
-      <div className="w-full lg:w-1/2">
+      {/* Video */}
+      <div className="about-video-container">
         <video
-          className="w-full rounded-2xl object-cover"
+          className="about-video"
           autoPlay
           loop
           muted
@@ -29,23 +28,31 @@ function SectionData({
           <source src="/video2.mp4" type="video/mp4" />
           Tu navegador no soporta el elemento de video.
         </video>
+
+        <div className="about-video-overlay" />
+
+        <div className="about-video-label">
+          <span>+37</span>
+          <p>Años de experiencia</p>
+        </div>
       </div>
 
-      {/* Información de Nosotros y Valores */}
-      <div className="w-full lg:w-1/2 p-4">
+      {/* Información */}
+      <div className="about-content">
+        <span className="about-eyebrow">
+          CONÓCENOS
+        </span>
+
         {titles.map((title, index) => (
-          <div key={title} className="mb-6">
-            <h2 className="text-black text-2xl font-bold text-center mb-3">
-              {title}
-            </h2>
+          <div
+            key={title}
+            className="about-block"
+          >
+            <h2>{title}</h2>
 
-            {index < titles.length - 1 && (
-              <hr className="mb-4 border-gray-300" />
-            )}
+            <div className="about-line" />
 
-            <p className="text-left text-gray-700 text-lg leading-7">
-              {contents[index]}
-            </p>
+            <p>{contents[index]}</p>
           </div>
         ))}
       </div>
