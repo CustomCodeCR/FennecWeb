@@ -1,4 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 
 interface ContactFormData {
@@ -23,19 +24,19 @@ const validateForm = (form: ContactFormData): FormErrors => {
   let errores: FormErrors = {};
 
   if (!form.name.trim()) {
-    errores.name = "El campo 'Nombre' es requerido";
+    errores.name = "Se necesita esta información para enviar el formulario";
   }
   if (!form.lastname.trim()) {
-    errores.lastname = "El campo 'Apellido' es requerido";
+    errores.lastname = "Se necesita esta información para enviar el formulario";
   }
   if (!form.phone.trim()) {
-    errores.phone = "El campo 'Teléfono' es requerido";
+    errores.phone = "Se necesita esta información para enviar el formulario";
   }
   if (!form.email.trim()) {
-    errores.email = "El campo 'Correo' es requerido";
+    errores.email = "Se necesita esta información para enviar el formulario";
   }
   if (!form.message.trim()) {
-    errores.message = "El campo 'Mensaje' es requerido";
+    errores.message = "Se necesita esta información para enviar el formulario";
   }
 
   return errores;
@@ -64,10 +65,12 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrores(validateForm(form));
+    const erroresActuales = validateForm(form);
+    setErrores(erroresActuales);
 
-    if (Object.keys(errores).length === 0) {
+    if (Object.keys(erroresActuales).length === 0) {
       setLoading(true);
+      setResponse(null);
       axios
         .post("https://api.logisticacastrofallas.com/api/Mail/Send", {
           para: "info@grupocastrofallas.com",
@@ -82,22 +85,20 @@ const Contact: React.FC = () => {
         })
         .then(() => {
           setLoading(false);
-          alert("Mensaje enviado.");
           setResponse(true);
+          setForm(initialForm);
         })
         .catch((error) => {
           setLoading(false);
+          setResponse(false);
           console.error("Error al enviar el mensaje:", error);
-          // Aquí puedes manejar el error de acuerdo a tus necesidades
         });
-    } else {
-      return;
     }
   };
 
   const getErrorForField = (fieldName: keyof ContactFormData) => {
     return errores[fieldName] ? (
-      <p className="font-bold text-red-500">{errores[fieldName]}</p>
+      <p className="font-bold text-red-500 text-[13px]">{errores[fieldName]}</p>
     ) : null;
   };
 
@@ -106,10 +107,10 @@ const Contact: React.FC = () => {
       <div className="flex flex-wrap -mx-2 mb-4">
         <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="name"
           >
-            Nombre <span className="text-red-500">*</span>
+            Nombre <span className="text-red-900">*</span>
           </label>
           <input
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -126,10 +127,10 @@ const Contact: React.FC = () => {
         </div>
         <div className="w-full md:w-1/2 px-2">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="lastname"
           >
-            Apellido <span className="text-red-500">*</span>
+            Apellido <span className="text-red-900">*</span>
           </label>
           <input
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -146,7 +147,7 @@ const Contact: React.FC = () => {
         </div>
         <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="phone"
           >
             Teléfono <span className="text-red-500">*</span>
@@ -166,7 +167,7 @@ const Contact: React.FC = () => {
         </div>
         <div className="w-full md:w-1/2 px-2">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="email"
           >
             Correo electrónico <span className="text-red-500">*</span>
@@ -186,7 +187,7 @@ const Contact: React.FC = () => {
         </div>
         <div className="w-full px-2">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="message"
           >
             Mensaje <span className="text-red-500">*</span>
@@ -206,11 +207,22 @@ const Contact: React.FC = () => {
         </div>
         <div className="w-full md:w-full px-2 mt-4">
           <button
-            className="bg-gray-900 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-red-900 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
             type="submit"
+            disabled={loading}
           >
-            Enviar mensaje
+            {loading ? "Enviando..." : "Enviar mensaje"}
           </button>
+          {response === true && (
+            <p className="text-green-800 font-bold mt-2">
+              Mensaje enviado correctamente.
+            </p>
+          )}
+          {response === false && (
+            <p className="text-red-800 font-bold mt-2">
+              Ocurrió un error al enviar el mensaje. Intentá de nuevo.
+            </p>
+          )}
         </div>
       </div>
     </form>

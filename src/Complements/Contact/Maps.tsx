@@ -1,21 +1,28 @@
 import React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { MapPin } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import "./style.css";
-
-import { Icon, divIcon, point, LatLngTuple, LatLngExpression } from "leaflet";
+import { divIcon, point } from "leaflet";
+import type { LatLngTuple, LatLngExpression } from "leaflet";
 
 interface OfficeMarker {
   geocode: LatLngTuple;
   popUp: string;
 }
 
-// create custom icon
-const customIcon = new Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
-  //iconUrl: require("./icons/placeholder.png"),
-  iconSize: [38, 38], // size of the icon
+// Ícono de lucide-react,
+const pinSvg = renderToStaticMarkup(
+  <MapPin color="#500b0b" fill="#a81212" size={35} strokeWidth={2} />
+);
+
+const customIcon = divIcon({
+  html: pinSvg,
+  className: "custom-marker-icon",
+  iconSize: [40, 40],
+  iconAnchor: [16, 30],
+  popupAnchor: [0, -28],
 });
 
 // custom cluster icon
@@ -24,7 +31,7 @@ interface ClusterLike {
 }
 
 const createClusterCustomIcon = function (cluster: ClusterLike) {
-  return new divIcon({
+  return divIcon({
     html: `<span class="cluster-icon">${cluster.getChildCount()}</span>`,
     className: "custom-marker-cluster",
     iconSize: point(33, 33, true),
@@ -174,21 +181,24 @@ const markers: OfficeMarker[] = [
 ];
 
 const mapStyle: React.CSSProperties = {
-  height: "50vh",
-  width: "85vw",
+  height: "60vh",
+  width: "100%",
+  maxWidth: "1100px",
+  margin: "0 auto",
+  borderRadius: "0.75rem",
 };
-
+ 
 const centerPosition: LatLngExpression = [9.915085533193173, -84.0457210670351];
-
+ 
 const MyMap: React.FC = () => {
   return (
     <MapContainer
       center={centerPosition}
       zoom={5}
-      className="w-full h-full md:w-1/2 md:h-1/2"
+      className="w-full"
       style={mapStyle}
     >
-      {/* OPEN STREEN MAPS TILES */}
+      {/* OPEN STREET MAPS TILES */}
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -209,5 +219,5 @@ const MyMap: React.FC = () => {
     </MapContainer>
   );
 };
-
+ 
 export default MyMap;
