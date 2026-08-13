@@ -12,7 +12,7 @@ interface OfficeMarker {
   popUp: string;
 }
 
-// Ícono de lucide-react,
+// Ícono individual (lucide-react)
 const pinSvg = renderToStaticMarkup(
   <MapPin color="#500b0b" fill="#a81212" size={35} strokeWidth={2} />
 );
@@ -25,16 +25,26 @@ const customIcon = divIcon({
   popupAnchor: [0, -28],
 });
 
-// custom cluster icon
+// Ícono grande para el clúster (mismo pin, más grande + badge con el conteo)
+const clusterPinSvg = renderToStaticMarkup(
+  <MapPin color="#500b0b" fill="#a81212" size={32} strokeWidth={2} />
+);
+
 interface ClusterLike {
   getChildCount: () => number;
 }
 
 const createClusterCustomIcon = function (cluster: ClusterLike) {
   return divIcon({
-    html: `<span class="cluster-icon">${cluster.getChildCount()}</span>`,
+    html: `
+      <div class="cluster-icon-wrapper">
+        ${clusterPinSvg}
+        <span class="cluster-count">${cluster.getChildCount()}</span>
+      </div>
+    `,
     className: "custom-marker-cluster",
-    iconSize: point(33, 33, true),
+    iconSize: point(32, 32, true),
+    iconAnchor: [16, 29],
   });
 };
 
@@ -48,7 +58,7 @@ const markers: OfficeMarker[] = [
   {
     geocode: [9.948241661779358, -84.07604437310071],
     popUp:
-      "Oficina Central Goicochea<br/>correo electrónico: cstarica@grupocastrofallas.com", 
+      "Oficina Central Goicochea<br/>correo electrónico: cstarica@grupocastrofallas.com",
   },
   {
     geocode: [13.46912079583891, -85.2733906614443],
@@ -192,9 +202,9 @@ const mapStyle: React.CSSProperties = {
   margin: "0 auto",
   borderRadius: "0.75rem",
 };
- 
+
 const centerPosition: LatLngExpression = [9.915085533193173, -84.0457210670351];
- 
+
 const MyMap: React.FC = () => {
   return (
     <MapContainer
@@ -224,5 +234,5 @@ const MyMap: React.FC = () => {
     </MapContainer>
   );
 };
- 
+
 export default MyMap;
