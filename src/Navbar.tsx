@@ -19,7 +19,7 @@ function Apps() {
   ===================================================== */
 
   const colores = {
-    blanco: "#ffffff",
+    
     negro: "#000000",
     gris: "#f5f5f5",
     borde: "rgba(248, 1, 1, 0.83)",
@@ -53,7 +53,7 @@ function Apps() {
   /* =====================================================
      
      apartado de funcionamiento de botones
-     PERO TODAVÍA NO LLEVAN A NINGUN LUGAR
+     PERO TODAVIA NO LLEVAN A NINGUN LUGAR
   ===================================================== */
 
   const acceder = (sistema: string) => {
@@ -78,7 +78,7 @@ function Apps() {
           width: "100vw",
           height: "100vh",
           overflow: "hidden",
-          backgroundColor: colores.blanco,
+          
         }}
       >
 
@@ -310,7 +310,7 @@ function Apps() {
 
         overflow: "hidden",
 
-        backgroundColor: colores.blanco,
+       
 
         color: colores.negro,
 
@@ -852,7 +852,7 @@ function Apps() {
 
           justifyContent: "center",
 
-          backgroundColor: colores.blanco,
+          
         }}
       >
 
