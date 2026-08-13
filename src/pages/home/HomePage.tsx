@@ -3,7 +3,7 @@ import Category from '../../components/category/category'
 import Track from '../../components/track/track'
 import Nosotros from '../../components/nosotros/Nosotros'
 import DataComponent from '../../components/datos/DataComponent'
-import ScrollTopButton from '../../components/scrollTop/ScrollTopButton'
+import ScrollTopButton from '../../components/scrolltop/ScrollTopButton'
 
 function HomePage() {
   return (
