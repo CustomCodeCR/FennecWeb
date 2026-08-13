@@ -1,11 +1,15 @@
 import Footer from './components/footer/Footer'
+import HomePage from './pages/home/HomePage'
 
+// Componente principal de la aplicación
 function App() {
   return (
-    <main>
+    <>
+      <HomePage />
       <Footer />
-    </main>
+    </>
   )
 }
 
+// Exporta App para usarlo desde main.tsx
 export default App
