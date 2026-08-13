@@ -1,16 +1,15 @@
-// Importa la página principal
-import HomePage from './pages/home/HomePage'
-import Apps from './Navbar'
+import Footer from "./components/footer/Footer";
+import Homepage from "./pages/home/HomePage";
+import Apps from "./Navbar";
 
-// Componente principal de la aplicación
-function App () {
-  return (    
+function App() {
+  return (
     <>
-      <Apps/>
-      <HomePage />
+      <Apps />
+      <Homepage />
+      <Footer />
     </>
   );
 }
 
-// Exporta App para usarlo desde main.tsx
-export default App
+export default App;
