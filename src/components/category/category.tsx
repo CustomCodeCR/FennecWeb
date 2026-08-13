@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-// Define cómo debe estar formado cada servicio
 interface CategoryItem {
   icon: string
   name: string
@@ -8,7 +7,7 @@ interface CategoryItem {
   image: string
 }
 
-// Servicios principales
+// Servicios
 const category: CategoryItem[] = [
   {
     icon: '/transporte_internacional_maritimo.png',
@@ -159,7 +158,7 @@ const category: CategoryItem[] = [
   },
 ]
 
-// Servicios adicionales
+// Adicionales
 const category2: CategoryItem[] = [
   {
     icon: '/tramites_de_aduanas.png',
@@ -168,7 +167,7 @@ const category2: CategoryItem[] = [
       <p>
         <strong>Personal altamente calificado, profesional y técnico.</strong>
         Le brindamos nuestro servicio de agencia de aduanas en
-        <strong>IMPORT</strong> o <strong>EXPORT</strong>.
+        <strong> IMPORT</strong> o <strong>EXPORT</strong>.
       </p>
 
       <br />
@@ -194,7 +193,7 @@ const category2: CategoryItem[] = [
 
       <p>
         Bodegas propias en
-        <strong>ZONA LIBRE, COLÓN, PANAMÁ.</strong>
+        <strong> ZONA LIBRE, COLÓN, PANAMÁ.</strong>
       </p>
 
       <br />
@@ -227,22 +226,19 @@ const category2: CategoryItem[] = [
   },
 ]
 
-// Componente principal
 function Category() {
-  // Controla si la información está abierta
-  const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
-  // Guarda el servicio seleccionado
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryItem | null>(null)
 
-  // Abre la información de un servicio
+  // Abrir
   const openModal = (item: CategoryItem) => {
     setSelectedCategory(item)
     setModalOpen(true)
   }
 
-  // Cierra la información
+  // Cerrar
   const closeModal = () => {
     setModalOpen(false)
     setSelectedCategory(null)
@@ -251,112 +247,112 @@ function Category() {
   return (
     <section
       id="servicios"
-      className="w-full bg-gray-50 py-16 px-6"
+      className="w-full py-10 px-4 md:px-6"
     >
-      {/* Título principal */}
-      <div className="text-center mb-12">
-        <p className="text-red-500 font-semibold uppercase tracking-widest text-sm">
-          Lo que hacemos
-        </p>
-
-        <h1 className="text-3xl md:text-4xl font-bold mt-2">
-          Nuestros Servicios
-        </h1>
-
-        <p className="text-gray-500 mt-3">
-          Soluciones logísticas para tus necesidades.
-        </p>
-      </div>
-
-      {/* Servicios principales */}
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* Principales */}
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
           {category.map((item) => (
             <button
               key={item.name}
               type="button"
               onClick={() => openModal(item)}
-              className="group bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+              className="service-card group w-full min-h-[225px] p-7 cursor-pointer"
             >
-              {/* Contenedor del icono */}
-              <div className="w-20 h-20 mx-auto rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-red-50 transition-colors">
+              <div className="service-icon-box">
                 <img
                   src={item.icon}
                   alt={item.name.replace('<br/>', ' ')}
-                  className="w-14 h-14 object-contain"
+                  className="service-icon"
                 />
               </div>
 
-              {/* Nombre */}
-              <div className="mt-4 font-semibold text-gray-800 text-sm md:text-base leading-tight">
+              <div className="service-name">
                 <span
                   dangerouslySetInnerHTML={{
                     __html: item.name,
                   }}
                 />
               </div>
+
+              <span className="service-more">
+                Ver servicio
+                <span className="service-arrow">→</span>
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Servicios adicionales */}
-      <div className="max-w-4xl mx-auto mt-14">
-        <h2 className="text-2xl font-bold text-center mb-7">
-          Servicios Adicionales
-        </h2>
+      {/* Adicionales */}
+      <div className="max-w-5xl mx-auto mt-20">
+        <div className="text-center mb-9">
+          <span className="text-red-600 text-xs font-bold tracking-[0.18em] uppercase">
+            Más soluciones
+          </span>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2">
+            Servicios Adicionales
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-7">
           {category2.map((item) => (
             <button
               key={item.name}
               type="button"
               onClick={() => openModal(item)}
-              className="group bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+              className="service-card group w-full min-h-[225px] p-7 cursor-pointer"
             >
-              {/* Contenedor del icono */}
-              <div className="w-20 h-20 mx-auto rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-red-50 transition-colors">
+              <div className="service-icon-box">
                 <img
                   src={item.icon}
                   alt={item.name.replace('<br/>', ' ')}
-                  className="w-14 h-14 object-contain"
+                  className="service-icon"
                 />
               </div>
 
-              {/* Nombre */}
-              <div className="mt-4 font-semibold text-gray-800 text-sm md:text-base leading-tight">
+              <div className="service-name">
                 <span
                   dangerouslySetInnerHTML={{
                     __html: item.name,
                   }}
                 />
               </div>
+
+              <span className="service-more">
+                Ver servicio
+                <span className="service-arrow">→</span>
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-           {/* Vista del servicio en pantalla completa */}
+      {/* Detalle */}
       {modalOpen && selectedCategory && (
         <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
-          
-          {/* Barra superior */}
-          <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
-            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-              
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: selectedCategory.name,
-                  }}
-                />
-              </h2>
+          {/* Barra */}
+          <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md border-b border-gray-200">
+            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-5">
+              <div>
+                <span className="text-red-600 text-xs font-bold tracking-[0.16em] uppercase">
+                  Servicio
+                </span>
 
-              {/* Botón X */}
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: selectedCategory.name,
+                    }}
+                  />
+                </h2>
+              </div>
+
               <button
                 type="button"
                 onClick={closeModal}
-                className="w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center text-xl text-gray-700 hover:bg-red-500 hover:text-white transition-colors cursor-pointer"
+                className="w-11 h-11 shrink-0 rounded-full bg-gray-100 flex items-center justify-center text-xl text-gray-700 hover:bg-red-600 hover:text-white transition-all cursor-pointer"
                 aria-label="Cerrar"
               >
                 ✕
@@ -365,36 +361,34 @@ function Category() {
           </div>
 
           {/* Contenido */}
-          <div className="max-w-6xl mx-auto px-6 py-10">
-            
-            {/* Imagen */}
-            <img
-              src={selectedCategory.image}
-              alt={selectedCategory.name.replace('<br/>', ' ')}
-              className="w-full h-[300px] md:h-[450px] object-cover rounded-2xl"
-            />
+          <div className="max-w-6xl mx-auto px-5 md:px-6 py-8 md:py-12">
+            <div className="relative overflow-hidden rounded-[28px] shadow-xl">
+              <img
+                src={selectedCategory.image}
+                alt={selectedCategory.name.replace('<br/>', ' ')}
+                className="w-full h-[280px] md:h-[450px] object-cover"
+              />
 
-            {/* Información */}
-            <div className="max-w-4xl mx-auto mt-10 text-left">
-              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+            </div>
+
+            <div className="max-w-4xl mx-auto mt-10 md:mt-12">
               <div
-                className="text-gray-700 text-base md:text-lg leading-8 space-y-4"
+                className="service-content text-gray-700 text-base md:text-lg leading-8"
                 dangerouslySetInnerHTML={{
                   __html: selectedCategory.content,
                 }}
               />
 
-              {/* Botón cerrar */}
-              <div className="mt-10 flex justify-end">
+              <div className="mt-10 pt-7 border-t border-gray-200 flex justify-end">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="bg-red-500 text-white font-semibold px-8 py-3 rounded-xl hover:bg-red-600 transition-colors cursor-pointer"
+                  className="bg-red-600 text-white font-semibold px-8 py-3 rounded-xl hover:bg-red-700 hover:-translate-y-0.5 shadow-md hover:shadow-lg transition-all cursor-pointer"
                 >
                   Cerrar
                 </button>
               </div>
-
             </div>
           </div>
         </div>

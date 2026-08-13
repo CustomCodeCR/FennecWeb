@@ -1,69 +1,170 @@
+import logo from "../../assets/logo-castro-fallas.png";
+
 function Footer() {
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-gray-100 text-black">
-      <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <footer
+      style={{
+        width: "100%",
+        maxWidth: "100%",
+        overflow: "hidden",
+        backgroundColor: "#f3f4f6",
+        color: "#000",
+        marginTop: "16px",
+        borderTop: "1px solid #e5e7eb",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "100%",
+          padding: "12px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "4px",
+          boxSizing: "border-box",
+        }}
+      >
 
-        <div className="text-center sm:text-left">
-          <h2 className="font-bold text-xl">
-            Castro Fallas
-          </h2>
+        {/* LOGO PRINCIPAL */}
+        <img
+          src={logo}
+          alt="Grupo Castro Fallas"
+          style={{
+            width: "60px",
+            maxWidth: "60px",
+            height: "auto",
+            display: "block",
+            objectFit: "contain",
+          }}
+        />
 
-          <p className="text-sm text-gray-600 mt-1">
-            © {year} Grupo Castro Fallas
-          </p>
+        {/* COPYRIGHT */}
+        <p
+          style={{
+            fontSize: "10px",
+            margin: 0,
+            color: "#6b7280",
+            textAlign: "center",
+          }}
+        >
+          © {year} Grupo Castro Fallas
+        </p>
 
-          <a
-            href="https://customcodecr.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-blue-600 hover:text-blue-800"
-          >
-            Desarrollado por CustomCodeCR
-          </a>
-        </div>
+        {/* DESARROLLADO POR */}
+        <a
+          href="https://customcodecr.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontSize: "10px",
+            color: "#2563eb",
+            textAlign: "center",
+            textDecoration: "none",
+          }}
+        >
+          Desarrollado por CustomCodeCR
+        </a>
 
-        <div className="flex items-center gap-5">
+        {/* REDES SOCIALES */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            marginTop: "4px",
+          }}
+        >
+
+          {/* FACEBOOK */}
           <a
             href="https://es-la.facebook.com/grupocastrofallas1/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-red-600 transition-colors"
+            aria-label="Facebook"
           >
-            Facebook
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              style={{ display: "block" }}
+            >
+              <path d="M14 8h3V4h-3c-3.3 0-5 1.7-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.7.3-1 1-1z" />
+            </svg>
           </a>
 
+          {/* X */}
           <a
             href="https://twitter.com/castrofagrupo"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-red-600 transition-colors"
+            aria-label="X"
           >
-            X
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              style={{ display: "block" }}
+            >
+              <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.2-8.2L2.8 2h6.4l4.4 5.8L18.9 2zm-1.1 17.7h1.7L8.3 4.2H6.5l11.3 15.5z" />
+            </svg>
           </a>
 
+          {/* INSTAGRAM */}
           <a
             href="https://www.instagram.com/grupocastrofallas1/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-red-600 transition-colors"
+            aria-label="Instagram"
           >
-            Instagram
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              style={{ display: "block" }}
+            >
+              <rect width="20" height="20" x="2" y="2" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle
+                cx="17.5"
+                cy="6.5"
+                r="1"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
           </a>
 
+          {/* LINKEDIN */}
           <a
             href="https://www.linkedin.com/company/grupo-castro-fallas/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-red-600 transition-colors"
+            aria-label="LinkedIn"
           >
-            LinkedIn
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              style={{ display: "block" }}
+            >
+              <path d="M6.5 8H3V21H6.5V8ZM4.75 3C3.65 3 3 3.7 3 4.7S3.65 6.4 4.75 6.4 6.5 5.7 6.5 4.7 5.85 3 4.75 3ZM21 13.5C21 9.6 18.9 7.8 16 7.8C13.7 7.8 12.7 9.1 12.2 9.9V8H8.7V21H12.2V13.8C12.2 11.9 12.55 10.1 14.9 10.1C17.2 10.1 17.2 12.2 17.2 13.9V21H21V13.5Z" />
+            </svg>
           </a>
+
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
