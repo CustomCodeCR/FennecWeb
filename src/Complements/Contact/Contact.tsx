@@ -24,47 +24,62 @@ const validateForm = (form: ContactFormData): FormErrors => {
   let errores: FormErrors = {};
 
   if (!form.name.trim()) {
-    errores.name = "Se necesita esta información para enviar el formulario";
+    errores.name = "Este campo es obligatorio.";
   }
   if (!form.lastname.trim()) {
-    errores.lastname = "Se necesita esta información para enviar el formulario";
+    errores.lastname = "Este campo es obligatorio.";
   }
   if (!form.phone.trim()) {
-    errores.phone = "Se necesita esta información para enviar el formulario";
+    errores.phone = "Este campo es obligatorio.";
   }
   if (!form.email.trim()) {
-    errores.email = "Se necesita esta información para enviar el formulario";
+    errores.email = "Este campo es obligatorio.";
   }
   if (!form.message.trim()) {
-    errores.message = "Se necesita esta información para enviar el formulario";
+    errores.message = "Este campo es obligatorio.";
   }
 
   return errores;
 };
+
+const inputBase =
+  "appearance-none border border-gray-300 rounded-md w-full py-3 px-3.5 text-gray-700 leading-tight transition-all duration-150 focus:outline-none focus:border-[#94191d] focus:shadow-[0_0_0_3px_rgba(148,25,29,0.12)]";
+
+const inputError = "border-red-500 focus:border-red-500";
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState<ContactFormData>(initialForm);
   const [errores, setErrores] = useState<FormErrors>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<boolean | null>(null);
+  const [submitted, setSubmitted] = useState<boolean>(false); 
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    const updatedForm = { ...form, [name]: value };
+    setForm(updatedForm);
+
+    if (submitted) {
+      setErrores(validateForm(updatedForm));
+    }
   };
 
   const handleBlur = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    handleChange(e);
-    setErrores(validateForm(form));
+    const { name, value } = e.target;
+    const updatedForm = { ...form, [name]: value };
+    setForm(updatedForm);
+
+  
+    if (submitted) {
+      setErrores(validateForm(updatedForm));
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitted(true); 
     const erroresActuales = validateForm(form);
     setErrores(erroresActuales);
 
@@ -87,6 +102,8 @@ const Contact: React.FC = () => {
           setLoading(false);
           setResponse(true);
           setForm(initialForm);
+          setSubmitted(false);
+          setErrores({});
         })
         .catch((error) => {
           setLoading(false);
@@ -98,14 +115,17 @@ const Contact: React.FC = () => {
 
   const getErrorForField = (fieldName: keyof ContactFormData) => {
     return errores[fieldName] ? (
-      <p className="font-bold text-red-500 text-[13px]">{errores[fieldName]}</p>
+      <p className="text-red-500 text-[13px] mt-1">{errores[fieldName]}</p>
     ) : null;
   };
 
+  const fieldClass = (fieldName: keyof ContactFormData) =>
+    errores[fieldName] ? `${inputBase} ${inputError}` : inputBase;
+
   return (
-    <form className="shake" onSubmit={handleSubmit}>
-      <div className="flex flex-wrap -mx-2 mb-4">
-        <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+    <form onSubmit={handleSubmit}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+        <div>
           <label
             className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="name"
@@ -113,7 +133,7 @@ const Contact: React.FC = () => {
             Nombre <span className="text-red-900">*</span>
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={fieldClass("name")}
             id="name"
             type="text"
             name="name"
@@ -125,7 +145,7 @@ const Contact: React.FC = () => {
           />
           {getErrorForField("name")}
         </div>
-        <div className="w-full md:w-1/2 px-2">
+        <div>
           <label
             className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="lastname"
@@ -133,7 +153,7 @@ const Contact: React.FC = () => {
             Apellido <span className="text-red-900">*</span>
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={fieldClass("lastname")}
             id="lastname"
             type="text"
             onBlur={handleBlur}
@@ -145,15 +165,15 @@ const Contact: React.FC = () => {
           />
           {getErrorForField("lastname")}
         </div>
-        <div className="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+        <div>
           <label
             className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="phone"
           >
-            Teléfono <span className="text-red-500">*</span>
+            Teléfono <span className="text-red-900">*</span>
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={fieldClass("phone")}
             id="phone"
             type="text"
             onBlur={handleBlur}
@@ -165,15 +185,15 @@ const Contact: React.FC = () => {
           />
           {getErrorForField("phone")}
         </div>
-        <div className="w-full md:w-1/2 px-2">
+        <div>
           <label
             className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="email"
           >
-            Correo electrónico <span className="text-red-500">*</span>
+            Correo electrónico <span className="text-red-900">*</span>
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={fieldClass("email")}
             id="email"
             type="email"
             onBlur={handleBlur}
@@ -185,15 +205,15 @@ const Contact: React.FC = () => {
           />
           {getErrorForField("email")}
         </div>
-        <div className="w-full px-2">
+        <div className="md:col-span-2">
           <label
             className="block text-gray-900 text-sm font-bold mb-2"
             htmlFor="message"
           >
-            Mensaje <span className="text-red-500">*</span>
+            Mensaje <span className="text-red-900">*</span>
           </label>
           <textarea
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={fieldClass("message")}
             id="message"
             onBlur={handleBlur}
             onChange={handleChange}
@@ -205,13 +225,13 @@ const Contact: React.FC = () => {
           ></textarea>
           {getErrorForField("message")}
         </div>
-        <div className="w-full md:w-full px-2 mt-4">
+        <div className="md:col-span-2 mt-2">
           <button
-            className="bg-red-900 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
+            className="bg-[#94191d] hover:bg-[#b52126] hover:-translate-y-0.5 hover:shadow-md text-white font-bold py-3 px-8 rounded-lg transition-all duration-150 focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:hover:translate-y-0"
             type="submit"
             disabled={loading}
           >
-            {loading ? "Enviando..." : "Enviar mensaje"}
+            {loading ? "Enviando..." : "ENVIAR MENSAJE →"}
           </button>
           {response === true && (
             <p className="text-green-800 font-bold mt-2">
