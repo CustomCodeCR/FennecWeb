@@ -1,0 +1,47 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+
+{
+  "trackingNumber": "CF-2026-001234",
+  "status": "En tránsito",
+  "lastUpdate": "2026-08-14T08:30:00",
+  "origin": "Miami, Estados Unidos",
+  "destination": "San José, Costa Rica",
+  "steps": [
+    {
+      "label": "Recibido",
+      "date": "2026-08-12",
+      "status": "completed"
+    },
+    {
+      "label": "En tránsito",
+      "date": "2026-08-14",
+      "status": "current"
+    },
+    {
+      "label": "Aduana",
+      "date": null,
+      "status": "pending"
+    },
+    {
+      "label": "Entregado",
+      "date": null,
+      "status": "pending"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-08-14",
+      "time": "08:30 AM",
+      "title": "En tránsito",
+      "description": "La carga salió de la bodega de origen."
+    },
+    {
+      "date": "2026-08-12",
+      "time": "03:15 PM",
+      "title": "Recibido",
+      "description": "La carga fue recibida en bodega."
+    }
+  ]
+}

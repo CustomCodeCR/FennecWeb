@@ -1,0 +1,53 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+
+{
+  "trackingNumber": "CF-2026-005678",
+  "status": "En aduana",
+  "lastUpdate": "2026-08-14T10:15:00",
+  "origin": "Houston, Estados Unidos",
+  "destination": "Heredia, Costa Rica",
+  "steps": [
+    {
+      "label": "Recibido",
+      "date": "2026-08-10",
+      "status": "completed"
+    },
+    {
+      "label": "En tránsito",
+      "date": "2026-08-12",
+      "status": "completed"
+    },
+    {
+      "label": "Aduana",
+      "date": "2026-08-14",
+      "status": "current"
+    },
+    {
+      "label": "Entregado",
+      "date": null,
+      "status": "pending"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-08-14",
+      "time": "10:15 AM",
+      "title": "En aduana",
+      "description": "La carga se encuentra en proceso de revisión aduanera."
+    },
+    {
+      "date": "2026-08-12",
+      "time": "02:40 PM",
+      "title": "En tránsito",
+      "description": "La carga salió hacia Costa Rica."
+    },
+    {
+      "date": "2026-08-10",
+      "time": "09:10 AM",
+      "title": "Recibido",
+      "description": "La carga fue recibida en la bodega de origen."
+    }
+  ]
+}
