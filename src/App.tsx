@@ -1,3 +1,4 @@
+
 import { Route, Routes } from 'react-router-dom'
 
 import Footer from './components/footer/Footer'
@@ -22,6 +23,7 @@ function App() {
         />
       </Routes>
 
+      <HomePage />
       <Footer />
     </>
   )
