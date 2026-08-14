@@ -51,12 +51,12 @@ const markers: OfficeMarker[] = [
   {
     geocode: [9.915085533193173, -84.0457210670351],
     popUp:
-      "Oficina Central Curridabat<br/>correo electrónico: costarica@grupocastrofallas.com",
+      "Oficina Central Curridabat. San Francisco<br/>correo electrónico: costarica@grupocastrofallas.com",
   },
   {
     geocode: [9.948241661779358, -84.07604437310071],
     popUp:
-      "Oficina Central Goicochea<br/>correo electrónico: costarica@grupocastrofallas.com",
+      "Oficina Central Goicochea, Calle Blancos<br/>correo electrónico: costarica@grupocastrofallas.com",
   },
   {
     geocode: [13.46912079583891, -85.2733906614443],
