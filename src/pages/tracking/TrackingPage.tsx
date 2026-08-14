@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import PageSection from '../../ui/PageSection'
 import SectionHeader from '../../ui/SectionHeader'
@@ -28,19 +29,12 @@ type TrackingData = {
 
 function TrackingPage() {
   const [trackingNumber, setTrackingNumber] = useState('')
-
   const [trackingData, setTrackingData] =
     useState<TrackingData | null>(null)
 
   const [loading, setLoading] = useState(false)
-
   const [error, setError] = useState('')
 
-  // Convierte una fecha técnica como:
-  // 2026-08-14T08:30:00
-  //
-  // En algo más agradable:
-  // 14/08/2026 · 08:30 AM
   const formatDateTime = (value: string) => {
     const date = new Date(value)
 
@@ -79,9 +73,7 @@ function TrackingPage() {
 
     try {
       setLoading(true)
-
       setError('')
-
       setTrackingData(null)
 
       const response = await fetch(
@@ -111,6 +103,14 @@ function TrackingPage() {
 
   return (
     <main className="tracking-page">
+      <Link
+        to="/"
+        className="tracking-back-button"
+      >
+        <span>←</span>
+        Volver al inicio
+      </Link>
+
       <PageSection variant="light">
         <SectionHeader
           eyebrow="WEB TRACKING"
@@ -119,7 +119,6 @@ function TrackingPage() {
         />
 
         <div className="tracking-container">
-          {/* Buscador */}
           <form
             className="tracking-search"
             onSubmit={handleSubmit}
@@ -146,7 +145,6 @@ function TrackingPage() {
             </button>
           </form>
 
-          {/* Error */}
           {error && (
             <div className="tracking-error">
               <strong>
@@ -159,7 +157,6 @@ function TrackingPage() {
             </div>
           )}
 
-          {/* Estado inicial */}
           {!trackingData &&
             !error &&
             !loading && (
@@ -180,10 +177,8 @@ function TrackingPage() {
               </div>
             )}
 
-          {/* Resultado */}
           {trackingData && (
             <div className="tracking-result">
-              {/* Encabezado */}
               <div className="tracking-result-header">
                 <div>
                   <span>
@@ -209,23 +204,18 @@ function TrackingPage() {
                     <strong>
                       Origen:
                     </strong>{' '}
-                    {
-                      trackingData.origin
-                    }
+                    {trackingData.origin}
                   </p>
 
                   <p>
                     <strong>
                       Destino:
                     </strong>{' '}
-                    {
-                      trackingData.destination
-                    }
+                    {trackingData.destination}
                   </p>
                 </div>
               </div>
 
-              {/* Línea de progreso */}
               <div className="tracking-progress">
                 {trackingData.steps.map(
                   (step, index) => (
@@ -257,7 +247,6 @@ function TrackingPage() {
                 )}
               </div>
 
-              {/* Información de actualización */}
               <div className="tracking-message">
                 <strong>
                   Tu envío está{' '}
@@ -272,7 +261,6 @@ function TrackingPage() {
                 </span>
               </div>
 
-              {/* Historial */}
               <div className="tracking-history">
                 <h3>
                   Historial reciente
