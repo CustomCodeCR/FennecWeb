@@ -4155,3 +4155,137 @@ backdrop-filter: blur(14px);
       20px;
   }
 }
+/* ==================================================
+   UI - SECCIONES REUTILIZABLES
+   ================================================== */
+
+.page-section {
+  position: relative;
+  width: 100%;
+  padding: 90px 24px;
+}
+
+.page-section-container {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.page-section-light {
+  background: #ffffff;
+}
+
+.page-section-soft {
+  background:
+    linear-gradient(
+      180deg,
+      #f7f9fb 0%,
+      #eef2f5 100%
+    );
+}
+
+.page-section-dark {
+  background: #111820;
+  color: #ffffff;
+}
+
+
+/* ==================================================
+   UI - ENCABEZADOS REUTILIZABLES
+   ================================================== */
+
+.section-header {
+  max-width: 760px;
+  margin-bottom: 55px;
+}
+
+.section-header-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-header-left {
+  text-align: left;
+}
+
+.section-header-eyebrow {
+  display: inline-block;
+  margin-bottom: 13px;
+
+  color: #c8171d;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.section-header h2 {
+  margin: 0;
+
+  color: #14191f;
+
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 750;
+
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.section-header p {
+  max-width: 620px;
+
+  margin: 18px auto 0;
+
+  color: #6a737e;
+
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.section-header-left p {
+  margin-left: 0;
+}
+
+.section-header::after {
+  content: "";
+
+  display: block;
+
+  width: 42px;
+  height: 3px;
+
+  margin: 24px auto 0;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #a70f17,
+      #e32931
+    );
+}
+
+.section-header-left::after {
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .page-section {
+    padding: 65px 18px;
+  }
+
+  .section-header {
+    margin-bottom: 38px;
+  }
+
+  .section-header h2 {
+    font-size: clamp(31px, 8vw, 44px);
+  }
+
+  .section-header p {
+    font-size: 15px;
+  }
+}

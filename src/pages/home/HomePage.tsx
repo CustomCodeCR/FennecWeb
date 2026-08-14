@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react'
-
 import HeroSection from '../../components/hero/HeroSection'
 import Category from '../../components/category/category'
 import Track from '../../components/track/track'
@@ -7,55 +5,34 @@ import Nosotros from '../../components/nosotros/Nosotros'
 import DataComponent from '../../components/datos/DataComponent'
 import ScrollTopButton from '../../components/scrolltop/ScrollTopButton'
 
-interface HomeSectionProps {
-  children: ReactNode
-  variant?: 'light' | 'soft'
-}
-
-function HomeSection({
-  children,
-  variant = 'light',
-}: HomeSectionProps) {
-  return (
-    <section className={`home-section home-section-${variant}`}>
-      <div className="home-section-container">
-        {children}
-      </div>
-    </section>
-  )
-}
+import PageSection from '../../components/ui/PageSection'
+import SectionHeader from '../../components/ui/SectionHeader'
 
 function HomePage() {
   return (
     <main className="home-page">
       <HeroSection />
 
-      <HomeSection>
-        <div className="home-section-heading">
-          <span className="home-eyebrow">
-            NUESTROS SERVICIOS
-          </span>
-
-          <h2>
-            Soluciones logísticas para cada necesidad
-          </h2>
-
-          <p>
-            Conectamos tu carga con diferentes destinos de forma segura,
-            eficiente y confiable.
-          </p>
-        </div>
+      <PageSection
+        id="servicios-home"
+        variant="light"
+      >
+        <SectionHeader
+          eyebrow="NUESTROS SERVICIOS"
+          title="Soluciones logísticas para cada necesidad"
+          description="Conectamos tu carga con diferentes destinos de forma segura, eficiente y confiable."
+        />
 
         <Category />
-      </HomeSection>
+      </PageSection>
 
-      <HomeSection variant="soft">
+      <PageSection variant="soft">
         <Track />
-      </HomeSection>
+      </PageSection>
 
-      <HomeSection>
+      <PageSection variant="light">
         <Nosotros />
-      </HomeSection>
+      </PageSection>
 
       <DataComponent />
 
