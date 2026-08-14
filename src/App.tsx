@@ -4,7 +4,7 @@ import Footer from './components/footer/Footer'
 import HomePage from './pages/home/HomePage'
 import TrackingPage from './pages/tracking/TrackingPage'
 import Apps from './Navbar'
-
+import QuotePage from './pages/quote/QuotePage'
 function App() {
   return (
     <>
@@ -20,7 +20,12 @@ function App() {
           path="/web-tracking"
           element={<TrackingPage />}
         />
+        <Route
+           path="/cotizacion"
+           element={<QuotePage />}
+/>
       </Routes>
+      
 
       <Footer />
     </>
