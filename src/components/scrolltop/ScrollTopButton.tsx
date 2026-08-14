@@ -5,7 +5,7 @@ function ScrollTopButton() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 450)
+      setVisible(window.scrollY > 400)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -24,15 +24,14 @@ function ScrollTopButton() {
 
   return (
     <button
-      type="button"
-      onClick={scrollToTop}
       className={`scroll-top-button ${
         visible ? 'scroll-top-visible' : ''
       }`}
+      onClick={scrollToTop}
       aria-label="Volver al inicio"
-      title="Volver al inicio"
+      type="button"
     >
-      ↑
+<span className="scroll-top-icon">↑</span>
     </button>
   )
 }

@@ -1,17 +1,15 @@
-import ContactForm from './Complements/Contact/ContactForm'
-import Footer from './components/footer/Footer'
+import Footer from './complement/footer/Footer'
 import HomePage from './pages/home/HomePage'
+import Apps from './Navbar'
 
-// Componente principal de la aplicación
 function App() {
   return (
     <>
+      <Apps />
       <HomePage />
-      <ContactForm />
       <Footer />
     </>
   )
 }
 
-// Exporta App para usarlo desde main.tsx
 export default App

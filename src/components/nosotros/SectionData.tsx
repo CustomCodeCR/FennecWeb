@@ -1,21 +1,17 @@
 interface SectionDataProps {
-  imageSrc: string
-  titles: string[]
-  contents: string[]
-  imageFirst: boolean
+  title: string
+  description: string
+  values: string[]
 }
 
 function SectionData({
-  titles,
-  contents,
-  imageFirst,
+  title,
+  description,
+  values,
 }: SectionDataProps) {
   return (
-    <div
-      className={`about-container ${
-        imageFirst ? '' : 'lg:flex-row-reverse'
-      }`}
-    >
+    <div className="about-container">
+
       {/* Video */}
       <div className="about-video-container">
         <video
@@ -39,23 +35,52 @@ function SectionData({
 
       {/* Información */}
       <div className="about-content">
+
         <span className="about-eyebrow">
           CONÓCENOS
         </span>
 
-        {titles.map((title, index) => (
-          <div
-            key={title}
-            className="about-block"
-          >
+        <div className="about-info-grid">
+
+          <div className="about-description">
             <h2>{title}</h2>
 
             <div className="about-line" />
 
-            <p>{contents[index]}</p>
+            <p>{description}</p>
           </div>
-        ))}
+
+          <div className="about-values">
+
+            <span className="about-values-label">
+              LO QUE NOS DEFINE
+            </span>
+
+            <h3>Nuestros valores</h3>
+
+            <div className="about-values-grid">
+              {values.map((value, index) => (
+                <div
+                  className="about-value"
+                  key={value}
+                >
+                  <span className="about-value-number">
+                    0{index + 1}
+                  </span>
+
+                  <span className="about-value-name">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+
     </div>
   )
 }

@@ -1,17 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 interface CategoryItem {
   icon: string
   name: string
+  shortName: string
+  description: string
   content: string
   image: string
 }
 
-// Servicios
 const category: CategoryItem[] = [
   {
     icon: '/transporte_internacional_maritimo.png',
     name: 'Transporte Internacional <br/> Marítimo',
+    shortName: 'Transporte Marítimo',
+    description:
+      'Soluciones flexibles para carga marítima internacional LCL y FCL.',
     content: `
       <div>
         <p>
@@ -35,8 +40,6 @@ const category: CategoryItem[] = [
           Agilidad en el despacho de aduanas.
         </p>
       </div>
-
-      <br />
 
       <div>
         <p>
@@ -65,6 +68,9 @@ const category: CategoryItem[] = [
   {
     icon: '/transporte_internacional_terrestre.png',
     name: 'Transporte Internacional <br/> Terrestre',
+    shortName: 'Transporte Terrestre',
+    description:
+      'Cobertura terrestre regional con soluciones LTL y FTL.',
     content: `
       <div>
         <p>
@@ -84,8 +90,6 @@ const category: CategoryItem[] = [
           Agilidad en el despacho de aduanas.
         </p>
       </div>
-
-      <br />
 
       <div>
         <p>
@@ -114,27 +118,28 @@ const category: CategoryItem[] = [
   {
     icon: '/transporte_internacional_aereo.png',
     name: 'Transporte Internacional <br/> Aéreo',
+    shortName: 'Transporte Aéreo',
+    description:
+      'Conexiones internacionales para envíos que requieren mayor velocidad.',
     content: `
-      <p>
-        <strong>MODALIDAD LCL:</strong>
-        Mayor flexibilidad en la gestión del almacenaje.
-      </p>
+      <div>
+        <p>
+          <strong>TRANSPORTE AÉREO:</strong>
+          Soluciones para envíos internacionales que necesitan rapidez.
+        </p>
 
-      <p>
-        Las tarifas se ajustan al volumen y el peso de la carga.
-      </p>
+        <p>
+          Las tarifas se ajustan al volumen y el peso de la carga.
+        </p>
 
-      <p>
-        Tarifas de transporte aéreo menos volátiles.
-      </p>
+        <p>
+          Coordinación eficiente de transporte internacional.
+        </p>
 
-      <p>
-        Costos más bajos de transporte terrestre.
-      </p>
-
-      <p>
-        Agilidad en el despacho de aduanas.
-      </p>
+        <p>
+          Agilidad en el despacho de aduanas.
+        </p>
+      </div>
     `,
     image: '/logistica_aerea.jpg',
   },
@@ -142,40 +147,59 @@ const category: CategoryItem[] = [
   {
     icon: '/proyecto_carga.png',
     name: 'Proyecto Carga',
+    shortName: 'Proyecto Carga',
+    description:
+      'Gestión especializada para maquinaria, vehículos y carga sobredimensionada.',
     content: `
-      <p>
-        Ofrecemos el transporte de carga especial, como carga
-        sobredimensionada, maquinaria y vehículos pesados, carga proyecto,
-        carga a granel, carga refrigerada y carga peligrosa.
-      </p>
+      <div>
+        <p>
+          <strong>PROYECTO CARGA:</strong>
+          Transporte especializado para operaciones de gran tamaño.
+        </p>
 
-      <p>
-        Ajustamos las soluciones según los requerimientos específicos
-        de cada caso.
-      </p>
+        <p>
+          Carga sobredimensionada, maquinaria y vehículos pesados.
+        </p>
+
+        <p>
+          Carga proyecto, carga a granel, refrigerada y peligrosa.
+        </p>
+
+        <p>
+          Soluciones adaptadas según los requerimientos de cada operación.
+        </p>
+      </div>
     `,
     image: '/logistica_aerea.jpg',
   },
 ]
 
-// Adicionales
 const category2: CategoryItem[] = [
   {
     icon: '/tramites_de_aduanas.png',
     name: 'Trámites de <br/> Aduanas',
+    shortName: 'Trámites de Aduanas',
+    description:
+      'Gestión profesional de importaciones, exportaciones e Incoterms.',
     content: `
-      <p>
-        <strong>Personal altamente calificado, profesional y técnico.</strong>
-        Le brindamos nuestro servicio de agencia de aduanas en
-        <strong> IMPORT</strong> o <strong>EXPORT</strong>.
-      </p>
+      <div>
+        <p>
+          <strong>TRÁMITES DE ADUANAS:</strong>
+          Personal altamente calificado, profesional y técnico.
+        </p>
 
-      <br />
+        <p>
+          Servicio de agencia de aduanas para IMPORT y EXPORT.
+        </p>
 
-      <p>
-        Trabajamos con diferentes tipos de <strong>INCOTERMS</strong>,
-        desde un <strong>EXW</strong> hasta un <strong>DDP</strong>.
-      </p>
+        <p>
+          Trabajamos con diferentes tipos de INCOTERMS.
+        </p>
+
+        <p>
+          Desde un EXW hasta un DDP.
+        </p>
+      </div>
     `,
     image: '/agenciamiento_aduanal.jpg',
   },
@@ -183,25 +207,28 @@ const category2: CategoryItem[] = [
   {
     icon: '/whs.png',
     name: 'Almacenes de Carga <br/> General/Fiscal',
+    shortName: 'Almacenes de Carga',
+    description:
+      'Espacios de almacenamiento general y fiscal en puntos estratégicos.',
     content: `
-      <p>
-        <strong>Almacén Fiscal en CRC:</strong>
-        Instalaciones propias con gran capacidad de almacenamiento.
-      </p>
+      <div>
+        <p>
+          <strong>ALMACENAMIENTO:</strong>
+          Almacén Fiscal en Costa Rica con gran capacidad.
+        </p>
 
-      <br />
+        <p>
+          Bodegas propias en Zona Libre, Colón, Panamá.
+        </p>
 
-      <p>
-        Bodegas propias en
-        <strong> ZONA LIBRE, COLÓN, PANAMÁ.</strong>
-      </p>
+        <p>
+          Red de bodegas y almacenes con espacios preferenciales.
+        </p>
 
-      <br />
-
-      <p>
-        Red de bodegas y almacenes con espacios y tarifas preferenciales
-        hacia nuestros clientes.
-      </p>
+        <p>
+          Tarifas competitivas para nuestros clientes.
+        </p>
+      </div>
     `,
     image: '/almacen_fiscal.jpg',
   },
@@ -209,18 +236,24 @@ const category2: CategoryItem[] = [
   {
     icon: '/seguro_de_carga.png',
     name: 'Seguros de Carga <br/> Internacional',
+    shortName: 'Seguros de Carga',
+    description:
+      'Protección internacional para tus envíos de importación y exportación.',
     content: `
-      <p>
-        Brindamos a nuestros clientes la facilidad de emisión de pólizas
-        de seguro de carga internacional de manera inmediata y con tarifas
-        muy competitivas.
-      </p>
+      <div>
+        <p>
+          <strong>SEGURO DE CARGA:</strong>
+          Emisión de pólizas de seguro de carga internacional.
+        </p>
 
-      <br />
+        <p>
+          Gestión inmediata y tarifas competitivas.
+        </p>
 
-      <p>
-        Resguardando así tus envíos en import o export.
-      </p>
+        <p>
+          Protección para operaciones de importación y exportación.
+        </p>
+      </div>
     `,
     image: '/transporte_carga.jpg',
   },
@@ -232,168 +265,243 @@ function Category() {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryItem | null>(null)
 
-  // Abrir
   const openModal = (item: CategoryItem) => {
     setSelectedCategory(item)
     setModalOpen(true)
   }
 
-  // Cerrar
   const closeModal = () => {
     setModalOpen(false)
     setSelectedCategory(null)
   }
 
+  useEffect(() => {
+    if (!modalOpen) return
+
+    const previousOverflow = document.body.style.overflow
+
+    document.body.style.overflow = 'hidden'
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeModal()
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [modalOpen])
+
   return (
-    <section
-      id="servicios"
-      className="w-full py-10 px-4 md:px-6"
-    >
-      {/* Principales */}
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
-          {category.map((item) => (
+    <>
+      <section
+        id="servicios"
+        className="services-section"
+      >
+        <div className="services-grid">
+          {category.map((item, index) => (
             <button
-              key={item.name}
+              key={item.shortName}
               type="button"
               onClick={() => openModal(item)}
-              className="service-card group w-full min-h-[225px] p-7 cursor-pointer"
+              className="service-premium-card"
             >
-              <div className="service-icon-box">
+              <span className="service-card-number">
+                0{index + 1}
+              </span>
+
+              <div className="service-premium-icon">
                 <img
                   src={item.icon}
-                  alt={item.name.replace('<br/>', ' ')}
-                  className="service-icon"
+                  alt={item.shortName}
                 />
               </div>
 
-              <div className="service-name">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: item.name,
-                  }}
-                />
+              <div className="service-premium-content">
+                <h3>{item.shortName}</h3>
+                <p>{item.description}</p>
               </div>
 
-              <span className="service-more">
-                Ver servicio
-                <span className="service-arrow">→</span>
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Adicionales */}
-      <div className="max-w-5xl mx-auto mt-20">
-        <div className="text-center mb-9">
-          <span className="text-red-600 text-xs font-bold tracking-[0.18em] uppercase">
-            Más soluciones
-          </span>
-
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2">
-            Servicios Adicionales
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-7">
-          {category2.map((item) => (
-            <button
-              key={item.name}
-              type="button"
-              onClick={() => openModal(item)}
-              className="service-card group w-full min-h-[225px] p-7 cursor-pointer"
-            >
-              <div className="service-icon-box">
-                <img
-                  src={item.icon}
-                  alt={item.name.replace('<br/>', ' ')}
-                  className="service-icon"
-                />
-              </div>
-
-              <div className="service-name">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: item.name,
-                  }}
-                />
-              </div>
-
-              <span className="service-more">
-                Ver servicio
-                <span className="service-arrow">→</span>
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Detalle */}
-      {modalOpen && selectedCategory && (
-        <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
-          {/* Barra */}
-          <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md border-b border-gray-200">
-            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-5">
-              <div>
-                <span className="text-red-600 text-xs font-bold tracking-[0.16em] uppercase">
-                  Servicio
+              <div className="service-premium-footer">
+                <span>Conocer servicio</span>
+                <span className="service-premium-arrow">
+                  →
                 </span>
-
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mt-1">
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: selectedCategory.name,
-                    }}
-                  />
-                </h2>
               </div>
+            </button>
+          ))}
+        </div>
 
-              <button
-                type="button"
-                onClick={closeModal}
-                className="w-11 h-11 shrink-0 rounded-full bg-gray-100 flex items-center justify-center text-xl text-gray-700 hover:bg-red-600 hover:text-white transition-all cursor-pointer"
-                aria-label="Cerrar"
-              >
-                ✕
-              </button>
-            </div>
+        <div className="additional-services">
+          <div className="additional-heading">
+            <span>Más soluciones</span>
+
+            <h2>
+              Servicios complementarios
+            </h2>
+
+            <p>
+              Soluciones adicionales para acompañar cada etapa
+              de tu operación logística.
+            </p>
           </div>
 
-          {/* Contenido */}
-          <div className="max-w-6xl mx-auto px-5 md:px-6 py-8 md:py-12">
-            <div className="relative overflow-hidden rounded-[28px] shadow-xl">
-              <img
-                src={selectedCategory.image}
-                alt={selectedCategory.name.replace('<br/>', ' ')}
-                className="w-full h-[280px] md:h-[450px] object-cover"
-              />
+          <div className="additional-grid">
+            {category2.map((item) => (
+              <button
+                key={item.shortName}
+                type="button"
+                onClick={() => openModal(item)}
+                className="additional-card"
+              >
+                <div className="additional-icon">
+                  <img
+                    src={item.icon}
+                    alt={item.shortName}
+                  />
+                </div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-            </div>
+                <div className="additional-content">
+                  <h3>{item.shortName}</h3>
+                  <p>{item.description}</p>
+                </div>
 
-            <div className="max-w-4xl mx-auto mt-10 md:mt-12">
-              <div
-                className="service-content text-gray-700 text-base md:text-lg leading-8"
-                dangerouslySetInnerHTML={{
-                  __html: selectedCategory.content,
-                }}
-              />
+                <span className="additional-arrow">
+                  →
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="mt-10 pt-7 border-t border-gray-200 flex justify-end">
+      {modalOpen &&
+        selectedCategory &&
+        createPortal(
+          <div
+            className="service-modal-overlay"
+            onMouseDown={closeModal}
+          >
+            <article
+              className="service-modal-window"
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedCategory.shortName}
+              onMouseDown={(event) =>
+                event.stopPropagation()
+              }
+            >
+              <header className="service-modal-top">
+                <div>
+                  <span className="service-modal-eyebrow">
+                    SERVICIO LOGÍSTICO
+                  </span>
+
+                  <h2>
+                    {selectedCategory.shortName}
+                  </h2>
+                </div>
+
                 <button
                   type="button"
+                  className="service-modal-x"
                   onClick={closeModal}
-                  className="bg-red-600 text-white font-semibold px-8 py-3 rounded-xl hover:bg-red-700 hover:-translate-y-0.5 shadow-md hover:shadow-lg transition-all cursor-pointer"
+                  aria-label="Cerrar"
                 >
-                  Cerrar
+                  ×
                 </button>
+              </header>
+
+              <div className="service-modal-scroll">
+                <div className="service-modal-hero">
+                  <img
+                    src={selectedCategory.image}
+                    alt={selectedCategory.shortName}
+                  />
+
+                  <div className="service-modal-hero-shade" />
+
+                  <div className="service-modal-hero-title">
+                    <span>CASTRO FALLAS</span>
+
+                    <h3>
+                      {selectedCategory.shortName}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="service-modal-grid">
+                  <div
+                    className="service-modal-description"
+                    dangerouslySetInnerHTML={{
+                      __html: selectedCategory.content,
+                    }}
+                  />
+
+                  <aside className="service-modal-benefits">
+                    <div className="service-benefit">
+                      <div className="service-benefit-icon">
+                        ✓
+                      </div>
+
+                      <div>
+                        <h4>Seguridad</h4>
+                        <p>
+                          Gestión orientada a proteger la carga
+                          durante cada etapa del proceso.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="service-benefit">
+                      <div className="service-benefit-icon">
+                        ◎
+                      </div>
+
+                      <div>
+                        <h4>Cobertura</h4>
+                        <p>
+                          Conexiones y soluciones adaptadas a
+                          operaciones nacionales e internacionales.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="service-benefit">
+                      <div className="service-benefit-icon">
+                        ↗
+                      </div>
+
+                      <div>
+                        <h4>Eficiencia</h4>
+                        <p>
+                          Coordinación enfocada en optimizar
+                          tiempos y procesos logísticos.
+                        </p>
+                      </div>
+                    </div>
+                  </aside>
+                </div>
+
+                <div className="service-modal-actions">
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className="service-modal-close-button"
+                  >
+                    Cerrar
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </section>
+            </article>
+          </div>,
+          document.body
+        )}
+    </>
   )
 }
 
