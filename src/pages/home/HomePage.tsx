@@ -5,8 +5,8 @@ import Nosotros from '../../components/nosotros/Nosotros'
 import DataComponent from '../../components/datos/DataComponent'
 import ScrollTopButton from '../../components/scrolltop/ScrollTopButton'
 
-import PageSection from '../../components/ui/PageSection'
-import SectionHeader from '../../components/ui/SectionHeader'
+import PageSection from '../../ui/PageSection'
+import SectionHeader from '../../ui/SectionHeader'
 
 function HomePage() {
   return (
