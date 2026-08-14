@@ -64,8 +64,4 @@ function HomePage() {
   )
 }
 
-<<<<<<< HEAD
-// Exporta la página principal
-=======
->>>>>>> origin/develop
 export default HomePage
