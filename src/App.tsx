@@ -1,18 +1,30 @@
-import Footer from "./complement/footer/Footer";
-import HomePage from "./pages/home/HomePage";
-import Apps from "./Navbar";
-import ContactForm from "./Complements/Contact/ContactForm";
+import { Route, Routes } from 'react-router-dom'
+
+import Footer from './components/footer/Footer'
+import HomePage from './pages/home/HomePage'
+import TrackingPage from './pages/tracking/TrackingPage'
+import Apps from './Navbar'
 
 function App() {
   return (
     <>
       <Apps />
-      <HomePage />
-      <ContactForm />
+
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage />}
+        />
+
+        <Route
+          path="/web-tracking"
+          element={<TrackingPage />}
+        />
+      </Routes>
+
       <Footer />
     </>
-  );
+  )
 }
 
-export default App;
-
+export default App
