@@ -12,7 +12,6 @@ interface OfficeMarker {
   popUp: string;
 }
 
-// Ícono individual (lucide-react)
 const pinSvg = renderToStaticMarkup(
   <MapPin color="#500b0b" fill="#a81212" size={35} strokeWidth={2} />
 );
@@ -25,7 +24,6 @@ const customIcon = divIcon({
   popupAnchor: [0, -28],
 });
 
-// Ícono grande para el clúster (mismo pin, más grande + badge con el conteo)
 const clusterPinSvg = renderToStaticMarkup(
   <MapPin color="#500b0b" fill="#a81212" size={32} strokeWidth={2} />
 );
@@ -58,7 +56,7 @@ const markers: OfficeMarker[] = [
   {
     geocode: [9.948241661779358, -84.07604437310071],
     popUp:
-      "Oficina Central Goicochea<br/>correo electrónico: cstarica@grupocastrofallas.com",
+      "Oficina Central Goicochea<br/>correo electrónico: costarica@grupocastrofallas.com",
   },
   {
     geocode: [13.46912079583891, -85.2733906614443],
