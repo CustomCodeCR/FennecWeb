@@ -23,12 +23,8 @@ function HomePage() {
           description="Conectamos tu carga con diferentes destinos de forma segura, eficiente y confiable."
         />
 
-        {/* Nosotros */}
-        <section className="home-section home-section-light">
-          <div className="home-section-container">
-            <Nosotros />
-          </div>
-        </section>
+         <Category />
+
         {/* Le pones el id a la section principal */}
         <section id="Nosotros" className="home-section home-section-light">
           <div className="home-section-container">
@@ -38,6 +34,15 @@ function HomePage() {
             <Nosotros />
           </div>
         </section>
+
+
+      {/* Tracking */}
+      <PageSection variant="soft">
+        <Track />
+      </PageSection>
+
+      {/* Datos destacados */}
+      <DataComponent />
 
         {/* Mantiene el ID en mayúsculas para que el Navbar lo encuentre con el scroll */}
         <section id="CONTÁCTANOS" className="home-section home-section-light">
@@ -50,24 +55,9 @@ function HomePage() {
           </div>
         </section>
 
-        <Category />
+       
       </PageSection>
 
-      {/* Tracking */}
-      <PageSection variant="soft">
-        <Track />
-      </PageSection>
-
-      {/* Nosotros */}
-      <PageSection variant="light">
-        <Nosotros />
-      </PageSection>
-
-      {/* Datos destacados */}
-      <DataComponent />
-
-      {/* Contacto */}
-      <ContactForm />
 
       {/* Botón volver arriba */}
       <ScrollTopButton />
