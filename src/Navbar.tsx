@@ -9,16 +9,37 @@ function Apps() {
     setMenuAbierto(false);
   };
 
-  const opcionSinDestino = (nombre: string) => {
-    console.log(`Se presionó: ${nombre}`);
-  };
+const opcionSinDestino = (nombre: string) => {
+  console.log(`Se presionó: ${nombre}`);
+
+  if (nombre === "Servicios") {
+    const elemento = document.getElementById('servicios');
+    elemento?.scrollIntoView({ behavior: 'smooth' });
+  } 
+  else if (nombre === "Nosotros") {
+    const elemento = document.getElementById('Nosotros');
+    elemento?.scrollIntoView({ behavior: 'smooth' });
+  } 
+  else if (nombre === "Contacto" || nombre === "Contáctanos") {
+    // Busca el ID exacto en mayúsculas tal como está en el HomePage
+    const elemento = document.getElementById('CONTÁCTANOS');
+    
+    if (elemento) {
+      elemento.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.warn("No se encontró la sección #CONTÁCTANOS en el DOM");
+    }
+  }
+};
+
+
 
   const acceder = (sistema: string) => {
     console.log(`Acceder: ${sistema}`);
   };
 
   /* =====================================================
-     PANTALLA SISTEMAS DE GESTIÓN GCF
+      PANTALLA SISTEMAS DE GESTIÓN GCF
   ===================================================== */
 
   if (mostrarSistemasGCF) {
@@ -40,10 +61,10 @@ function Apps() {
             border-none bg-transparent px-2 py-1
             text-xl text-black
             [font-family:Arial,Helvetica,sans-serif]
+            transition-all duration-150 active:scale-95
           "
         >
           <span className="text-[38px] font-light leading-5">←</span>
-
           <span>Volver</span>
         </button>
 
@@ -56,6 +77,7 @@ function Apps() {
             absolute left-[13.8%] top-[40.2%] z-[15]
             h-[6.5%] w-[7%]
             cursor-pointer rounded-lg border-none bg-transparent
+            transition-all duration-150 active:scale-95
           "
         />
 
@@ -68,6 +90,7 @@ function Apps() {
             absolute left-[46%] top-[40.2%] z-[15]
             h-[6.5%] w-[7%]
             cursor-pointer rounded-lg border-none bg-transparent
+            transition-all duration-150 active:scale-95
           "
         />
 
@@ -80,6 +103,7 @@ function Apps() {
             absolute left-[79.2%] top-[40.2%] z-[15]
             h-[6.5%] w-[7%]
             cursor-pointer rounded-lg border-none bg-transparent
+            transition-all duration-150 active:scale-95
           "
         />
 
@@ -92,6 +116,7 @@ function Apps() {
             absolute left-[13.8%] top-[75.5%] z-[15]
             h-[6.5%] w-[7%]
             cursor-pointer rounded-lg border-none bg-transparent
+            transition-all duration-150 active:scale-95
           "
         />
 
@@ -104,6 +129,7 @@ function Apps() {
             absolute left-[46%] top-[75.5%] z-[15]
             h-[6.5%] w-[7%]
             cursor-pointer rounded-lg border-none bg-transparent
+            transition-all duration-150 active:scale-95
           "
         />
       </div>
@@ -111,19 +137,12 @@ function Apps() {
   }
 
   /* =====================================================
-     NAVBAR
-     
-     IMPORTANTE:
-     No existe ningún div con h-screen/100vh alrededor.
-     El navbar queda flotando sobre HomePage.
+      NAVBAR
   ===================================================== */
 
   return (
     <>
-      {/* =================================================
-          BOTÓN HAMBURGUESA
-      ================================================= */}
-
+      {/* BOTÓN HAMBURGUESA */}
       <button
         type="button"
         onClick={() => setMenuAbierto((actual) => !actual)}
@@ -139,8 +158,9 @@ function Apps() {
           bg-white/90
           shadow-[0_10px_30px_rgba(0,0,0,0.18)]
           backdrop-blur-[15px]
-          transition-all duration-300
-          hover:bg-white
+          transition-all duration-200
+          hover:bg-white hover:shadow-[0_15px_35px_rgba(0,0,0,0.22)]
+          active:scale-[0.94] active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.25)]
         "
       >
         <span
@@ -177,10 +197,7 @@ function Apps() {
         />
       </button>
 
-      {/* =================================================
-          BARRA LATERAL
-      ================================================= */}
-
+      {/* BARRA LATERAL */}
       <aside
         className={`
           fixed left-5 top-5 z-[90]
@@ -204,10 +221,7 @@ function Apps() {
           }
         `}
       >
-        {/* =================================================
-            LOGO CASTRO FALLAS
-        ================================================= */}
-
+        {/* LOGO CASTRO FALLAS */}
         <div
           className="
             mb-5 flex
@@ -224,155 +238,45 @@ function Apps() {
           />
         </div>
 
-        {/* =================================================
-            SERVICIOS
-        ================================================= */}
+        {/* ITEMS DE MENÚ CON SOMBRA HUNDIDA AL PRESIONAR (DRIBBBLE STYLE) */}
+        {[
+          "Servicios",
+          "Nosotros",
+          "Contacto",
+        ].map((item, index) => {
+          const icons = ["⚙", "◉", "▦", "✉", "▤"];
+          return (
+            <button
+              key={item}
+              type="button"
+              onClick={() =>  opcionSinDestino(item)}
+              className="
+                mb-1.5 flex w-full
+                cursor-pointer items-center
+                gap-[15px]
+                rounded-[13px]
+                border border-transparent bg-transparent
+                p-3.5
+                text-left text-base text-black
+                transition-all duration-150 ease-out
+                hover:border-[rgba(248,1,1,0.15)] hover:bg-black/5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]
+                active:scale-[0.98] active:bg-black/[0.07] active:shadow-[inset_0_2px_5px_rgba(0,0,0,0.18)]
+              "
+            >
+              <span className="w-[25px] text-[19px]">{icons[index]}</span>
+              <span>{item}</span>
+            </button>
+          );
+        })}
 
-        <button
-          type="button"
-          onClick={() => opcionSinDestino("Servicios")}
-          className="
-            mb-1.5 flex w-full
-            cursor-pointer items-center
-            gap-[15px]
-            rounded-[13px]
-            border-none bg-transparent
-            p-3.5
-            text-left text-base text-black
-            transition-colors duration-200
-            hover:bg-black/5
-          "
-        >
-          <span className="w-[25px] text-[19px]">⚙</span>
-
-          <span>Servicios</span>
-        </button>
-
-        {/* =================================================
-            NOSOTROS
-        ================================================= */}
-
-        <button
-          type="button"
-          onClick={() => opcionSinDestino("Nosotros")}
-          className="
-            mb-1.5 flex w-full
-            cursor-pointer items-center
-            gap-[15px]
-            rounded-[13px]
-            border-none bg-transparent
-            p-3.5
-            text-left text-base text-black
-            transition-colors duration-200
-            hover:bg-black/5
-          "
-        >
-          <span className="w-[25px] text-[19px]">◉</span>
-
-          <span>Nosotros</span>
-        </button>
-
-        {/* =================================================
-            IMPACTO INDUSTRIAL
-        ================================================= */}
-
-        <button
-          type="button"
-          onClick={() => opcionSinDestino("Impacto industrial")}
-          className="
-            mb-1.5 flex w-full
-            cursor-pointer items-center
-            gap-[15px]
-            rounded-[13px]
-            border-none bg-transparent
-            p-3.5
-            text-left text-base text-black
-            transition-colors duration-200
-            hover:bg-black/5
-          "
-        >
-          <span className="w-[25px] text-[19px]">▦</span>
-
-          <span>Impacto industrial</span>
-        </button>
-
-        {/* =================================================
-            CONTACTO
-        ================================================= */}
-
-        <button
-          type="button"
-          onClick={() => opcionSinDestino("Contacto")}
-          className="
-            mb-1.5 flex w-full
-            cursor-pointer items-center
-            gap-[15px]
-            rounded-[13px]
-            border-none bg-transparent
-            p-3.5
-            text-left text-base text-black
-            transition-colors duration-200
-            hover:bg-black/5
-          "
-        >
-          <span className="w-[25px] text-[19px]">✉</span>
-
-          <span>Contacto</span>
-        </button>
-
-        {/* =================================================
-            BLOG
-        ================================================= */}
-
-        <button
-          type="button"
-          onClick={() => opcionSinDestino("Blog")}
-          className="
-            mb-1.5 flex w-full
-            cursor-pointer items-center
-            gap-[15px]
-            rounded-[13px]
-            border-none bg-transparent
-            p-3.5
-            text-left text-base text-black
-            transition-colors duration-200
-            hover:bg-black/5
-          "
-        >
-          <span className="w-[25px] text-[19px]">▤</span>
-
-          <span>Blog</span>
-        </button>
-
-        {/* =================================================
-            SEPARADOR
-        ================================================= */}
-
+        {/* SEPARADOR */}
         <div className="my-3 h-px w-full bg-[rgba(248,1,1,0.83)]" />
 
-        {/* =================================================
-            INICIO DE SESIÓN ADMINISTRATIVOS
-        ================================================= */}
-
-        <button
-          type="button"
-          onClick={() => opcionSinDestino("Inicio de sesión administrativos")}
-          className="
-            mb-1.5 flex w-full
-            cursor-pointer items-center
-            gap-[15px]
-            rounded-[13px]
-            border-none bg-transparent
-            p-3.5
-            text-left text-base text-black
-            transition-colors duration-200
-            hover:bg-black/5
-          "
-        >
-          <span className="w-[25px] text-xl">→</span>
-
-          <span>Inicio de sesión administrativos</span>
-        </button>
+      
+        
+          
+          <span></span>
+        
       </aside>
     </>
   );
