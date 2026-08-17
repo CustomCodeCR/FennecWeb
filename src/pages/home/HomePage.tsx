@@ -23,33 +23,6 @@ function HomePage() {
           description="Conectamos tu carga con diferentes destinos de forma segura, eficiente y confiable."
         />
 
-        {/* Nosotros */}
-        <section className="home-section home-section-light">
-          <div className="home-section-container">
-            <Nosotros />
-          </div>
-        </section>
-        {/* Le pones el id a la section principal */}
-        <section id="Nosotros" className="home-section home-section-light">
-          <div className="home-section-container">
-            <div className="home-section-heading">
-              <span className="home-eyebrow">Nosotros</span>
-            </div>
-            <Nosotros />
-          </div>
-        </section>
-
-        {/* Mantiene el ID en mayúsculas para que el Navbar lo encuentre con el scroll */}
-        <section id="CONTÁCTANOS" className="home-section home-section-light">
-          <div className="home-section-container">
-            <div className="home-section-heading">
-              <span className="home-eyebrow">CONTÁCTANOS</span>
-            </div>
-            {/* Componente corregido sin tildes para evitar el error de React */}
-            <ContactForm />
-          </div>
-        </section>
-
         <Category />
       </PageSection>
 
@@ -59,17 +32,29 @@ function HomePage() {
       </PageSection>
 
       {/* Nosotros */}
-      <PageSection variant="light">
-        <Nosotros />
-      </PageSection>
+      <section
+        id="Nosotros"
+        className="home-section home-section-light"
+      >
+        <div className="home-section-container">
+          <Nosotros />
+        </div>
+      </section>
 
       {/* Datos destacados */}
       <DataComponent />
 
       {/* Contacto */}
-      <ContactForm />
+      <section
+        id="CONTÁCTANOS"
+        className="home-section home-section-light"
+      >
+        <div className="home-section-container">
+          <ContactForm />
+        </div>
+      </section>
 
-      {/* Botón volver arriba */}
+      {/* Botón para volver arriba */}
       <ScrollTopButton />
     </main>
   );
