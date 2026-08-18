@@ -1,4 +1,4 @@
-import logo from "../../assets/logo-castro-fallas.png";
+import logo from "../../assets/logo-castro-fallas.ico";
 
 function Footer() {
   const year = new Date().getFullYear();

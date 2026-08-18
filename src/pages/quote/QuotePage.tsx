@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import logoIcon from "../../assets/logo-castro-fallas.ico";
 import PageSection from '../../ui/PageSection'
 import SectionHeader from '../../ui/SectionHeader'
 import { Helmet } from 'react-helmet-async'
@@ -116,11 +116,12 @@ Gracias.`
   return (
 <>
   <Helmet>
-      <title> Cotización | Grupo Castro Fallas</title>
-      <meta name="description" content="Cotiza tu carga de transporte aéreo, marítimo o terrestre en pocos pasos." />
-      <meta property="og:title" content="Cotización | Grupo Castro Fallas" />
-      <meta property="og:description" content="Cotiza tu carga de transporte aéreo, marítimo o terrestre en pocos pasos." />
-    </Helmet>
+  <title>Grupo Castro Fallas</title>
+  <meta name="description" content="Descripción de la página de inicio" />
+  <link rel="icon" type="image/x-icon" href={logoIcon} />
+  <meta property="og:title" content="Grupo Castro Fallas" />
+  <meta property="og:description" content="Descripción de la página de inicio" />
+</Helmet>
 
     <main className="quote-page">
       <Link

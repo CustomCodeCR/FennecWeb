@@ -8,23 +8,18 @@ import ContactForm from "../../Complements/Contact/ContactForm";
 import { Helmet } from "react-helmet-async";
 import PageSection from "../../ui/PageSection";
 import SectionHeader from "../../ui/SectionHeader";
+import logoIcon from "../../assets/logo-castro-fallas.ico";
 
 function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Grupo Castro Fallas</title>
-        <meta
-          name="description"
-          content="Descripción de la página de inicio"
-        />
-        <meta property="og:title" content="Inicio | Grupo Castro Fallas" />
-        <meta
-          property="og:description"
-          content="Descripción de la página de inicio"
-        />
-      </Helmet>
-
+  <title>Grupo Castro Fallas</title>
+  <meta name="description" content="Descripción de la página de inicio" />
+  <link rel="icon" type="image/x-icon" href={logoIcon} />
+  <meta property="og:title" content="Grupo Castro Fallas" />
+  <meta property="og:description" content="Descripción de la página de inicio" />
+</Helmet>
       <main className="home-page">
         {/* Hero principal */}
         <HeroSection />

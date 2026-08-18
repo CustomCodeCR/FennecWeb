@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import PageSection from '../../ui/PageSection'
 import SectionHeader from '../../ui/SectionHeader'
+import logoIcon from "../../assets/logo-castro-fallas.ico";
 
 type TrackingStep = {
   label: string
@@ -117,6 +118,7 @@ function TrackingPage() {
           property="og:description"
           content="Consulta el estado de tu envío ingresando tu número de guía o referencia."
         />
+        <link rel="icon" type="image/x-icon" href={logoIcon} />
       </Helmet>
 
     <main className="tracking-page">
