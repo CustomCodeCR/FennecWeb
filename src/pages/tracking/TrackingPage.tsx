@@ -104,14 +104,14 @@ function TrackingPage() {
   return (
     <>
       <Helmet>
-        <title>Rastreo de Envíos | Tu Empresa</title>
+        <title>Rastreo de Envíos | Grupo Castro Fallas</title>
         <meta
           name="description"
           content="Consulta el estado de tu envío ingresando tu número de guía o referencia."
         />
         <meta
           property="og:title"
-          content="Rastreo de Envíos | Tu Empresa"
+          content="Rastreo de Envíos | Grupo Castro Fallas"
         />
         <meta
           property="og:description"

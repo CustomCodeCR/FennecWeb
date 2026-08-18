@@ -116,9 +116,9 @@ Gracias.`
   return (
 <>
   <Helmet>
-      <title>Cotización | Tu Empresa</title>
+      <title> Cotización | Grupo Castro Fallas</title>
       <meta name="description" content="Cotiza tu carga de transporte aéreo, marítimo o terrestre en pocos pasos." />
-      <meta property="og:title" content="Cotización | Tu Empresa" />
+      <meta property="og:title" content="Cotización | Grupo Castro Fallas" />
       <meta property="og:description" content="Cotiza tu carga de transporte aéreo, marítimo o terrestre en pocos pasos." />
     </Helmet>
 

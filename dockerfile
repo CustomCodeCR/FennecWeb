@@ -3,7 +3,7 @@ FROM node:24.6.0 AS dev-deps
 WORKDIR /app
 RUN npm install -g pnpm 
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm ci --force
+RUN pnpm install 
 
 # Etapa de construcción - Compilación de la aplicación
 FROM dev-deps AS builder

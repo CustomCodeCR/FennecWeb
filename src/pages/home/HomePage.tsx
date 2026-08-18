@@ -13,12 +13,12 @@ function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Inicio | Tu Empresa</title>
+        <title>Grupo Castro Fallas</title>
         <meta
           name="description"
           content="Descripción de la página de inicio"
         />
-        <meta property="og:title" content="Inicio | Tu Empresa" />
+        <meta property="og:title" content="Inicio | Grupo Castro Fallas" />
         <meta
           property="og:description"
           content="Descripción de la página de inicio"
