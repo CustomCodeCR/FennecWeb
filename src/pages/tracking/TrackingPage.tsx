@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import { Helmet } from 'react-helmet-async'
 import PageSection from '../../ui/PageSection'
 import SectionHeader from '../../ui/SectionHeader'
 
@@ -102,6 +102,23 @@ function TrackingPage() {
   }
 
   return (
+    <>
+      <Helmet>
+        <title>Rastreo de Envíos | Tu Empresa</title>
+        <meta
+          name="description"
+          content="Consulta el estado de tu envío ingresando tu número de guía o referencia."
+        />
+        <meta
+          property="og:title"
+          content="Rastreo de Envíos | Tu Empresa"
+        />
+        <meta
+          property="og:description"
+          content="Consulta el estado de tu envío ingresando tu número de guía o referencia."
+        />
+      </Helmet>
+
     <main className="tracking-page">
       <Link
         to="/"
@@ -300,7 +317,7 @@ function TrackingPage() {
         </div>
       </PageSection>
     </main>
+    </>
   )
-}
-
+} 
 export default TrackingPage
