@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import PageSection from '../../ui/PageSection'
 import SectionHeader from '../../ui/SectionHeader'
+import { Helmet } from 'react-helmet-async'
 
 type ServiceType =
   | 'Transporte aéreo'
@@ -113,6 +114,14 @@ Gracias.`
     `&body=${encodeURIComponent(emailBody)}`
 
   return (
+<>
+  <Helmet>
+      <title>Cotización | Tu Empresa</title>
+      <meta name="description" content="Cotiza tu carga de transporte aéreo, marítimo o terrestre en pocos pasos." />
+      <meta property="og:title" content="Cotización | Tu Empresa" />
+      <meta property="og:description" content="Cotiza tu carga de transporte aéreo, marítimo o terrestre en pocos pasos." />
+    </Helmet>
+
     <main className="quote-page">
       <Link
         to="/"
@@ -853,7 +862,7 @@ Gracias.`
         </div>
       </PageSection>
     </main>
+    </>
   )
 }
-
-export default QuotePage
+export default QuotePage;
