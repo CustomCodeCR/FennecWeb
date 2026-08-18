@@ -58,39 +58,6 @@ function HomePage() {
        
       </PageSection>
 
-=======
-
-
-      {/* Tracking */}
-      <PageSection variant="soft">
-        <Track />
-      </PageSection>
-
-      {/* Nosotros */}
-      <section
-        id="Nosotros"
-        className="home-section home-section-light"
-      >
-        <div className="home-section-container">
-          <Nosotros />
-        </div>
-      </section>
-
-      {/* Datos destacados */}
-      <DataComponent />
-
-      {/* Contacto */}
-      <section
-        id="CONTÁCTANOS"
-        className="home-section home-section-light"
-      >
-        <div className="home-section-container">
-          <ContactForm />
-        </div>
-      </section>
- 9459341e6841eaf42a4862f625f328d269f1f4de
-
-      {/* Botón para volver arriba */}
       <ScrollTopButton />
     </main>
   );
