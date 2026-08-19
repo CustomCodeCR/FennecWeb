@@ -10,7 +10,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-
+ 
 interface ContactFormData {
   name: string;
   lastname: string;
@@ -18,11 +18,11 @@ interface ContactFormData {
   email: string;
   message: string;
 }
-
+ 
 type FormErrors = Partial<Record<keyof ContactFormData, string>>;
-
+ 
 const MESSAGE_MAX_LENGTH = 500;
-
+ 
 const initialForm: ContactFormData = {
   name: "",
   lastname: "",
@@ -30,10 +30,10 @@ const initialForm: ContactFormData = {
   email: "",
   message: "",
 };
-
+ 
 const validateForm = (form: ContactFormData): FormErrors => {
   let errores: FormErrors = {};
-
+ 
   if (!form.name.trim()) {
     errores.name = "Este campo es obligatorio.";
   }
@@ -53,66 +53,67 @@ const validateForm = (form: ContactFormData): FormErrors => {
   if (!form.message.trim()) {
     errores.message = "Este campo es obligatorio.";
   }
-
+ 
   return errores;
 };
-
+ 
 const inputBase =
   "appearance-none border border-gray-300 rounded-xl w-full py-3 pl-11 pr-3.5 text-gray-800 leading-tight transition-all duration-150 placeholder:text-gray-400 focus:outline-none focus:border-[#94191d] focus:shadow-[0_0_0_3px_rgba(148,25,29,0.12)]";
-
+ 
 const inputError = "border-red-500 focus:border-red-500 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.12)]";
-
+ 
 const iconBase = "absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400";
-
+ 
+// URL del backend propio (FastAPI). En producción, cámbiala por la URL real del servidor
+// donde despliegues el backend (ej. https://api.tudominio.com/contacto),
+// idealmente vía una variable de entorno (import.meta.env.VITE_API_URL).
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/contacto";
+ 
 const Contact: React.FC = () => {
   const [form, setForm] = useState<ContactFormData>(initialForm);
   const [errores, setErrores] = useState<FormErrors>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<boolean | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
-
+ 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     const updatedForm = { ...form, [name]: value };
     setForm(updatedForm);
-
+ 
     if (submitted) {
       setErrores(validateForm(updatedForm));
     }
   };
-
+ 
   const handleBlur = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const updatedForm = { ...form, [name]: value };
     setForm(updatedForm);
-
+ 
     if (submitted) {
       setErrores(validateForm(updatedForm));
     }
   };
-
+ 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitted(true);
     const erroresActuales = validateForm(form);
     setErrores(erroresActuales);
-
+ 
     if (Object.keys(erroresActuales).length === 0) {
       setLoading(true);
       setResponse(null);
       axios
-        .post("https://api.logisticacastrofallas.com/api/Mail/Send", {
-          para: "info@grupocastrofallas.com",
-          asunto: "Contacto",
-          contenido: `
-              <p><strong>Nombre:</strong> ${form.name}</p>
-              <p><strong>Apellido:</strong> ${form.lastname}</p>
-              <p><strong>Teléfono:</strong> ${form.phone}</p>
-              <p><strong>Correo Electrónico:</strong> ${form.email}</p>
-              <p><strong>Mensaje:</strong> ${form.message}</p>
-            `,
+        .post(API_URL, {
+          nombre: form.name,
+          apellido: form.lastname,
+          email: form.email,
+          celular: form.phone,
+          mensaje: form.message,
         })
         .then(() => {
           setLoading(false);
@@ -128,14 +129,14 @@ const Contact: React.FC = () => {
         });
     }
   };
-
+ 
   // Siempre reserva el espacio del mensaje de error (altura fija),
   // así el formulario no "salta" cuando aparece o desaparece el texto.
   const getErrorForField = (fieldName: keyof ContactFormData) => {
     const message = errores[fieldName];
     return (
       <p
-        className={`flex items-center gap-1 text-red-600 text-[13px] mt-1.5 min-h-[16px] transition-opacity duration-150 ${
+        className={`flex items-center gap-1 text-red-600 text-[13px] mt-1.5 transition-opacity duration-150 ${
           message ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -144,10 +145,10 @@ const Contact: React.FC = () => {
       </p>
     );
   };
-
+ 
   const fieldClass = (fieldName: keyof ContactFormData) =>
     errores[fieldName] ? `${inputBase} ${inputError}` : inputBase;
-
+ 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 w-full">
       <form onSubmit={handleSubmit} noValidate>
@@ -175,7 +176,7 @@ const Contact: React.FC = () => {
             </div>
             {getErrorForField("name")}
           </div>
-
+ 
           <div>
             <label
               className="block text-gray-900 text-sm font-semibold mb-2"
@@ -199,7 +200,7 @@ const Contact: React.FC = () => {
             </div>
             {getErrorForField("lastname")}
           </div>
-
+ 
           <div>
             <label
               className="block text-gray-900 text-sm font-semibold mb-2"
@@ -223,7 +224,7 @@ const Contact: React.FC = () => {
             </div>
             {getErrorForField("phone")}
           </div>
-
+ 
           <div>
             <label
               className="block text-gray-900 text-sm font-semibold mb-2"
@@ -247,7 +248,7 @@ const Contact: React.FC = () => {
             </div>
             {getErrorForField("email")}
           </div>
-
+ 
           <div className="md:col-span-2">
             <div className="flex items-center justify-between mb-2">
               <label
@@ -283,7 +284,7 @@ const Contact: React.FC = () => {
             </div>
             {getErrorForField("message")}
           </div>
-
+ 
           <div className="md:col-span-2 mt-3">
             <button
               className="inline-flex items-center justify-center gap-2 bg-[#94191d] hover:bg-[#b52126] hover:-translate-y-0.5 hover:shadow-md text-white font-bold py-3 px-8 rounded-lg transition-all duration-150 focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
@@ -293,7 +294,7 @@ const Contact: React.FC = () => {
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {loading ? "Enviando..." : "ENVIAR MENSAJE →"}
             </button>
-
+ 
             {response === true && (
               <div className="flex items-center gap-2 bg-green-50 text-green-800 border border-green-200 rounded-lg px-4 py-3 mt-4">
                 <CheckCircle2 className="w-5 h-5 shrink-0" />
@@ -316,5 +317,5 @@ const Contact: React.FC = () => {
     </div>
   );
 };
-
+ 
 export default Contact;
