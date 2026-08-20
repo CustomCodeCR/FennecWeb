@@ -16,7 +16,7 @@ concurrency:
 env:
   IMAGE_NAME: valehttps30/fennecweb
   IMAGE_TAG: latest
-  COMPOSE_FILE: /home/Argos/docker-compose.services.yml
+  COMPOSE_FILE: /opt/dhole/docker-compose.services.yml
   SERVICE_NAME: website
   PUBLIC_HOST: website-castrofallas.customcodecr.com
 
