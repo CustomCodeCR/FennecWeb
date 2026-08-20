@@ -26,6 +26,7 @@ def send_quote_email(data: QuotePayload) -> bool:
     sender_password = os.getenv("SMTP_PASSWORD")
     recipient_email = os.getenv("EMAIL_DESTINO")
 
+
     if not sender_email or not sender_password:
         raise ValueError("Las credenciales del servidor SMTP no están configuradas correctamente en el .env")
 
