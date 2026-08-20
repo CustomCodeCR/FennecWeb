@@ -35,13 +35,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           docker version
           docker compose version
           docker network inspect dhole >/dev/null
 
           if [ ! -r "$COMPOSE_FILE" ]; then
             echo "ERROR: $COMPOSE_FILE does not exist or is not readable by $(whoami)."
-            echo "Grant the actions-runner user read access to the compose file and execute access to its parent directory."
             exit 1
           fi
 
@@ -51,6 +51,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
           SHORT_SHA="${GITHUB_SHA::12}"
 
           docker build \
@@ -61,27 +62,26 @@ jobs:
             .
 
           docker image inspect "$IMAGE_NAME:$IMAGE_TAG" >/dev/null
-          echo "Built $IMAGE_NAME:$IMAGE_TAG ($SHORT_SHA)"
+          echo "Built $IMAGE_NAME:$IMAGE_TAG"
+          echo "Built $IMAGE_NAME:$SHORT_SHA"
 
-      - name: Remove previous website container
+      - name: Replace website container
         shell: bash
         run: |
           set -euo pipefail
 
+          echo "Stopping Compose service if it is currently managed by this compose file..."
+          docker compose -f "$COMPOSE_FILE" stop "$SERVICE_NAME" 2>/dev/null || true
+
+          echo "Removing any existing container named $SERVICE_NAME..."
           if docker container inspect "$SERVICE_NAME" >/dev/null 2>&1; then
-            echo "Removing existing container: $SERVICE_NAME"
             docker rm -f "$SERVICE_NAME"
-          else
-            echo "No existing $SERVICE_NAME container found."
           fi
 
-      - name: Deploy website with docker-compose.services.yml
-        shell: bash
-        run: |
-          set -euo pipefail
-
+          echo "Starting $SERVICE_NAME with the image built on this server..."
           docker compose -f "$COMPOSE_FILE" up -d \
             --no-deps \
+            --force-recreate \
             --pull never \
             "$SERVICE_NAME"
 
@@ -91,6 +91,16 @@ jobs:
           set -euo pipefail
 
           docker compose -f "$COMPOSE_FILE" ps "$SERVICE_NAME"
+
+          RUNNING="$(docker inspect -f '{{.State.Running}}' "$SERVICE_NAME")"
+          if [ "$RUNNING" != "true" ]; then
+            echo "ERROR: $SERVICE_NAME is not running."
+            docker logs --tail 100 "$SERVICE_NAME" || true
+            exit 1
+          fi
+
+          DEPLOYED_IMAGE="$(docker inspect -f '{{.Config.Image}}' "$SERVICE_NAME")"
+          echo "Running image: $DEPLOYED_IMAGE"
 
           for attempt in {1..12}; do
             if curl -fsS \
@@ -107,3 +117,9 @@ jobs:
           echo "ERROR: Website did not respond through Traefik."
           docker logs --tail 100 "$SERVICE_NAME" || true
           exit 1
+
+      - name: Cleanup old build images
+        if: success()
+        shell: bash
+        run: |
+          docker image prune -f
