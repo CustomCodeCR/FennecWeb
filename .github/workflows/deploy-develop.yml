@@ -63,6 +63,18 @@ jobs:
           docker image inspect "$IMAGE_NAME:$IMAGE_TAG" >/dev/null
           echo "Built $IMAGE_NAME:$IMAGE_TAG ($SHORT_SHA)"
 
+      - name: Remove previous website container
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if docker container inspect "$SERVICE_NAME" >/dev/null 2>&1; then
+            echo "Removing existing container: $SERVICE_NAME"
+            docker rm -f "$SERVICE_NAME"
+          else
+            echo "No existing $SERVICE_NAME container found."
+          fi
+
       - name: Deploy website with docker-compose.services.yml
         shell: bash
         run: |
@@ -70,7 +82,6 @@ jobs:
 
           docker compose -f "$COMPOSE_FILE" up -d \
             --no-deps \
-            --force-recreate \
             --pull never \
             "$SERVICE_NAME"
 
