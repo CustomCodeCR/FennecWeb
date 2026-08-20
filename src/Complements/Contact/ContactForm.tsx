@@ -10,6 +10,29 @@ import {
 import Maps from './Maps'
 import Contact from './Contact'
 
+const infoCards = [
+  {
+    icon: Phone,
+    title: 'Número de teléfono',
+    value: '+506 2272-6772',
+  },
+  {
+    icon: Mail,
+    title: 'Correo electrónico',
+    value: 'info@grupocastrofallas.com',
+  },
+  {
+    icon: MessageCircle,
+    title: 'WhatsApp',
+    value: '+506 7005-1261',
+  },
+  {
+    icon: Clock,
+    title: 'Horario de atención',
+    value: 'Lunes a viernes: 7:30 am a 5:00 pm',
+  },
+]
+
 const ContactForm: React.FC = () => {
   return (
     <div
@@ -20,26 +43,14 @@ const ContactForm: React.FC = () => {
       <div id="titulo">
         <motion.div
           className="col-md-12"
-          initial={{
-            opacity: 0,
-            y: 40,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-          viewport={{
-            once: true,
-          }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
           <h1
             className="text-center text-[#94191d] text-4xl font-bold mt-4 mb-3"
-            style={{
-              fontFamily: "'fuente', sans-serif",
-            }}
+            style={{ fontFamily: "'fuente', sans-serif" }}
           >
             CONTÁCTANOS
           </h1>
@@ -51,144 +62,54 @@ const ContactForm: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Mapa */}
+      {/* Formulario */}
       <motion.div
-        className="w-full flex justify-center rounded-xl overflow-hidden shadow-sm border border-gray-200"
-        style={{
-          maxHeight: '320px',
-        }}
-        initial={{
-          opacity: 0,
-          y: 40,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.7,
-        }}
-        viewport={{
-          once: true,
-        }}
+        className="w-full"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
       >
-        <Maps />
+        <Contact />
       </motion.div>
 
-      {/* Información + formulario */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 items-stretch">
-        {/* Datos de contacto */}
+      {/* Tarjetas de información */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        viewport={{ once: true }}
+      >
+        {infoCards.map(({ icon: Icon, title, value }) => (
+          <div
+            key={title}
+            className="bg-[#94191d] text-white rounded-2xl px-6 py-8 flex flex-col items-center text-center gap-3"
+          >
+            <div className="bg-white/15 rounded-full p-3">
+              <Icon size={24} className="text-white" />
+            </div>
+            <b className="text-base font-semibold">{title}</b>
+            <p className="text-sm text-white/80">{value}</p>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Mapa */}
+      <div className="mt-10">
+        <h2 className="text-center text-[#94191d] text-2xl font-bold mb-6">
+          Nuestras Ubicaciones
+        </h2>
+
         <motion.div
-          id="textoC"
-          className="text-left lg:text-base bg-[#94191d] text-white rounded-2xl px-10 py-10 flex flex-col justify-center gap-6 h-full"
-          initial={{
-            opacity: 0,
-            y: 40,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-          viewport={{
-            once: true,
-          }}
+          className="w-full flex justify-center rounded-xl overflow-hidden shadow-sm border border-gray-200"
+          style={{ maxHeight: '400px' }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
         >
-          {/* Correo */}
-          <div className="flex items-start gap-4 pb-6 border-b border-white/20">
-            <Mail
-              size={22}
-              className="mt-1 shrink-0 text-white/90"
-            />
-
-            <div>
-              <b className="lg:text-xl font-semibold block">
-                Correo electrónico
-              </b>
-
-              <p className="lg:text-lg text-white/80">
-                info@grupocastrofallas.com
-              </p>
-            </div>
-          </div>
-
-          {/* Teléfono */}
-          <div className="flex items-start gap-4 pb-6 border-b border-white/20">
-            <Phone
-              size={22}
-              className="mt-1 shrink-0 text-white/90"
-            />
-
-            <div>
-              <b className="lg:text-xl font-semibold block">
-                Número de teléfono
-              </b>
-
-              <p className="lg:text-lg text-white/80">
-                +506 2272-6772
-              </p>
-            </div>
-          </div>
-
-          {/* WhatsApp */}
-          <div className="flex items-start gap-4 pb-6 border-b border-white/20">
-            <MessageCircle
-              size={22}
-              className="mt-1 shrink-0 text-white/90"
-            />
-
-            <div>
-              <b className="lg:text-xl font-semibold block">
-                WhatsApp
-              </b>
-
-              <p className="lg:text-lg text-white/80">
-                +506 7005-1261
-              </p>
-            </div>
-          </div>
-
-          {/* Horario */}
-          <div className="flex items-start gap-4">
-            <Clock
-              size={22}
-              className="mt-1 shrink-0 text-white/90"
-            />
-
-            <div>
-              <b className="lg:text-xl font-semibold block">
-                Horario de atención
-              </b>
-
-              <p className="lg:text-lg text-white/80">
-                Lunes a viernes: 7:30 am a 5:00 pm
-              </p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Formulario */}
-        <motion.div
-          className="w-full"
-          initial={{
-            opacity: 0,
-            y: 40,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.6,
-            delay: 0.15,
-          }}
-          viewport={{
-            once: true,
-          }}
-        >
-          <Contact />
+          <Maps />
         </motion.div>
       </div>
     </div>

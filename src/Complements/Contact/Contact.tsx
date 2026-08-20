@@ -1,321 +1,161 @@
-import React, { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
-import axios from "axios";
-import {
-  User,
-  Phone,
-  Mail,
-  MessageSquare,
-  Loader2,
-  CheckCircle2,
-  AlertCircle,
-} from "lucide-react";
- 
-interface ContactFormData {
-  name: string;
-  lastname: string;
-  phone: string;
-  email: string;
-  message: string;
+import React, { useState } from 'react'
+import { User, Mail, Phone, MessageSquare } from 'lucide-react'
+
+interface FormData {
+  nombre: string
+  apellido: string
+  email: string
+  celular: string
+  mensaje: string
 }
- 
-type FormErrors = Partial<Record<keyof ContactFormData, string>>;
- 
-const MESSAGE_MAX_LENGTH = 500;
- 
-const initialForm: ContactFormData = {
-  name: "",
-  lastname: "",
-  phone: "",
-  email: "",
-  message: "",
-};
- 
-const validateForm = (form: ContactFormData): FormErrors => {
-  let errores: FormErrors = {};
- 
-  if (!form.name.trim()) {
-    errores.name = "Este campo es obligatorio.";
-  }
-  if (!form.lastname.trim()) {
-    errores.lastname = "Este campo es obligatorio.";
-  }
-  if (!form.phone.trim()) {
-    errores.phone = "Este campo es obligatorio.";
-  } else if (!/^[\d\s+()-]{7,}$/.test(form.phone.trim())) {
-    errores.phone = "Ingrese un teléfono válido.";
-  }
-  if (!form.email.trim()) {
-    errores.email = "Este campo es obligatorio.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-    errores.email = "Ingrese un correo válido.";
-  }
-  if (!form.message.trim()) {
-    errores.message = "Este campo es obligatorio.";
-  }
- 
-  return errores;
-};
- 
-const inputBase =
-  "appearance-none border border-gray-300 rounded-xl w-full py-3 pl-11 pr-3.5 text-gray-800 leading-tight transition-all duration-150 placeholder:text-gray-400 focus:outline-none focus:border-[#94191d] focus:shadow-[0_0_0_3px_rgba(148,25,29,0.12)]";
- 
-const inputError = "border-red-500 focus:border-red-500 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.12)]";
- 
-const iconBase = "absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400";
- 
-// URL del backend propio (FastAPI). En producción, cámbiala por la URL real del servidor
-// donde despliegues el backend (ej. https://api.tudominio.com/contacto),
-// idealmente vía una variable de entorno (import.meta.env.VITE_API_URL).
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/contacto";
- 
+
+const initialForm: FormData = {
+  nombre: '',
+  apellido: '',
+  email: '',
+  celular: '',
+  mensaje: '',
+}
+
 const Contact: React.FC = () => {
-  const [form, setForm] = useState<ContactFormData>(initialForm);
-  const [errores, setErrores] = useState<FormErrors>({});
-  const [loading, setLoading] = useState<boolean>(false);
-  const [response, setResponse] = useState<boolean | null>(null);
-  const [submitted, setSubmitted] = useState<boolean>(false);
- 
+  const [formData, setFormData] = useState<FormData>(initialForm)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    const updatedForm = { ...form, [name]: value };
-    setForm(updatedForm);
- 
-    if (submitted) {
-      setErrores(validateForm(updatedForm));
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('sending')
+
+    try {
+      const response = await fetch('http://localhost:8000/contacto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error('Error al enviar el formulario')
+      }
+
+      setStatus('success')
+      setFormData(initialForm)
+    } catch (error) {
+      console.error(error)
+      setStatus('error')
     }
-  };
- 
-  const handleBlur = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    const updatedForm = { ...form, [name]: value };
-    setForm(updatedForm);
- 
-    if (submitted) {
-      setErrores(validateForm(updatedForm));
-    }
-  };
- 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitted(true);
-    const erroresActuales = validateForm(form);
-    setErrores(erroresActuales);
- 
-    if (Object.keys(erroresActuales).length === 0) {
-      setLoading(true);
-      setResponse(null);
-      axios
-        .post(API_URL, {
-          nombre: form.name,
-          apellido: form.lastname,
-          email: form.email,
-          celular: form.phone,
-          mensaje: form.message,
-        })
-        .then(() => {
-          setLoading(false);
-          setResponse(true);
-          setForm(initialForm);
-          setSubmitted(false);
-          setErrores({});
-        })
-        .catch((error) => {
-          setLoading(false);
-          setResponse(false);
-          console.error("Error al enviar el mensaje:", error);
-        });
-    }
-  };
- 
-  // Siempre reserva el espacio del mensaje de error (altura fija),
-  // así el formulario no "salta" cuando aparece o desaparece el texto.
-  const getErrorForField = (fieldName: keyof ContactFormData) => {
-    const message = errores[fieldName];
-    return (
-      <p
-        className={`flex items-center gap-1 text-red-600 text-[13px] mt-1.5 transition-opacity duration-150 ${
-          message ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {message && <AlertCircle className="w-3.5 h-3.5 shrink-0" />}
-        {message || "\u00A0"}
-      </p>
-    );
-  };
- 
-  const fieldClass = (fieldName: keyof ContactFormData) =>
-    errores[fieldName] ? `${inputBase} ${inputError}` : inputBase;
- 
+  }
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 w-full">
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
-          <div>
-            <label
-              className="block text-gray-900 text-sm font-semibold mb-2"
-              htmlFor="name"
-            >
-              Nombre <span className="text-[#94191d]">*</span>
-            </label>
-            <div className="relative">
-              <User className={iconBase} />
-              <input
-                className={fieldClass("name")}
-                id="name"
-                type="text"
-                name="name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                placeholder="Ingrese su nombre"
-                value={form.name}
-                required
-              />
-            </div>
-            {getErrorForField("name")}
-          </div>
- 
-          <div>
-            <label
-              className="block text-gray-900 text-sm font-semibold mb-2"
-              htmlFor="lastname"
-            >
-              Apellido <span className="text-[#94191d]">*</span>
-            </label>
-            <div className="relative">
-              <User className={iconBase} />
-              <input
-                className={fieldClass("lastname")}
-                id="lastname"
-                type="text"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                name="lastname"
-                placeholder="Ingrese su apellido"
-                value={form.lastname}
-                required
-              />
-            </div>
-            {getErrorForField("lastname")}
-          </div>
- 
-          <div>
-            <label
-              className="block text-gray-900 text-sm font-semibold mb-2"
-              htmlFor="phone"
-            >
-              Teléfono <span className="text-[#94191d]">*</span>
-            </label>
-            <div className="relative">
-              <Phone className={iconBase} />
-              <input
-                className={fieldClass("phone")}
-                id="phone"
-                type="tel"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                name="phone"
-                placeholder="Ingrese su teléfono"
-                value={form.phone}
-                required
-              />
-            </div>
-            {getErrorForField("phone")}
-          </div>
- 
-          <div>
-            <label
-              className="block text-gray-900 text-sm font-semibold mb-2"
-              htmlFor="email"
-            >
-              Correo electrónico <span className="text-[#94191d]">*</span>
-            </label>
-            <div className="relative">
-              <Mail className={iconBase} />
-              <input
-                className={fieldClass("email")}
-                id="email"
-                type="email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                name="email"
-                placeholder="Ingrese su correo electrónico"
-                value={form.email}
-                required
-              />
-            </div>
-            {getErrorForField("email")}
-          </div>
- 
-          <div className="md:col-span-2">
-            <div className="flex items-center justify-between mb-2">
-              <label
-                className="block text-gray-900 text-sm font-semibold"
-                htmlFor="message"
-              >
-                Mensaje <span className="text-[#94191d]">*</span>
-              </label>
-              <span
-                className={`text-xs ${
-                  form.message.length > MESSAGE_MAX_LENGTH
-                    ? "text-red-500"
-                    : "text-gray-400"
-                }`}
-              >
-                {form.message.length}/{MESSAGE_MAX_LENGTH}
-              </span>
-            </div>
-            <div className="relative">
-              <MessageSquare className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-400" />
-              <textarea
-                className={`${fieldClass("message")} resize-y`}
-                id="message"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                name="message"
-                rows={5}
-                maxLength={MESSAGE_MAX_LENGTH}
-                placeholder="Ingrese su mensaje"
-                value={form.message}
-                required
-              ></textarea>
-            </div>
-            {getErrorForField("message")}
-          </div>
- 
-          <div className="md:col-span-2 mt-3">
-            <button
-              className="inline-flex items-center justify-center gap-2 bg-[#94191d] hover:bg-[#b52126] hover:-translate-y-0.5 hover:shadow-md text-white font-bold py-3 px-8 rounded-lg transition-all duration-150 focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
-              type="submit"
-              disabled={loading}
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {loading ? "Enviando..." : "ENVIAR MENSAJE →"}
-            </button>
- 
-            {response === true && (
-              <div className="flex items-center gap-2 bg-green-50 text-green-800 border border-green-200 rounded-lg px-4 py-3 mt-4">
-                <CheckCircle2 className="w-5 h-5 shrink-0" />
-                <p className="font-medium text-sm">
-                  Mensaje enviado correctamente. Nos pondremos en contacto pronto.
-                </p>
-              </div>
-            )}
-            {response === false && (
-              <div className="flex items-center gap-2 bg-red-50 text-red-800 border border-red-200 rounded-lg px-4 py-3 mt-4">
-                <AlertCircle className="w-5 h-5 shrink-0" />
-                <p className="font-medium text-sm">
-                  Ocurrió un error al enviar el mensaje. Intentá de nuevo.
-                </p>
-              </div>
-            )}
-          </div>
+    <form
+      onSubmit={handleSubmit}
+      className="w-full bg-[#f4e9df] rounded-2xl shadow-sm p-8 flex flex-col gap-5"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="flex items-center gap-3 bg-white rounded-full px-5 py-3 shadow-sm">
+          <User size={18} className="text-[#94191d] shrink-0" />
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            placeholder="Nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            required
+            className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
+          />
         </div>
-      </form>
-    </div>
-  );
-};
- 
-export default Contact;
+
+        <div className="flex items-center gap-3 bg-white rounded-full px-5 py-3 shadow-sm">
+          <User size={18} className="text-[#94191d] shrink-0" />
+          <input
+            type="text"
+            id="apellido"
+            name="apellido"
+            placeholder="Apellido"
+            value={formData.apellido}
+            onChange={handleChange}
+            required
+            className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
+          />
+        </div>
+
+        <div className="flex items-center gap-3 bg-white rounded-full px-5 py-3 shadow-sm">
+          <Phone size={18} className="text-[#94191d] shrink-0" />
+          <input
+            type="tel"
+            id="celular"
+            name="celular"
+            placeholder="Número de celular"
+            value={formData.celular}
+            onChange={handleChange}
+            required
+            className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
+          />
+        </div>
+
+        <div className="flex items-center gap-3 bg-white rounded-full px-5 py-3 shadow-sm">
+          <Mail size={18} className="text-[#94191d] shrink-0" />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Correo electrónico"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-start gap-3 bg-white rounded-2xl px-5 py-3 shadow-sm">
+        <MessageSquare size={18} className="text-[#94191d] shrink-0 mt-1" />
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          placeholder="Escribe tu mensaje"
+          value={formData.mensaje}
+          onChange={handleChange}
+          required
+          rows={4}
+          maxLength={500}
+          className="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400 resize-none"
+        />
+      </div>
+
+      <p className="text-xs text-gray-500">
+        Al enviar este formulario, tus datos se usarán únicamente para responder tu consulta.
+      </p>
+
+      <button
+        type="submit"
+        disabled={status === 'sending'}
+        className="self-start bg-[#94191d] text-white font-semibold rounded-full px-8 py-3 hover:bg-[#7a1418] transition-colors disabled:opacity-60"
+      >
+        {status === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
+      </button>
+
+      {status === 'success' && (
+        <p className="text-green-600 text-sm">
+          ¡Mensaje enviado correctamente! Te contactaremos pronto.
+        </p>
+      )}
+
+      {status === 'error' && (
+        <p className="text-red-600 text-sm">
+          Hubo un error al enviar el mensaje. Inténtalo de nuevo.
+        </p>
+      )}
+    </form>
+  )
+}
+
+export default Contact

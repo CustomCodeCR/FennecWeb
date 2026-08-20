@@ -62,12 +62,9 @@ function HomePage() {
           className="home-section home-section-light"
         >
           <div className="home-section-container">
-            <div className="home-section-heading">
-              <span className="home-eyebrow">CONTÁCTANOS</span>
             </div>
 
             <ContactForm />
-          </div>
         </section>
 
         {/* Botón para volver arriba */}
