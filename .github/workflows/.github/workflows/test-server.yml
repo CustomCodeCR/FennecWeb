@@ -1,0 +1,31 @@
+name: Test Dhole Server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: [self-hosted, linux, x64, dhole]
+
+    steps:
+      - name: Información del servidor
+        run: |
+          echo "Hostname:"
+          hostname
+
+          echo "Usuario:"
+          whoami
+
+          echo "Sistema:"
+          uname -a
+
+      - name: Docker
+        run: |
+          docker version
+          docker compose version
+          docker ps
+
+      - name: Red Dhole
+        run: |
+          docker network inspect dhole >/dev/null
+          echo "Red dhole OK"
