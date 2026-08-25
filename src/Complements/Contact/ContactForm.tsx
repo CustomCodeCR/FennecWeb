@@ -1,44 +1,36 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import {
-  Mail,
-  Phone,
-  MessageCircle,
-  Clock,
-} from 'lucide-react'
+import React from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MessageCircle, Clock } from "lucide-react";
 
-import Maps from './Maps'
-import Contact from './Contact'
+import Maps from "./Maps";
+import Contact from "./Contact";
 
 const infoCards = [
   {
     icon: Phone,
-    title: 'Número de teléfono',
-    value: '+506 2272-6772',
+    title: "Número de teléfono",
+    value: "+506 2272-6772",
   },
   {
     icon: Mail,
-    title: 'Correo electrónico',
-    value: 'info@grupocastrofallas.com',
+    title: "Correo electrónico",
+    value: "comercial@castrofallas.com",
   },
   {
     icon: MessageCircle,
-    title: 'WhatsApp',
-    value: '+506 7005-1261',
+    title: "WhatsApp",
+    value: "+506 7078-6860",
   },
   {
     icon: Clock,
-    title: 'Horario de atención',
-    value: 'Lunes a viernes: 7:30 am a 5:00 pm',
+    title: "Horario de atención",
+    value: "Lunes a viernes: 7:30 am a 5:00 pm",
   },
-]
+];
 
 const ContactForm: React.FC = () => {
   return (
-    <div
-      className="container mx-auto p-8"
-      id="contacto"
-    >
+    <div className="container mx-auto p-8" id="contacto">
       {/* Título */}
       <div id="titulo">
         <motion.div
@@ -56,8 +48,7 @@ const ContactForm: React.FC = () => {
           </h1>
 
           <p className="text-center text-gray-600 text-lg mb-16">
-            ¿Necesitas más información? Ponte en contacto
-            con nosotros
+            ¿Necesitas más información? Ponte en contacto con nosotros
           </p>
         </motion.div>
       </div>
@@ -103,7 +94,7 @@ const ContactForm: React.FC = () => {
 
         <motion.div
           className="w-full flex justify-center rounded-xl overflow-hidden shadow-sm border border-gray-200"
-          style={{ maxHeight: '400px' }}
+          style={{ maxHeight: "400px" }}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -113,7 +104,8 @@ const ContactForm: React.FC = () => {
         </motion.div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;
+
