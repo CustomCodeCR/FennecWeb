@@ -24,7 +24,7 @@ const infoCards = [
   {
     icon: Clock,
     title: "Horario de atención",
-    value: "Lunes a viernes: 7:30 am a 5:00 pm",
+    value: "Lunes a viernes: 7:30 am a 5:15 pm",
   },
 ];
 
