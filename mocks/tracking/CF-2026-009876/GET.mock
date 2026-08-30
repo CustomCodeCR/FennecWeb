@@ -1,0 +1,59 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Access-Control-Allow-Origin: *
+
+{
+  "trackingNumber": "CF-2026-009876",
+  "status": "Entregado",
+  "lastUpdate": "2026-08-14T12:45:00",
+  "origin": "Panamá, Panamá",
+  "destination": "Cartago, Costa Rica",
+  "steps": [
+    {
+      "label": "Recibido",
+      "date": "2026-08-08",
+      "status": "completed"
+    },
+    {
+      "label": "En tránsito",
+      "date": "2026-08-10",
+      "status": "completed"
+    },
+    {
+      "label": "Aduana",
+      "date": "2026-08-12",
+      "status": "completed"
+    },
+    {
+      "label": "Entregado",
+      "date": "2026-08-14",
+      "status": "current"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-08-14",
+      "time": "12:45 PM",
+      "title": "Entregado",
+      "description": "La carga fue entregada correctamente en su destino."
+    },
+    {
+      "date": "2026-08-12",
+      "time": "08:20 AM",
+      "title": "Aduana",
+      "description": "La carga completó el proceso de aduanas."
+    },
+    {
+      "date": "2026-08-10",
+      "time": "04:30 PM",
+      "title": "En tránsito",
+      "description": "La carga se encontraba en ruta hacia Costa Rica."
+    },
+    {
+      "date": "2026-08-08",
+      "time": "11:00 AM",
+      "title": "Recibido",
+      "description": "La carga fue recibida y registrada."
+    }
+  ]
+}
