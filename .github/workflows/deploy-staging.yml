@@ -29,6 +29,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/dhole-env"
           bash .dhole-system/deploy/prepare-environments.sh /opt/dhole/.env "$RUNNER_TEMP/dhole-env"
           echo "COMPOSE_FILE=$GITHUB_WORKSPACE/.dhole-system/deploy/docker-compose.services.yml" >> "$GITHUB_ENV"
+          echo "COMPOSE_OVERRIDE=$GITHUB_WORKSPACE/.dhole-system/deploy/docker-compose.staging.yml" >> "$GITHUB_ENV"
           echo "DHOLE_ENV_FILE=$RUNNER_TEMP/dhole-env/.env.staging" >> "$GITHUB_ENV"
           echo "COMPOSE_PROJECT=dhole-staging" >> "$GITHUB_ENV"
           echo "DHOLE_NETWORK=dhole-staging" >> "$GITHUB_ENV"
@@ -43,7 +44,8 @@ jobs:
           docker network inspect "$DHOLE_NETWORK" >/dev/null
           test -r "$DHOLE_ENV_FILE"
           test -r "$COMPOSE_FILE"
-          FENNEC_IMAGE_TAG="$FENNEC_IMAGE_TAG" docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -p "$COMPOSE_PROJECT" config -q
+          test -r "$COMPOSE_OVERRIDE"
+          FENNEC_IMAGE_TAG="$FENNEC_IMAGE_TAG" docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -f "$COMPOSE_OVERRIDE" -p "$COMPOSE_PROJECT" config -q
 
       - name: Build image
         shell: bash
@@ -61,10 +63,10 @@ jobs:
         run: |
           set -euo pipefail
           export FENNEC_IMAGE_TAG=staging
-          docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -p "$COMPOSE_PROJECT" up -d --no-deps --force-recreate --pull never website
-          docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -p "$COMPOSE_PROJECT" ps website
+          docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -f "$COMPOSE_OVERRIDE" -p "$COMPOSE_PROJECT" up -d --no-deps --force-recreate --pull never website
+          docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -f "$COMPOSE_OVERRIDE" -p "$COMPOSE_PROJECT" ps website
 
-          container_id="$(docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -p "$COMPOSE_PROJECT" ps -q website)"
+          container_id="$(docker compose --env-file "$DHOLE_ENV_FILE" -f "$COMPOSE_FILE" -f "$COMPOSE_OVERRIDE" -p "$COMPOSE_PROJECT" ps -q website)"
           for attempt in {1..30}; do
             health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "$container_id")"
             if [[ "$health" == "healthy" || "$health" == "running" ]]; then
