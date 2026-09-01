@@ -174,26 +174,35 @@ function Category() {
               key={item.shortName}
               type="button"
               onClick={() => openModal(item)}
-              className="group relative min-h-[300px] overflow-hidden rounded-[26px] border border-slate-200 bg-white p-7 text-left shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-2 hover:border-[#c8171d]/25 hover:shadow-[0_22px_50px_rgba(15,23,42,0.12)]"
+              className="group relative flex min-h-[320px] flex-col overflow-hidden rounded-[26px] border border-slate-200 bg-white p-7 text-left shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-2 hover:border-[#c8171d]/25 hover:shadow-[0_22px_50px_rgba(15,23,42,0.12)]"
             >
               <span className="absolute right-6 top-5 text-xs font-extrabold tracking-[0.18em] text-slate-300 transition-colors group-hover:text-[#c8171d]">
                 0{index + 1}
               </span>
 
-              <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-red-50 transition-transform duration-300 group-hover:scale-105">
-                <img src={item.icon} alt={item.shortName} className="h-14 w-14 object-contain" />
+              <div className="mb-7 flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-red-50 transition-transform duration-300 group-hover:scale-105">
+                <img
+                  src={item.icon}
+                  alt={item.shortName}
+                  className="h-[72px] w-[72px] object-contain"
+                />
               </div>
 
-              <div>
+              <div className="flex min-h-0 flex-1 flex-col">
                 <h3 className="text-xl font-bold tracking-tight text-slate-900 transition-colors group-hover:text-[#c8171d]">
                   {item.shortName}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-slate-500">{item.description}</p>
-              </div>
 
-              <div className="absolute bottom-6 left-7 right-7 flex items-center justify-between text-sm font-bold text-[#c8171d]">
-                <span>Conocer servicio</span>
-                <span className="text-xl transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <p className="mt-3 text-sm leading-6 text-slate-500">
+                  {item.description}
+                </p>
+
+                <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-5 text-sm font-bold text-[#c8171d]">
+                  <span>Conocer servicio</span>
+                  <span className="text-xl leading-none transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </div>
               </div>
             </button>
           ))}
@@ -201,7 +210,9 @@ function Category() {
 
         <div className="mt-20">
           <div className="mx-auto mb-10 max-w-2xl text-center">
-            <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#c8171d]">Más soluciones</span>
+            <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#c8171d]">
+              Más soluciones
+            </span>
             <h2 className="mt-2 text-[clamp(30px,4vw,44px)] font-bold tracking-[-0.04em] text-slate-900">
               Servicios complementarios
             </h2>
@@ -216,20 +227,28 @@ function Category() {
                 key={item.shortName}
                 type="button"
                 onClick={() => openModal(item)}
-                className="group relative flex min-h-[145px] items-center overflow-hidden rounded-[22px] border border-slate-200 bg-white p-6 text-left shadow-[0_6px_18px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[#c8171d]/25 hover:shadow-[0_18px_38px_rgba(15,23,42,0.1)]"
+                className="group relative flex min-h-[150px] items-center overflow-hidden rounded-[22px] border border-slate-200 bg-white p-6 text-left shadow-[0_6px_18px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1.5 hover:border-[#c8171d]/25 hover:shadow-[0_18px_38px_rgba(15,23,42,0.1)]"
               >
-                <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-[18px] bg-red-50 transition-transform duration-300 group-hover:scale-105">
-                  <img src={item.icon} alt={item.shortName} className="h-[50px] w-[50px] object-contain" />
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[18px] bg-red-50 transition-transform duration-300 group-hover:scale-105">
+                  <img
+                    src={item.icon}
+                    alt={item.shortName}
+                    className="h-16 w-16 object-contain"
+                  />
                 </div>
 
-                <div className="ml-[18px] pr-8">
+                <div className="ml-5 min-w-0 flex-1 pr-8">
                   <h3 className="text-base font-bold text-slate-900 transition-colors group-hover:text-[#c8171d]">
                     {item.shortName}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-5 text-slate-500">{item.description}</p>
+                  <p className="mt-1.5 text-xs leading-5 text-slate-500">
+                    {item.description}
+                  </p>
                 </div>
 
-                <span className="absolute right-5 text-xl text-[#c8171d] opacity-0 transition duration-300 group-hover:translate-x-1 group-hover:opacity-100">→</span>
+                <span className="absolute right-5 text-xl text-[#c8171d] opacity-0 transition duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+                  →
+                </span>
               </button>
             ))}
           </div>
@@ -250,8 +269,12 @@ function Category() {
           >
             <header className="flex min-h-[88px] shrink-0 items-center justify-between border-b border-slate-200/70 bg-white px-6 py-4 sm:px-7">
               <div>
-                <span className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#c8171d]">SERVICIO LOGÍSTICO</span>
-                <h2 className="text-2xl font-bold tracking-tight text-slate-900">{selectedCategory.shortName}</h2>
+                <span className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#c8171d]">
+                  SERVICIO LOGÍSTICO
+                </span>
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900">
+                  {selectedCategory.shortName}
+                </h2>
               </div>
 
               <button
@@ -266,10 +289,16 @@ function Category() {
 
             <div className="overflow-y-auto">
               <div className="relative h-[230px] overflow-hidden sm:h-[300px]">
-                <img src={selectedCategory.image} alt={selectedCategory.shortName} className="h-full w-full object-cover" />
+                <img
+                  src={selectedCategory.image}
+                  alt={selectedCategory.shortName}
+                  className="h-full w-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white sm:bottom-8 sm:left-8">
-                  <span className="text-[11px] font-extrabold uppercase tracking-[0.18em]">CASTRO FALLAS</span>
+                  <span className="text-[11px] font-extrabold uppercase tracking-[0.18em]">
+                    CASTRO FALLAS
+                  </span>
                   <h3 className="mt-2 max-w-xl text-[clamp(30px,5vw,48px)] font-bold leading-none tracking-[-0.04em]">
                     {selectedCategory.shortName}
                   </h3>
@@ -289,7 +318,9 @@ function Category() {
                     ['↗', 'Eficiencia', 'Coordinación enfocada en optimizar tiempos y procesos logísticos.'],
                   ].map(([icon, title, text]) => (
                     <div key={title} className="flex gap-3 rounded-2xl bg-slate-50 p-4">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-50 font-extrabold text-[#c8171d]">{icon}</div>
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-50 font-extrabold text-[#c8171d]">
+                        {icon}
+                      </div>
                       <div>
                         <h4 className="font-bold text-slate-900">{title}</h4>
                         <p className="mt-1 text-xs leading-5 text-slate-500">{text}</p>
