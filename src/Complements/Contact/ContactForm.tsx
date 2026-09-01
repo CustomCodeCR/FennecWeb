@@ -1,59 +1,35 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Mail, Phone, MessageCircle, Clock } from "lucide-react";
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Mail, Phone, MessageCircle, Clock } from 'lucide-react'
 
-import Maps from "./Maps";
-import Contact from "./Contact";
+import Maps from './Maps'
+import Contact from './Contact'
 
 const infoCards = [
-  {
-    icon: Phone,
-    title: "Número de teléfono",
-    value: "+506 2272-6772",
-  },
-  {
-    icon: Mail,
-    title: "Correo electrónico",
-    value: "comercial@castrofallas.com",
-  },
-  {
-    icon: MessageCircle,
-    title: "WhatsApp",
-    value: "+506 7078-6860",
-  },
-  {
-    icon: Clock,
-    title: "Horario de atención",
-    value: "Lunes a viernes: 7:30 am a 5:15 pm",
-  },
-];
+  { icon: Phone, title: 'Número de teléfono', value: '+506 2272-6772' },
+  { icon: Mail, title: 'Correo electrónico', value: 'comercial@castrofallas.com' },
+  { icon: MessageCircle, title: 'WhatsApp', value: '+506 7078-6860' },
+  { icon: Clock, title: 'Horario de atención', value: 'Lunes a viernes: 7:30 am a 5:15 pm' },
+]
 
 const ContactForm: React.FC = () => {
   return (
-    <div className="container mx-auto p-8" id="contacto">
-      {/* Título */}
-      <div id="titulo">
-        <motion.div
-          className="col-md-12"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h1
-            className="text-center text-[#94191d] text-4xl font-bold mt-4 mb-3"
-            style={{ fontFamily: "'fuente', sans-serif" }}
-          >
-            CONTÁCTANOS
-          </h1>
+    <div className="mx-auto w-full max-w-7xl px-6 md:px-8" id="contacto">
+      <motion.div
+        className="w-full"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <h1 className="mt-4 text-center text-4xl font-bold text-[#94191d] [font-family:'fuente',sans-serif]">
+          CONTÁCTANOS
+        </h1>
+        <p className="mb-16 mt-3 text-center text-lg text-slate-500">
+          ¿Necesitas más información? Ponte en contacto con nosotros
+        </p>
+      </motion.div>
 
-          <p className="text-center text-gray-600 text-lg mb-16">
-            ¿Necesitas más información? Ponte en contacto con nosotros
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Formulario */}
       <motion.div
         className="w-full"
         initial={{ opacity: 0, y: 40 }}
@@ -64,20 +40,16 @@ const ContactForm: React.FC = () => {
         <Contact />
       </motion.div>
 
-      {/* Tarjetas de información */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10"
+        className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
         viewport={{ once: true }}
       >
         {infoCards.map(({ icon: Icon, title, value }) => (
-          <div
-            key={title}
-            className="bg-[#94191d] text-white rounded-2xl px-6 py-8 flex flex-col items-center text-center gap-3"
-          >
-            <div className="bg-white/15 rounded-full p-3">
+          <div key={title} className="flex flex-col items-center gap-3 rounded-2xl bg-[#94191d] px-6 py-8 text-center text-white">
+            <div className="rounded-full bg-white/15 p-3">
               <Icon size={24} className="text-white" />
             </div>
             <b className="text-base font-semibold">{title}</b>
@@ -86,15 +58,11 @@ const ContactForm: React.FC = () => {
         ))}
       </motion.div>
 
-      {/* Mapa */}
       <div className="mt-10">
-        <h2 className="text-center text-[#94191d] text-2xl font-bold mb-6">
-          Nuestras Ubicaciones
-        </h2>
+        <h2 className="mb-6 text-center text-2xl font-bold text-[#94191d]">Nuestras Ubicaciones</h2>
 
         <motion.div
-          className="w-full flex justify-center rounded-xl overflow-hidden shadow-sm border border-gray-200"
-          style={{ maxHeight: "400px" }}
+          className="flex max-h-[400px] w-full justify-center overflow-hidden rounded-xl border border-slate-200 shadow-sm"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -104,8 +72,7 @@ const ContactForm: React.FC = () => {
         </motion.div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ContactForm;
-
+export default ContactForm
