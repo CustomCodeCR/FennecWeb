@@ -10,7 +10,7 @@ import ServerError from './pages/ServerError'
 
 function App() {
   return (
-    <>
+    <div className="min-h-screen min-w-[320px] overflow-x-hidden bg-white font-sans text-[#111111] antialiased">
       <Apps />
 
       <Routes>
@@ -22,7 +22,7 @@ function App() {
       </Routes>
 
       <Footer />
-    </>
+    </div>
   )
 }
 
