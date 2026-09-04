@@ -1,45 +1,100 @@
+import { Link } from 'react-router-dom'
+
+const stats = [
+  { value: '+48', label: 'años de experiencia' },
+  { value: '+25', label: 'oficinas a nivel mundial' },
+  { value: '+105', label: 'rutas internacionales' },
+]
+
 function HeroSection() {
   return (
-    <section id="inicio" className="w-full bg-white px-4 pb-10 pt-6 md:px-8">
-      <div className="relative isolate mx-auto max-w-7xl overflow-hidden rounded-[28px] shadow-2xl">
-        <video
-          className="block h-[430px] w-full scale-[1.01] object-cover brightness-105 contrast-[1.04] saturate-[1.08] md:h-[560px] lg:h-[620px]"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster="/logistica_maritima.jpg"
-        >
-          <source src="/video.mp4" type="video/mp4" />
-          Tu navegador no soporta el elemento de video.
-        </video>
+    <section id="inicio" className="relative overflow-hidden bg-white px-4 pb-10 pt-6 md:px-8 md:pb-14 md:pt-8">
+      <div className="pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full bg-red-100/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-slate-100 blur-3xl" />
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/[0.08] to-black/[0.14]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.67)_0%,rgba(0,0,0,0.48)_25%,rgba(0,0,0,0.18)_53%,rgba(0,0,0,0)_76%)]" />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-5">
-          <div className="relative z-[2] text-center">
-            <h1 className="m-0 flex flex-col font-serif text-[clamp(43px,8vw,116px)] font-medium uppercase leading-[0.9] tracking-[-0.035em] text-white [text-shadow:0_2px_0_rgba(255,255,255,0.15),0_5px_5px_rgba(0,0,0,0.75),0_12px_25px_rgba(0,0,0,0.55),0_0_28px_rgba(255,255,255,0.17)] md:leading-[0.88]">
-              <span className="mb-5 block font-sans text-[clamp(13px,1.7vw,21px)] font-bold tracking-[0.1em] text-white/95 sm:tracking-[0.14em]">
-                Agencia Aduanal y Soluciones Logísticas en Costa Rica
-              </span>
-              <span className="block text-[0.82em]">Grupo</span>
-              <span className="mt-2 block md:mt-2.5">Castro Fallas</span>
-            </h1>
-
-            <p className="mt-6 border-y border-white/25 px-4 py-2.5 text-[11px] font-normal uppercase tracking-[0.15em] text-white/95 [text-shadow:0_3px_8px_rgba(0,0,0,0.8)] sm:mt-7 sm:px-6 sm:py-3 sm:text-[clamp(12px,1.5vw,18px)] sm:tracking-[0.2em] lg:tracking-[0.28em]">
-              Logística integral sin fronteras
-            </p>
+      <div className="relative mx-auto grid max-w-7xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.10)] lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="relative z-10 flex flex-col justify-center px-7 py-12 sm:px-10 md:px-14 lg:min-h-[650px] lg:px-16 lg:py-16">
+          <div className="mb-8 flex items-center gap-3">
+            <img
+              src="/logo__rojo.png"
+              alt="Logo de Grupo Castro Fallas"
+              width="52"
+              height="52"
+              className="h-12 w-12 object-contain"
+            />
+            <div className="h-px w-10 bg-[#c8171d]" />
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[#c8171d]">
+              Logística internacional
+            </span>
           </div>
 
-          <a
-            href="#servicios"
-            className="absolute bottom-7 z-[3] cursor-pointer text-white [text-shadow:0_3px_9px_rgba(0,0,0,0.75)]"
-            aria-label="Ir a servicios"
+          <p className="mb-4 max-w-xl text-sm font-bold uppercase tracking-[0.13em] text-slate-500 sm:text-base">
+            Agencia aduanal y soluciones logísticas en Costa Rica
+          </p>
+
+          <h1 className="m-0 max-w-3xl text-[clamp(3.5rem,7vw,6.7rem)] font-black leading-[0.9] tracking-[-0.065em] text-slate-950">
+            Grupo
+            <span className="block text-[#c8171d]">Castro Fallas</span>
+          </h1>
+
+          <p className="mt-7 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+            Coordinamos aduanas, transporte marítimo, aéreo y terrestre, almacenamiento y protección de carga para operaciones de importación y exportación.
+          </p>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link
+              to="/cotizacion"
+              className="inline-flex items-center justify-center rounded-2xl bg-[#c8171d] px-6 py-3.5 text-sm font-bold text-white shadow-[0_12px_28px_rgba(200,23,29,0.24)] transition hover:-translate-y-0.5 hover:bg-[#a91017]"
+            >
+              Solicitar cotización
+            </Link>
+            <a
+              href="#servicios"
+              className="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition hover:border-[#c8171d]/40 hover:text-[#c8171d]"
+            >
+              Conocer servicios
+            </a>
+          </div>
+
+          <div className="mt-10 grid gap-3 border-t border-slate-200 pt-7 sm:grid-cols-3">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <strong className="block text-2xl font-black tracking-tight text-slate-950">{stat.value}</strong>
+                <span className="mt-1 block text-xs leading-5 text-slate-500">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative min-h-[420px] overflow-hidden bg-slate-950 lg:min-h-[650px]">
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster="/logistica_maritima.jpg"
+            aria-label="Operación logística internacional de Grupo Castro Fallas"
           >
-            <span className="block animate-bounce text-[40px] font-light leading-none motion-reduce:animate-none sm:text-[50px]">⌄</span>
-          </a>
+            <source src="/video.mp4" type="video/mp4" />
+            Tu navegador no soporta el elemento de video.
+          </video>
+
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/15 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/25 to-transparent" />
+
+          <div className="absolute bottom-6 left-6 right-6 rounded-[24px] border border-white/20 bg-black/30 p-5 text-white backdrop-blur-md sm:bottom-8 sm:left-8 sm:right-8 sm:p-6">
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-white/70">
+              Logística integral sin fronteras
+            </span>
+            <div className="mt-3 flex items-end justify-between gap-5">
+              <p className="m-0 max-w-md text-xl font-bold leading-tight sm:text-2xl">
+                Una sola coordinación para toda tu cadena logística.
+              </p>
+              <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 text-2xl sm:flex">↗</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
