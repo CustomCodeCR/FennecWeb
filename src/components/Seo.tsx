@@ -22,7 +22,7 @@ type SeoPage = {
 
 const seoByRoute: Record<string, SeoPage> = {
   '/': {
-    title: 'Agencia Aduanal y Logística en Costa Rica | Grupo Castro Fallas',
+    title: 'Grupo Castro Fallas',
     description:
       'Agencia aduanal y soluciones logísticas en Costa Rica: transporte marítimo, aéreo y terrestre, almacén fiscal, seguro de carga, cotización y tracking internacional.',
     keywords: [
