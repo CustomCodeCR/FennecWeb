@@ -7,7 +7,6 @@ import NotFound from './pages/NotFound'
 import ServerError from './pages/ServerError'
 import ArticlePage from './pages/articles/ArticlePage'
 import ArticlesIndexPage from './pages/articles/ArticlesIndexPage'
-import FaqPage from './pages/faq/FaqPage'
 import HomePage from './pages/home/HomePage'
 import QuotePage from './pages/quote/QuotePage'
 import ReviewsPage from './pages/reviews/ReviewsPage'
@@ -24,7 +23,6 @@ function App() {
         <Route path="/web-tracking" element={<TrackingPage />} />
         <Route path="/cotizacion" element={<QuotePage />} />
         <Route path="/servicios-logisticos" element={<ServicesPage />} />
-        <Route path="/preguntas-frecuentes" element={<FaqPage />} />
         <Route path="/articulos" element={<ArticlesIndexPage />} />
         <Route path="/articulos/:slug" element={<ArticlePage />} />
         <Route path="/opiniones" element={<ReviewsPage />} />
