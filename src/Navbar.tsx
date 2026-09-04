@@ -2,13 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const routeItems = [
-  { label: "Inicio", to: "/", icon: "⌂" },
-  { label: "Servicios logísticos", to: "/servicios-logisticos", icon: "⚙" },
   { label: "Preguntas frecuentes", to: "/preguntas-frecuentes", icon: "?" },
-  { label: "Artículos", to: "/articulos", icon: "▤" },
-  { label: "Opiniones", to: "/opiniones", icon: "★" },
-  { label: "Web Tracking", to: "/web-tracking", icon: "⌖" },
-  { label: "Cotización", to: "/cotizacion", icon: "$" },
 ];
 
 function Apps() {
