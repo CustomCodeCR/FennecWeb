@@ -9,7 +9,12 @@ const infoCards = [
   { icon: Phone, title: 'Número de teléfono', value: '+506 2272-6772', href: 'tel:+50622726772' },
   { icon: Mail, title: 'Correo electrónico', value: 'comercial@castrofallas.com', href: 'mailto:comercial@castrofallas.com' },
   { icon: MessageCircle, title: 'WhatsApp', value: '+506 7078-6860', href: 'https://wa.me/50670786860' },
-  { icon: MapPin, title: 'Dirección', value: 'Curridabat, San José, Costa Rica', href: undefined },
+  {
+    icon: MapPin,
+    title: 'Dirección',
+    value: 'Frente a Café Volio, Barrio San José, Curridabat, Costa Rica',
+    href: 'https://www.google.com/maps/search/?api=1&query=Frente%20a%20Caf%C3%A9%20Volio%2C%20Barrio%20San%20Jos%C3%A9%2C%20Curridabat%2C%20Costa%20Rica',
+  },
   { icon: Clock, title: 'Horario de atención', value: 'Lunes a viernes: 7:30 am a 5:15 pm', href: undefined },
 ]
 
