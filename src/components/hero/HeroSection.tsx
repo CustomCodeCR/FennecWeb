@@ -8,6 +8,8 @@ function HeroSection() {
           loop
           muted
           playsInline
+          preload="metadata"
+          poster="/logistica_maritima.jpg"
         >
           <source src="/video.mp4" type="video/mp4" />
           Tu navegador no soporta el elemento de video.
@@ -19,6 +21,9 @@ function HeroSection() {
         <div className="absolute inset-0 flex flex-col items-center justify-center px-5">
           <div className="relative z-[2] text-center">
             <h1 className="m-0 flex flex-col font-serif text-[clamp(43px,8vw,116px)] font-medium uppercase leading-[0.9] tracking-[-0.035em] text-white [text-shadow:0_2px_0_rgba(255,255,255,0.15),0_5px_5px_rgba(0,0,0,0.75),0_12px_25px_rgba(0,0,0,0.55),0_0_28px_rgba(255,255,255,0.17)] md:leading-[0.88]">
+              <span className="mb-5 block font-sans text-[clamp(13px,1.7vw,21px)] font-bold tracking-[0.1em] text-white/95 sm:tracking-[0.14em]">
+                Agencia Aduanal y Soluciones Logísticas en Costa Rica
+              </span>
               <span className="block text-[0.82em]">Grupo</span>
               <span className="mt-2 block md:mt-2.5">Castro Fallas</span>
             </h1>
