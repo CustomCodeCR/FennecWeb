@@ -4,6 +4,7 @@ import Track from '../../components/track/track'
 import Nosotros from '../../components/nosotros/Nosotros'
 import DataComponent from '../../components/datos/DataComponent'
 import ScrollTopButton from '../../components/scrolltop/ScrollTopButton'
+import FaqSection from '../../components/faq/FaqSection'
 import ContactForm from '../../Complements/Contact/ContactForm'
 import PageSection from '../../ui/PageSection'
 import SectionHeader from '../../ui/SectionHeader'
@@ -38,6 +39,8 @@ function HomePage() {
       <section id="CONTÁCTANOS" className="w-full bg-white py-16 md:py-20">
         <ContactForm />
       </section>
+
+      <FaqSection />
 
       <ScrollTopButton />
     </main>
