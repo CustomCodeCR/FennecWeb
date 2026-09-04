@@ -1,9 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
-const routeItems = [
-  { label: "Preguntas frecuentes", to: "/preguntas-frecuentes", icon: "?" },
-];
 
 function Apps() {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -32,6 +27,19 @@ function Apps() {
         console.warn("No se encontró la sección #CONTÁCTANOS en el DOM");
       }
     }
+  };
+
+  const irAPreguntasFrecuentes = () => {
+    setMenuAbierto(false);
+
+    if (window.location.pathname === "/") {
+      document
+        .getElementById("preguntas-frecuentes")
+        ?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    window.location.assign("/#preguntas-frecuentes");
   };
 
   const acceder = (sistema: string) => {
@@ -158,17 +166,14 @@ function Apps() {
           Enlaces
         </span>
 
-        {routeItems.map((item) => (
-          <Link
-            key={item.to}
-            to={item.to}
-            onClick={() => setMenuAbierto(false)}
-            className="mb-1.5 flex w-full cursor-pointer items-center gap-[15px] rounded-[13px] border border-transparent bg-transparent p-3.5 text-left text-base text-black transition-all duration-150 ease-out hover:border-[rgba(248,1,1,0.15)] hover:bg-black/5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] active:scale-[0.98] active:bg-black/[0.07] active:shadow-[inset_0_2px_5px_rgba(0,0,0,0.18)]"
-          >
-            <span className="w-[25px] text-[19px]">{item.icon}</span>
-            <span>{item.label}</span>
-          </Link>
-        ))}
+        <button
+          type="button"
+          onClick={irAPreguntasFrecuentes}
+          className="mb-1.5 flex w-full cursor-pointer items-center gap-[15px] rounded-[13px] border border-transparent bg-transparent p-3.5 text-left text-base text-black transition-all duration-150 ease-out hover:border-[rgba(248,1,1,0.15)] hover:bg-black/5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] active:scale-[0.98] active:bg-black/[0.07] active:shadow-[inset_0_2px_5px_rgba(0,0,0,0.18)]"
+        >
+          <span className="w-[25px] text-[19px]">?</span>
+          <span>Preguntas frecuentes</span>
+        </button>
       </aside>
     </>
   );
