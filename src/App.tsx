@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 
-import Footer from './components/footer/Footer'
-import Seo from './components/Seo'
-import HomePage from './pages/home/HomePage'
-import TrackingPage from './pages/tracking/TrackingPage'
 import Apps from './Navbar'
-import QuotePage from './pages/quote/QuotePage'
+import Seo from './components/Seo'
+import Footer from './components/footer/Footer'
 import NotFound from './pages/NotFound'
 import ServerError from './pages/ServerError'
+import ArticlePage from './pages/articles/ArticlePage'
+import HomePage from './pages/home/HomePage'
+import QuotePage from './pages/quote/QuotePage'
+import TrackingPage from './pages/tracking/TrackingPage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/web-tracking" element={<TrackingPage />} />
         <Route path="/cotizacion" element={<QuotePage />} />
+        <Route path="/articulos/:slug" element={<ArticlePage />} />
         <Route path="/500" element={<ServerError />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
