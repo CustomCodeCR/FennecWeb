@@ -8,9 +8,6 @@ function HeroSection() {
           loop
           muted
           playsInline
-          preload="metadata"
-          poster="/logistica_maritima.jpg"
-          aria-label="Operación logística internacional de Grupo Castro Fallas"
         >
           <source src="/video.mp4" type="video/mp4" />
           Tu navegador no soporta el elemento de video.
