@@ -46,7 +46,7 @@ const createClusterCustomIcon = (cluster: ClusterLike) =>
   })
 
 const markers: OfficeMarker[] = [
-  { geocode: [9.915085533193173, -84.0457210670351], popUp: 'Oficina Central Curridabat. San Francisco<br/>correo electrónico: costarica@grupocastrofallas.com' },
+  { geocode: [9.915085533193173, -84.0457210670351], popUp: 'Oficina Central Curridabat<br/>Frente a Café Volio, Barrio San José, Curridabat, Costa Rica<br/>correo electrónico: costarica@grupocastrofallas.com' },
   { geocode: [9.948241661779358, -84.07604437310071], popUp: 'Oficina Central Goicochea, Calle Blancos<br/>correo electrónico: costarica@grupocastrofallas.com' },
   { geocode: [13.46912079583891, -85.2733906614443], popUp: 'Oficina Nicaragua<br/>correo electrónico: nicaragua@grupocastrofallas.com' },
   { geocode: [39.54230836449892, -101.84087340935952], popUp: 'Oficina USA<br/>correo electrónico: usa@grupocastrofallas.com' },
