@@ -8,7 +8,15 @@ function SectionData({ title, description, values }: SectionDataProps) {
   return (
     <div className="mx-auto w-full max-w-[1180px]">
       <div className="group relative h-[360px] w-full overflow-hidden rounded-[30px] bg-slate-950 shadow-[0_10px_25px_rgba(0,0,0,0.07),0_25px_55px_rgba(0,0,0,0.12)] sm:h-[430px] lg:h-[500px]">
-        <video className="block h-full w-full object-cover transition duration-700 group-hover:scale-[1.025] group-hover:contrast-[1.03] group-hover:saturate-105" autoPlay loop muted playsInline>
+        <video
+          className="block h-full w-full object-cover transition duration-700 group-hover:scale-[1.025] group-hover:contrast-[1.03] group-hover:saturate-105"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster="/transporte_carga.jpg"
+        >
           <source src="/video2.mp4" type="video/mp4" />
           Tu navegador no soporta el elemento de video.
         </video>
