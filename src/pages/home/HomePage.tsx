@@ -1,58 +1,48 @@
-import HeroSection from '../../components/hero/HeroSection'
-import Category from '../../components/category/category'
-import Track from '../../components/track/track'
-import Nosotros from '../../components/nosotros/Nosotros'
-import DataComponent from '../../components/datos/DataComponent'
-import ScrollTopButton from '../../components/scrolltop/ScrollTopButton'
 import ContactForm from '../../Complements/Contact/ContactForm'
-import { Helmet } from 'react-helmet-async'
+import Category from '../../components/category/category'
+import DataComponent from '../../components/datos/DataComponent'
+import HeroSection from '../../components/hero/HeroSection'
+import Nosotros from '../../components/nosotros/Nosotros'
+import ScrollTopButton from '../../components/scrolltop/ScrollTopButton'
+import SeoLandingContent from '../../components/seo/SeoLandingContent'
+import Track from '../../components/track/track'
 import PageSection from '../../ui/PageSection'
 import SectionHeader from '../../ui/SectionHeader'
-import logoIcon from '../../assets/logo-castro-fallas.ico'
 
 function HomePage() {
   return (
-    <>
-      <Helmet>
-        <title>Grupo Castro Fallas</title>
-        <meta name="description" content="Descripción de la página de inicio" />
-        <link rel="icon" type="image/x-icon" href={logoIcon} />
-        <meta property="og:title" content="Grupo Castro Fallas" />
-        <meta property="og:description" content="Descripción de la página de inicio" />
-      </Helmet>
+    <main className="w-full overflow-x-hidden bg-gradient-to-b from-white to-slate-50">
+      <HeroSection />
 
-      <main className="w-full overflow-x-hidden bg-gradient-to-b from-white to-slate-50">
-        <HeroSection />
+      <PageSection id="servicios-home" variant="light">
+        <SectionHeader
+          eyebrow="NUESTROS SERVICIOS"
+          title="Soluciones logísticas para importación y exportación"
+          description="Conectamos tu carga con diferentes destinos mediante servicios de aduanas, transporte internacional, almacenamiento y protección de mercancías."
+        />
+        <Category />
+      </PageSection>
 
-        <PageSection id="servicios-home" variant="light">
-          <SectionHeader
-            eyebrow="NUESTROS SERVICIOS"
-            title="Soluciones logísticas para cada necesidad"
-            description="Conectamos tu carga con diferentes destinos de forma segura, eficiente y confiable."
-          />
-          <Category />
-        </PageSection>
+      <PageSection id="Nosotros" variant="light">
+        <div className="mx-auto mb-8 max-w-3xl text-center">
+          <span className="inline-block text-xs font-extrabold uppercase tracking-[0.2em] text-[#c8171d]">NOSOTROS</span>
+        </div>
+        <Nosotros />
+      </PageSection>
 
-        <PageSection id="Nosotros" variant="light">
-          <div className="mx-auto mb-8 max-w-3xl text-center">
-            <span className="inline-block text-xs font-extrabold uppercase tracking-[0.2em] text-[#c8171d]">NOSOTROS</span>
-          </div>
-          <Nosotros />
-        </PageSection>
+      <PageSection variant="soft">
+        <Track />
+      </PageSection>
 
-        <PageSection variant="soft">
-          <Track />
-        </PageSection>
+      <DataComponent />
+      <SeoLandingContent />
 
-        <DataComponent />
+      <section id="CONTÁCTANOS" className="w-full bg-white py-16 md:py-20">
+        <ContactForm />
+      </section>
 
-        <section id="CONTÁCTANOS" className="w-full bg-white py-16 md:py-20">
-          <ContactForm />
-        </section>
-
-        <ScrollTopButton />
-      </main>
-    </>
+      <ScrollTopButton />
+    </main>
   )
 }
 
