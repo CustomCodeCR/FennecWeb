@@ -33,7 +33,7 @@ function ServicesPage() {
 
           <div className="mt-12 flex flex-wrap gap-3">
             <Link to="/cotizacion" className="rounded-xl bg-[#c8171d] px-6 py-3 text-sm font-bold text-white">Solicitar cotización</Link>
-            <Link to="/preguntas-frecuentes" className="rounded-xl border border-slate-300 px-6 py-3 text-sm font-bold text-slate-800">Ver preguntas frecuentes</Link>
+            <a href="/#preguntas-frecuentes" className="rounded-xl border border-slate-300 px-6 py-3 text-sm font-bold text-slate-800">Ver preguntas frecuentes</a>
           </div>
         </div>
       </PageSection>
