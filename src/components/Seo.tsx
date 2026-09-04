@@ -65,13 +65,6 @@ const seoByRoute: Record<string, SeoPage> = {
     keywords: ['servicios logísticos Costa Rica', 'agencia aduanal Costa Rica', 'transporte marítimo', 'transporte aéreo', 'transporte terrestre', 'almacén fiscal', 'seguro de carga', SITE_NAME],
     imageAlt: 'Servicios logísticos de Grupo Castro Fallas',
   },
-  '/preguntas-frecuentes': {
-    title: 'Preguntas frecuentes | Grupo Castro Fallas',
-    description:
-      'Respuestas sobre servicios logísticos, agencia aduanal, transporte internacional, cotizaciones y rastreo de carga con Grupo Castro Fallas.',
-    keywords: ['preguntas frecuentes logística', 'agencia aduanal', 'cotización de carga', 'rastreo de carga', SITE_NAME],
-    imageAlt: 'Preguntas frecuentes de Grupo Castro Fallas',
-  },
   '/articulos': {
     title: 'Artículos de logística y comercio exterior | Grupo Castro Fallas',
     description:
@@ -226,7 +219,6 @@ export function Seo() {
     '/web-tracking': 'Rastreo de carga',
     '/cotizacion': 'Cotización',
     '/servicios-logisticos': 'Servicios logísticos',
-    '/preguntas-frecuentes': 'Preguntas frecuentes',
     '/articulos': 'Artículos',
     '/opiniones': 'Opiniones',
   }
@@ -268,21 +260,17 @@ export function Seo() {
       }))
     : []
 
-  const faqSchemas = normalizedPath === '/preguntas-frecuentes'
-    ? [
-        {
-          '@type': 'FAQPage',
-          '@id': `${siteUrl}/preguntas-frecuentes#faq`,
-          mainEntity: faqs.map((faq) => ({
-            '@type': 'Question',
-            name: faq.question,
-            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-          })),
-        },
-      ]
-    : []
+  const faqSchema = {
+    '@type': 'FAQPage',
+    '@id': `${siteUrl}/#faq`,
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  }
 
-  const homeSchemas = normalizedPath === '/' ? [localBusinessSchema] : []
+  const homeSchemas = normalizedPath === '/' ? [localBusinessSchema, faqSchema] : []
 
   const articleSchemas = article
     ? [
@@ -312,7 +300,6 @@ export function Seo() {
       breadcrumbSchema,
       ...homeSchemas,
       ...serviceSchemas,
-      ...faqSchemas,
       ...articleSchemas,
     ],
   }
