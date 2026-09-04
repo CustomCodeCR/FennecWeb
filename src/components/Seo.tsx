@@ -32,60 +32,63 @@ const seoByRoute: Record<string, SeoPage> = {
       'logística internacional Costa Rica',
       'transporte internacional Costa Rica',
       'transporte marítimo Costa Rica',
-      'carga marítima Costa Rica',
       'transporte aéreo Costa Rica',
-      'carga aérea Costa Rica',
       'transporte terrestre Centroamérica',
       'almacén fiscal Costa Rica',
-      'almacenamiento de carga',
       'seguro de carga internacional',
-      'consolidado de carga',
       'FCL Costa Rica',
       'LCL Costa Rica',
       'importaciones Costa Rica',
       'exportaciones Costa Rica',
-      'freight forwarder Costa Rica',
-      'rastreo de carga',
       'Grupo Castro Fallas',
     ],
-    imageAlt: 'Grupo Castro Fallas - agencia aduanal y soluciones logísticas en Costa Rica',
+    imageAlt: 'Grupo Castro Fallas - logística internacional en Costa Rica',
   },
   '/web-tracking': {
     title: 'Rastreo de carga y contenedores | Grupo Castro Fallas',
     description:
       'Rastrea tu carga con Grupo Castro Fallas mediante IDTRA, BL o número de contenedor y consulta la información disponible de tu embarque internacional.',
-    keywords: [
-      'rastreo de carga',
-      'tracking de carga Costa Rica',
-      'seguimiento de contenedor',
-      'rastreo BL',
-      'IDTRA',
-      'tracking marítimo',
-      'seguimiento de embarques',
-      'Grupo Castro Fallas',
-    ],
+    keywords: ['rastreo de carga', 'tracking de carga Costa Rica', 'seguimiento de contenedor', 'rastreo BL', 'IDTRA', 'tracking marítimo', SITE_NAME],
     imageAlt: 'Rastreo y seguimiento de carga - Grupo Castro Fallas',
   },
   '/cotizacion': {
     title: 'Cotización de transporte internacional | Grupo Castro Fallas',
     description:
       'Solicita una cotización de transporte marítimo, aéreo o terrestre desde Costa Rica y prepara los datos de tu carga para nuestro equipo de Pricing.',
-    keywords: [
-      'cotización logística Costa Rica',
-      'cotizar transporte internacional',
-      'cotización transporte marítimo',
-      'cotización transporte aéreo',
-      'cotización transporte terrestre',
-      'freight forwarder Costa Rica',
-      'freight forwarding Costa Rica',
-      'Grupo Castro Fallas',
-    ],
+    keywords: ['cotización logística Costa Rica', 'cotizar transporte internacional', 'cotización transporte marítimo', 'cotización transporte aéreo', 'cotización transporte terrestre', 'freight forwarder Costa Rica', SITE_NAME],
     imageAlt: 'Cotización de transporte internacional - Grupo Castro Fallas',
+  },
+  '/servicios-logisticos': {
+    title: 'Servicios logísticos y agencia aduanal | Grupo Castro Fallas',
+    description:
+      'Conoce los servicios de agencia aduanal, transporte marítimo, aéreo y terrestre, almacén fiscal, seguro de carga y proyecto carga de Grupo Castro Fallas.',
+    keywords: ['servicios logísticos Costa Rica', 'agencia aduanal Costa Rica', 'transporte marítimo', 'transporte aéreo', 'transporte terrestre', 'almacén fiscal', 'seguro de carga', SITE_NAME],
+    imageAlt: 'Servicios logísticos de Grupo Castro Fallas',
+  },
+  '/preguntas-frecuentes': {
+    title: 'Preguntas frecuentes | Grupo Castro Fallas',
+    description:
+      'Respuestas sobre servicios logísticos, agencia aduanal, transporte internacional, cotizaciones y rastreo de carga con Grupo Castro Fallas.',
+    keywords: ['preguntas frecuentes logística', 'agencia aduanal', 'cotización de carga', 'rastreo de carga', SITE_NAME],
+    imageAlt: 'Preguntas frecuentes de Grupo Castro Fallas',
+  },
+  '/articulos': {
+    title: 'Artículos de logística y comercio exterior | Grupo Castro Fallas',
+    description:
+      'Consulta guías sobre agencia aduanal, FCL, LCL, transporte internacional y preparación de cotizaciones logísticas.',
+    keywords: ['artículos logística', 'comercio exterior Costa Rica', 'agencia aduanal Costa Rica', 'FCL', 'LCL', 'transporte internacional', SITE_NAME],
+    imageAlt: 'Artículos de logística y comercio exterior - Grupo Castro Fallas',
+  },
+  '/opiniones': {
+    title: 'Opiniones de clientes | Grupo Castro Fallas',
+    description: 'Página preparada para publicar opiniones verificadas de clientes de Grupo Castro Fallas.',
+    keywords: ['opiniones Grupo Castro Fallas', 'clientes Grupo Castro Fallas'],
+    noIndex: true,
   },
   '/500': {
     title: 'Error del servidor | Grupo Castro Fallas',
     description: 'Ocurrió un error al procesar la solicitud.',
-    keywords: ['Grupo Castro Fallas'],
+    keywords: [SITE_NAME],
     noIndex: true,
   },
 }
@@ -149,10 +152,7 @@ export function Seo() {
     name: companySeo.name,
     legalName: companySeo.legalName,
     url: `${siteUrl}/`,
-    logo: {
-      '@type': 'ImageObject',
-      url: absoluteUrl(companySeo.logo),
-    },
+    logo: { '@type': 'ImageObject', url: absoluteUrl(companySeo.logo) },
     image: imageUrl,
     telephone: companySeo.telephone,
     email: companySeo.email,
@@ -166,18 +166,8 @@ export function Seo() {
       addressCountry: companySeo.addressCountry,
     },
     contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        telephone: companySeo.telephone,
-        contactType: 'customer service',
-        availableLanguage: ['es'],
-      },
-      {
-        '@type': 'ContactPoint',
-        telephone: companySeo.whatsapp,
-        contactType: 'sales',
-        availableLanguage: ['es'],
-      },
+      { '@type': 'ContactPoint', telephone: companySeo.telephone, contactType: 'customer service', availableLanguage: ['es'] },
+      { '@type': 'ContactPoint', telephone: companySeo.whatsapp, contactType: 'sales', availableLanguage: ['es'] },
     ],
     sameAs: companySeo.socialProfiles,
   }
@@ -191,8 +181,6 @@ export function Seo() {
     image: imageUrl,
     telephone: companySeo.telephone,
     email: companySeo.email,
-    description:
-      'Agencia aduanal y empresa de soluciones logísticas con sede en Curridabat, San José, Costa Rica.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: companySeo.addressLocality,
@@ -200,11 +188,7 @@ export function Seo() {
       postalCode: companySeo.postalCode,
       addressCountry: companySeo.addressCountry,
     },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: companySeo.latitude,
-      longitude: companySeo.longitude,
-    },
+    geo: { '@type': 'GeoCoordinates', latitude: companySeo.latitude, longitude: companySeo.longitude },
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -213,9 +197,7 @@ export function Seo() {
         closes: '17:15',
       },
     ],
-    parentOrganization: {
-      '@id': organizationId,
-    },
+    parentOrganization: { '@id': organizationId },
   }
 
   const websiteSchema = {
@@ -224,9 +206,7 @@ export function Seo() {
     name: SITE_NAME,
     url: `${siteUrl}/`,
     inLanguage: 'es-CR',
-    publisher: {
-      '@id': organizationId,
-    },
+    publisher: { '@id': organizationId },
   }
 
   const webPageSchema = {
@@ -236,30 +216,31 @@ export function Seo() {
     description: page.description,
     url: canonicalUrl,
     inLanguage: 'es-CR',
-    isPartOf: {
-      '@id': websiteId,
-    },
-    about: {
-      '@id': organizationId,
-    },
+    isPartOf: { '@id': websiteId },
+    about: { '@id': organizationId },
+  }
+
+  const pageLabels: Record<string, string> = {
+    '/web-tracking': 'Rastreo de carga',
+    '/cotizacion': 'Cotización',
+    '/servicios-logisticos': 'Servicios logísticos',
+    '/preguntas-frecuentes': 'Preguntas frecuentes',
+    '/articulos': 'Artículos',
+    '/opiniones': 'Opiniones',
   }
 
   const breadcrumbItems = article
     ? [
         { name: 'Inicio', item: `${siteUrl}/` },
+        { name: 'Artículos', item: `${siteUrl}/articulos` },
         { name: article.title, item: canonicalUrl },
       ]
-    : normalizedPath === '/web-tracking'
-      ? [
+    : normalizedPath === '/'
+      ? [{ name: 'Inicio', item: `${siteUrl}/` }]
+      : [
           { name: 'Inicio', item: `${siteUrl}/` },
-          { name: 'Rastreo de carga', item: canonicalUrl },
+          { name: pageLabels[normalizedPath] ?? page.title, item: canonicalUrl },
         ]
-      : normalizedPath === '/cotizacion'
-        ? [
-            { name: 'Inicio', item: `${siteUrl}/` },
-            { name: 'Cotización', item: canonicalUrl },
-          ]
-        : [{ name: 'Inicio', item: `${siteUrl}/` }]
 
   const breadcrumbSchema = {
     '@type': 'BreadcrumbList',
@@ -272,38 +253,34 @@ export function Seo() {
     })),
   }
 
-  const homeSchemas = normalizedPath === '/'
+  const serviceSchemas = normalizedPath === '/servicios-logisticos'
+    ? seoServices.map((service, index) => ({
+        '@type': 'Service',
+        '@id': `${siteUrl}/servicios-logisticos#service-${index + 1}`,
+        name: service.name,
+        serviceType: service.serviceType,
+        description: service.description,
+        url: `${siteUrl}/servicios-logisticos`,
+        provider: { '@id': organizationId },
+        areaServed: { '@type': 'AdministrativeArea', name: 'Costa Rica y mercados internacionales' },
+      }))
+    : []
+
+  const faqSchemas = normalizedPath === '/preguntas-frecuentes'
     ? [
-        localBusinessSchema,
-        ...seoServices.map((service, index) => ({
-          '@type': 'Service',
-          '@id': `${siteUrl}/#service-${index + 1}`,
-          name: service.name,
-          serviceType: service.serviceType,
-          description: service.description,
-          url: `${siteUrl}/#servicios`,
-          provider: {
-            '@id': organizationId,
-          },
-          areaServed: {
-            '@type': 'AdministrativeArea',
-            name: 'Costa Rica y mercados internacionales',
-          },
-        })),
         {
           '@type': 'FAQPage',
-          '@id': `${siteUrl}/#faq`,
+          '@id': `${siteUrl}/preguntas-frecuentes#faq`,
           mainEntity: faqs.map((faq) => ({
             '@type': 'Question',
             name: faq.question,
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: faq.answer,
-            },
+            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
           })),
         },
       ]
     : []
+
+  const homeSchemas = normalizedPath === '/' ? [localBusinessSchema] : []
 
   const articleSchemas = article
     ? [
@@ -317,15 +294,9 @@ export function Seo() {
           dateModified: article.dateModified,
           inLanguage: 'es-CR',
           keywords: article.keywords.join(', '),
-          mainEntityOfPage: {
-            '@id': webPageId,
-          },
-          author: {
-            '@id': organizationId,
-          },
-          publisher: {
-            '@id': organizationId,
-          },
+          mainEntityOfPage: { '@id': webPageId },
+          author: { '@id': organizationId },
+          publisher: { '@id': organizationId },
         },
       ]
     : []
@@ -338,6 +309,8 @@ export function Seo() {
       webPageSchema,
       breadcrumbSchema,
       ...homeSchemas,
+      ...serviceSchemas,
+      ...faqSchemas,
       ...articleSchemas,
     ],
   }
