@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import Footer from './components/footer/Footer'
+import Seo from './components/Seo'
 import HomePage from './pages/home/HomePage'
 import TrackingPage from './pages/tracking/TrackingPage'
 import Apps from './Navbar'
@@ -21,6 +22,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
+      <Seo />
       <Footer />
     </div>
   )
