@@ -160,6 +160,7 @@ export function Seo() {
       'Empresa de agencia aduanal, logística internacional, transporte marítimo, aéreo y terrestre, almacenamiento y servicios para la gestión de carga.',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: companySeo.streetAddress,
       addressLocality: companySeo.addressLocality,
       addressRegion: companySeo.addressRegion,
       postalCode: companySeo.postalCode,
@@ -183,6 +184,7 @@ export function Seo() {
     email: companySeo.email,
     address: {
       '@type': 'PostalAddress',
+      streetAddress: companySeo.streetAddress,
       addressLocality: companySeo.addressLocality,
       addressRegion: companySeo.addressRegion,
       postalCode: companySeo.postalCode,
