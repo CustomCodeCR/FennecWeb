@@ -11,17 +11,23 @@ import SectionHeader from '../../ui/SectionHeader'
 
 function HomePage() {
   return (
-    <main className="w-full overflow-x-hidden bg-gradient-to-b from-white to-slate-50">
+    <main className="w-full overflow-x-hidden bg-white">
       <HeroSection />
 
+      <DataComponent />
+
       <PageSection id="servicios-home" variant="light">
-        <SectionHeader
-          eyebrow="NUESTROS SERVICIOS"
-          title="Soluciones logísticas para importación y exportación"
-          description="Conectamos tu carga con diferentes destinos mediante servicios de aduanas, transporte internacional, almacenamiento y protección de mercancías."
-        />
-        <Category />
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            eyebrow="NUESTROS SERVICIOS"
+            title="Soluciones para cada etapa de tu carga"
+            description="Integramos aduanas, transporte internacional, almacenamiento, seguros y coordinación logística para operaciones de importación y exportación."
+          />
+          <Category />
+        </div>
       </PageSection>
+
+      <SeoLandingContent />
 
       <PageSection id="Nosotros" variant="light">
         <div className="mx-auto mb-8 max-w-3xl text-center">
@@ -33,9 +39,6 @@ function HomePage() {
       <PageSection variant="soft">
         <Track />
       </PageSection>
-
-      <DataComponent />
-      <SeoLandingContent />
 
       <section id="CONTÁCTANOS" className="w-full bg-white py-16 md:py-20">
         <ContactForm />
