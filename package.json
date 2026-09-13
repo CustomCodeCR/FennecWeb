@@ -9,7 +9,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview --host 0.0.0.0",
     "typecheck": "nuxt typecheck",
-    "test": "node --test tests/phase26.test.mjs tests/phase27.test.mjs",
+    "test": "node --test tests/phase26.test.mjs tests/phase27.test.mjs tests/phase28.test.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

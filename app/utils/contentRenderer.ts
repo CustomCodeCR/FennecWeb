@@ -5,6 +5,30 @@ export const CMS_BLOCK_TYPES = new Set([
   'FAQ', 'Testimonials', 'Logos', 'Stats', 'Team', 'Banner', 'Form', 'MeetingForm',
 ])
 
+const CMS_BLOCK_TYPE_ALIASES = new Map<string, string>([
+  ['hero', 'Hero'],
+  ['richtext', 'RichText'],
+  ['image', 'Image'],
+  ['video', 'Video'],
+  ['gallery', 'Gallery'],
+  ['cta', 'CTA'],
+  ['servicesgrid', 'ServicesGrid'],
+  ['newsgrid', 'NewsGrid'],
+  ['faq', 'FAQ'],
+  ['testimonials', 'Testimonials'],
+  ['logos', 'Logos'],
+  ['stats', 'Stats'],
+  ['team', 'Team'],
+  ['banner', 'Banner'],
+  ['form', 'Form'],
+  ['meetingform', 'MeetingForm'],
+])
+
+export function normalizeCmsBlockType(value: string) {
+  const key = value.trim().replace(/[\s_-]+/g, '').toLowerCase()
+  return CMS_BLOCK_TYPE_ALIASES.get(key)
+}
+
 export function normalizePublicPath(value: string) {
   const path = value.split('?')[0]?.split('#')[0] || '/'
   const withLeadingSlash = path.startsWith('/') ? path : `/${path}`
@@ -43,8 +67,9 @@ export function parseCmsBlocks(blocksJson: string): CmsBlock[] {
   return raw.flatMap((value, index) => {
     if (!value || typeof value !== 'object' || Array.isArray(value)) return []
     const record = value as Record<string, unknown>
-    const type = typeof record.type === 'string' ? record.type : ''
-    if (!CMS_BLOCK_TYPES.has(type) || record.isVisible === false) return []
+    const rawType = typeof record.type === 'string' ? record.type : ''
+    const type = normalizeCmsBlockType(rawType)
+    if (!type || !CMS_BLOCK_TYPES.has(type) || record.isVisible === false) return []
 
     return [{
       id: typeof record.id === 'string' && record.id ? record.id : `${type}-${index}`,

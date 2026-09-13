@@ -37,20 +37,16 @@ test('BlocksJson is parsed safely and only canonical visible block types are acc
   for (const blockType of [
     'Hero', 'RichText', 'Image', 'Video', 'Gallery', 'CTA', 'ServicesGrid', 'NewsGrid',
     'FAQ', 'Testimonials', 'Logos', 'Stats', 'Team', 'Banner', 'Form', 'MeetingForm',
-  ]) {
-    assert.match(utilities, new RegExp(`['\"]${blockType}['\"]`))
-  }
+  ]) assert.match(utilities, new RegExp(`['\"]${blockType}['\"]`))
   assert.match(utilities, /JSON\.parse\(blocksJson/)
   assert.match(utilities, /record\.isVisible === false/)
   assert.match(utilities, /CMS_BLOCK_TYPES\.has\(type\)/)
 })
 
-test('generic renderer renders every block without unsafe HTML or arbitrary Vue components', () => {
-  assert.match(renderer, /v-for="block in blocks"/)
-  assert.match(renderer, /:data-cms-block="block\.type"/)
+test('dynamic renderer never renders unsafe HTML from BlocksJson', () => {
+  assert.match(renderer, /:data-cms-block="entry\.block\.type"/)
   assert.doesNotMatch(renderer, /v-html/)
-  assert.doesNotMatch(renderer, /<component\s|:is=/)
-  assert.doesNotMatch(renderer, /CmsHero|CmsRichText|CmsImage/)
+  assert.doesNotMatch(renderer, /resolveComponent\(/)
 })
 
 test('dynamic page applies CMS SEO and sanitizes structured data', () => {
@@ -61,20 +57,12 @@ test('dynamic page applies CMS SEO and sanitizes structured data', () => {
   assert.match(utilities, /replace\(\/<\/g, '\\\\u003c'\)/)
 })
 
-test('multimedia contract is optional and supports public URLs without opening admin endpoints', () => {
+test('multimedia contract remains optional and public-only', () => {
   assert.match(route, /page\.value\?\.media \|\| \[\]/)
-  assert.match(renderer, /publicUrl/)
-  assert.match(renderer, /mediaReferenceId/)
   assert.doesNotMatch(route, /\/api\/content\/items\/.*\/media/)
 })
 
-test('phase 28 component registry is not implemented in phase 27', () => {
-  for (const component of ['CmsHero.vue', 'CmsRichText.vue', 'CmsImage.vue', 'CmsVideo.vue']) {
-    assert.equal(existsSync(join(root, 'app/components', component)), false)
-  }
-})
-
-test('npm test keeps phase 26 regression coverage and adds phase 27', () => {
+test('npm test keeps phase 26 and phase 27 regression coverage', () => {
   assert.match(pkg.scripts.test, /phase26\.test\.mjs/)
   assert.match(pkg.scripts.test, /phase27\.test\.mjs/)
 })
