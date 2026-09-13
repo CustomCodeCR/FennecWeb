@@ -4,7 +4,9 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      contentApiBase: 'https://api.logisticacastrofallas.com/api/public',
+      contentApiBase: 'https://api.logisticacastrofallas.com/api/content/public',
+      contentSiteKey: 'main',
+      contentLocale: 'es-CR',
       trackingApiBase: 'http://127.0.0.1:8000',
     },
   },
