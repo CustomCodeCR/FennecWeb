@@ -21,7 +21,7 @@ test('phase 26 uses Nuxt + Vue 3 + TypeScript and removes React/Vite runtime dep
 test('Nuxt runtime is configured as the public FennecWeb application', async () => {
   const config = await text('nuxt.config.ts')
   assert.match(config, /contentApiBase/)
-  assert.match(config, /api\/public/)
+  assert.match(config, /\/api\/content\/public/)
   assert.match(config, /typeCheck:\s*true/)
   const docker = await text('Dockerfile')
   assert.match(docker, /\.output\/server\/index\.mjs/)
@@ -29,17 +29,16 @@ test('Nuxt runtime is configured as the public FennecWeb application', async () 
   assert.doesNotMatch(docker, /\/dist/)
 })
 
-test('existing public routes are represented by Nuxt file routing', async () => {
+test('existing phase 26 public routes remain represented by Nuxt file routing', async () => {
   for (const path of ['app/pages/index.vue','app/pages/web-tracking.vue','app/pages/cotizacion.vue','app/pages/servicios-logisticos.vue','app/pages/articulos/index.vue','app/pages/articulos/[slug].vue','app/pages/opiniones.vue','app/pages/500.vue']) await access(new URL(`../${path}`, import.meta.url))
-  assert.equal(await missing('app/pages/[...slug].vue'), true, 'catch-all renderer belongs to phase 27')
 })
 
-test('ContentService access is isolated behind the public API client', async () => {
+test('ContentService access remains isolated behind the public API client', async () => {
   const client = await text('app/composables/useContentApi.ts')
   const config = await text('nuxt.config.ts')
   assert.match(client, /useRuntimeConfig/)
   assert.match(client, /\$fetch/)
-  assert.match(config, /https:\/\/api\.logisticacastrofallas\.com\/api\/public/)
+  assert.match(config, /https:\/\/api\.logisticacastrofallas\.com\/api\/content\/public/)
   assert.doesNotMatch(client, /\/api\/cms\//)
 })
 
