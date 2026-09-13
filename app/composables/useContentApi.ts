@@ -1,5 +1,3 @@
-import type { UseFetchOptions } from 'nuxt/app'
-
 function normalizeBase(value: unknown) {
   return String(value || '').replace(/\/+$/, '')
 }
@@ -12,15 +10,13 @@ export function useContentApi() {
   const config = useRuntimeConfig()
   const baseUrl = normalizeBase(config.public.contentApiBase)
 
-  function request<T>(path: string, options: UseFetchOptions<T> = {}) {
-    return useFetch<T>(`${baseUrl}${normalizePath(path)}`, {
-      ...options,
-      key: options.key ?? `content:${path}`,
-    })
+  function request<T>(path: string) {
+    const url = `${baseUrl}${normalizePath(path)}`
+    return useFetch<T>(url, { key: `content:${path}` })
   }
 
-  async function fetchPublic<T>(path: string, options: Parameters<typeof $fetch<T>>[1] = {}) {
-    return await $fetch<T>(`${baseUrl}${normalizePath(path)}`, options)
+  async function fetchPublic<T>(path: string) {
+    return await $fetch<T>(`${baseUrl}${normalizePath(path)}`)
   }
 
   return { baseUrl, request, fetchPublic }
