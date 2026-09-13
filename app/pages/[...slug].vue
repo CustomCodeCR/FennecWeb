@@ -11,6 +11,7 @@ import {
 const route = useRoute()
 const config = useRuntimeConfig()
 const { fetchPublic } = useContentApi()
+const { trackPageView } = useContentAnalytics()
 
 const requestedPath = normalizePublicPath(route.path)
 const siteKey = String(config.public.contentSiteKey || 'main')
@@ -28,15 +29,9 @@ const { data: page, error } = await useAsyncData(
       }
       return content
     } catch (cause: unknown) {
-      const source = cause as {
-        statusCode?: number
-        status?: number
-        response?: { status?: number }
-      }
+      const source = cause as { statusCode?: number, status?: number, response?: { status?: number } }
       const statusCode = source.statusCode || source.status || source.response?.status
-      if (statusCode === 404) {
-        throw createError({ statusCode: 404, statusMessage: 'Contenido no encontrado' })
-      }
+      if (statusCode === 404) throw createError({ statusCode: 404, statusMessage: 'Contenido no encontrado' })
       throw cause
     }
   },
@@ -62,6 +57,11 @@ function findMediaUrl(id?: string | null) {
 const openGraphImage = computed(() => findMediaUrl(page.value?.seo.openGraphMediaId) || findMediaUrl(page.value?.featuredMediaId))
 const structuredData = computed(() => safeStructuredData(page.value?.seo.structuredDataJson))
 
+onMounted(() => {
+  if (!page.value) return
+  void trackPageView({ siteKey, contentId: page.value.id, path: requestedPath, locale })
+})
+
 useSeoMeta({
   title: () => page.value?.seo.title || page.value?.title || 'Grupo Castro Fallas',
   description: () => page.value?.seo.description || page.value?.excerpt || undefined,
@@ -73,15 +73,9 @@ useSeoMeta({
 })
 
 useHead(() => ({
-  link: page.value?.seo.canonicalUrl
-    ? [{ rel: 'canonical', href: page.value.seo.canonicalUrl }]
-    : [],
-  meta: page.value?.seo.keywords
-    ? [{ name: 'keywords', content: page.value.seo.keywords }]
-    : [],
-  script: structuredData.value
-    ? [{ type: 'application/ld+json', innerHTML: structuredData.value }]
-    : [],
+  link: page.value?.seo.canonicalUrl ? [{ rel: 'canonical', href: page.value.seo.canonicalUrl }] : [],
+  meta: page.value?.seo.keywords ? [{ name: 'keywords', content: page.value.seo.keywords }] : [],
+  script: structuredData.value ? [{ type: 'application/ld+json', innerHTML: structuredData.value }] : [],
 }))
 </script>
 
@@ -94,13 +88,7 @@ useHead(() => ({
         <p v-if="page.excerpt" class="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{{ page.excerpt }}</p>
       </div>
     </header>
-
-    <DynamicContentRenderer
-      v-if="page"
-      :blocks="blocks"
-      :media="media"
-    />
-
+    <DynamicContentRenderer v-if="page" :blocks="blocks" :media="media" />
     <section v-if="page && blocks.length === 0" class="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
       <p class="text-slate-600">{{ page.excerpt || page.title }}</p>
     </section>
