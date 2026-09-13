@@ -1,75 +1,31 @@
-# React + TypeScript + Vite
+# FennecWeb
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Página pública de Grupo Castro Fallas construida con **Nuxt, Vue 3 y TypeScript**.
 
-Currently, two official plugins are available:
+## Desarrollo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Validación
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm test
+npm run typecheck
+npm run build
 ```
+
+## Configuración
+
+Nuxt usa variables de runtime para los servicios externos:
+
+- `NUXT_PUBLIC_CONTENT_API_BASE`: base de la API pública de `DholeContentService`. Valor por defecto: `https://api.logisticacastrofallas.com/api/public`.
+- `NUXT_PUBLIC_TRACKING_API_BASE`: API del tracking público. Conserva por defecto el backend histórico `http://127.0.0.1:8000` para desarrollo y debe configurarse en despliegues.
+
+La integración CMS está centralizada en `app/composables/useContentApi.ts`. FASE 26 no implementa el renderer dinámico por URL; el catch-all `pages/[...slug].vue` corresponde a FASE 27.
+
+## Docker
+
+El contenedor ejecuta el servidor Nitro generado por Nuxt en el puerto 80 y expone `GET /health` para los workflows de despliegue existentes.
