@@ -1,0 +1,2 @@
+<script setup lang="ts">useSeoMeta({ title: 'Error del servidor', robots: 'noindex,nofollow' })</script>
+<template><section class="section page-top"><div class="container narrow centered"><span class="error-code">500</span><h1>No pudimos completar la solicitud</h1><p class="lead">Intenta nuevamente en unos minutos.</p><NuxtLink class="btn primary" to="/">Volver al inicio</NuxtLink></div></section></template>
