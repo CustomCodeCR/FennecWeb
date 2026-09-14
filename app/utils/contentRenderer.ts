@@ -1,3 +1,4 @@
+import { normalizeMotionConfig, type MotionConfigInput } from '~/motion/presets'
 import type { CmsBlock, PublicContentPage, PublicContentResponse } from '~/types/content'
 
 export const CMS_BLOCK_TYPES = new Set([
@@ -71,6 +72,10 @@ export function parseCmsBlocks(blocksJson: string): CmsBlock[] {
     const type = normalizeCmsBlockType(rawType)
     if (!type || !CMS_BLOCK_TYPES.has(type) || record.isVisible === false) return []
 
+    const animationInput = record.animation && typeof record.animation === 'object' && !Array.isArray(record.animation)
+      ? record.animation as MotionConfigInput
+      : undefined
+
     return [{
       id: typeof record.id === 'string' && record.id ? record.id : `${type}-${index}`,
       type,
@@ -78,6 +83,7 @@ export function parseCmsBlocks(blocksJson: string): CmsBlock[] {
       data: record.data && typeof record.data === 'object' && !Array.isArray(record.data)
         ? record.data as Record<string, unknown>
         : {},
+      animation: normalizeMotionConfig(animationInput),
     }]
   })
 }
