@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-13',
   devtools: { enabled: false },
-  css: ['~/assets/css/main.css', '~/assets/css/cms.css'],
+  css: ['~/assets/css/design-system.css', '~/assets/css/main.css', '~/assets/css/cms.css'],
   runtimeConfig: {
     public: {
       contentApiBase: 'https://api.logisticacastrofallas.com/api/content/public',

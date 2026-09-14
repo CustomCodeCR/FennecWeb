@@ -80,17 +80,25 @@ useHead(() => ({
 </script>
 
 <template>
-  <main class="min-h-screen bg-white">
-    <header v-if="page && !hasHero" class="border-b border-slate-100 bg-slate-50 py-12 sm:py-16">
-      <div class="mx-auto w-full max-w-6xl px-5 sm:px-8">
-        <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[#c8171d]">{{ page.type }}</p>
-        <h1 class="mt-2 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">{{ page.title }}</h1>
-        <p v-if="page.excerpt" class="mt-4 max-w-3xl text-lg leading-8 text-slate-600">{{ page.excerpt }}</p>
+  <main class="cms-page">
+    <header v-if="page && !hasHero" class="cms-page-header">
+      <div class="container">
+        <p class="eyebrow">{{ page.type }}</p>
+        <h1 class="cms-page-title">{{ page.title }}</h1>
+        <p v-if="page.excerpt" class="cms-page-lead">{{ page.excerpt }}</p>
       </div>
     </header>
-    <DynamicContentRenderer v-if="page" :blocks="blocks" :media="media" />
-    <section v-if="page && blocks.length === 0" class="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
-      <p class="text-slate-600">{{ page.excerpt || page.title }}</p>
+
+    <DynamicContentRenderer
+      v-if="page"
+      :blocks="blocks"
+      :media="media"
+    />
+
+    <section v-if="page && blocks.length === 0" class="section">
+      <div class="container narrow">
+        <p class="lead">{{ page.excerpt || page.title }}</p>
+      </div>
     </section>
   </main>
 </template>

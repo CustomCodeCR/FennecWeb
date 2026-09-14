@@ -20,7 +20,9 @@ jobs:
           node-version: '22.20.0'
       - name: Install
         run: npm install --no-audit --no-fund
-      - name: Phase 26 tests
+      - name: Lint
+        run: npm run lint
+      - name: Tests
         run: npm test
       - name: Type-check
         run: npm run typecheck
