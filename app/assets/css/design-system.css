@@ -1,0 +1,252 @@
+/* Fennec Design System — FASE 33
+   This file is the visual source of truth for FennecWeb. Component styles consume
+   these tokens instead of introducing independent colors, type scales, spacing,
+   radii, shadows or layout widths. */
+:root {
+  /* Brand and semantic colors */
+  --ds-color-primary: #c8171d;
+  --ds-color-primary-hover: #a91017;
+  --ds-color-primary-soft: #fef2f2;
+  --ds-color-primary-border: #fecaca;
+  --ds-color-secondary: #111827;
+  --ds-color-secondary-soft: #334155;
+  --ds-color-text: #111827;
+  --ds-color-text-body: #475569;
+  --ds-color-text-muted: #64748b;
+  --ds-color-text-subtle: #94a3b8;
+  --ds-color-surface: #ffffff;
+  --ds-color-surface-soft: #f6f7f9;
+  --ds-color-surface-inverse: #101114;
+  --ds-color-border: #e2e8f0;
+  --ds-color-border-strong: #cbd5e1;
+  --ds-color-on-primary: #ffffff;
+  --ds-color-on-inverse: #ffffff;
+  --ds-color-on-inverse-muted: #cbd5e1;
+  --ds-color-overlay-strong: rgba(0, 0, 0, 0.78);
+  --ds-color-overlay-medium: rgba(0, 0, 0, 0.35);
+  --ds-color-overlay-soft: rgba(0, 0, 0, 0.15);
+  --ds-color-overlay-banner: rgba(0, 0, 0, 0.25);
+  --ds-color-surface-glass: rgba(255, 255, 255, 0.94);
+  --ds-color-border-glass: rgba(226, 232, 240, 0.85);
+  --ds-color-border-inverse: rgba(255, 255, 255, 0.65);
+  --ds-color-border-inverse-soft: rgba(255, 255, 255, 0.12);
+  --ds-color-text-inverse-muted: rgba(255, 255, 255, 0.86);
+  --ds-color-text-inverse-strong: rgba(255, 255, 255, 0.88);
+  --ds-color-focus-ring: rgba(200, 23, 29, 0.1);
+
+  /* Typography */
+  --ds-font-family-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+  --ds-font-weight-extrabold: 800;
+  --ds-font-weight-black: 900;
+  --ds-font-weight-heavy: 950;
+  --ds-font-size-xs: 0.75rem;
+  --ds-font-size-sm: 0.85rem;
+  --ds-font-size-md: 0.9rem;
+  --ds-font-size-base: 1rem;
+  --ds-font-size-lead: 1.05rem;
+  --ds-font-size-hero-copy: 1.18rem;
+  --ds-font-size-lg: 1.2rem;
+  --ds-font-size-stat: 2rem;
+  --ds-font-size-title-sm: clamp(2rem, 4vw, 3rem);
+  --ds-font-size-title-md: clamp(2.1rem, 4vw, 3.35rem);
+  --ds-font-size-title-lg: clamp(2.5rem, 6vw, 4.6rem);
+  --ds-font-size-display: clamp(2.8rem, 7vw, 5.7rem);
+  --ds-font-size-error: 6rem;
+  --ds-line-height-tight: 0.95;
+  --ds-line-height-heading: 1.08;
+  --ds-line-height-body: 1.65;
+  --ds-line-height-relaxed: 1.75;
+  --ds-line-height-reading: 1.85;
+  --ds-letter-spacing-display: -0.055em;
+  --ds-letter-spacing-title: -0.04em;
+  --ds-letter-spacing-card: -0.025em;
+  --ds-letter-spacing-eyebrow: 0.18em;
+
+  /* Spacing scale */
+  --ds-space-0: 0;
+  --ds-space-1: 0.25rem;
+  --ds-space-2: 0.5rem;
+  --ds-space-3: 0.75rem;
+  --ds-space-4: 1rem;
+  --ds-space-5: 1.25rem;
+  --ds-space-6: 1.5rem;
+  --ds-space-7: 1.75rem;
+  --ds-space-8: 2rem;
+  --ds-space-10: 2.5rem;
+  --ds-space-12: 3rem;
+  --ds-space-14: 3.5rem;
+  --ds-space-16: 4rem;
+  --ds-space-20: 5rem;
+  --ds-space-22: 5.5rem;
+  --ds-space-28: 7rem;
+
+  /* Radius */
+  --ds-radius-sm: 0.75rem;
+  --ds-radius-md: 0.875rem;
+  --ds-radius-lg: 1rem;
+  --ds-radius-xl: 1.25rem;
+  --ds-radius-2xl: 1.375rem;
+  --ds-radius-3xl: 1.5rem;
+  --ds-radius-4xl: 1.625rem;
+  --ds-radius-5xl: 1.75rem;
+  --ds-radius-round: 9999px;
+
+  /* Shadows */
+  --ds-shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.04);
+  --ds-shadow-card: 0 14px 34px rgba(15, 23, 42, 0.05);
+  --ds-shadow-elevated: 0 14px 40px rgba(15, 23, 42, 0.06);
+  --ds-shadow-focus: 0 0 0 3px var(--ds-color-focus-ring);
+
+  /* Containers and content widths */
+  --ds-container-max: 73.75rem;
+  --ds-container-gutter: 1rem;
+  --ds-content-narrow: 55rem;
+  --ds-content-heading: 47.5rem;
+  --ds-content-reading: 56.25rem;
+  --ds-content-hero-copy: 42.5rem;
+  --ds-content-hero-title: 51.25rem;
+  --ds-content-banner: 43.75rem;
+
+  /* Grids */
+  --ds-grid-gap-sm: 0.8rem;
+  --ds-grid-gap-md: 1rem;
+  --ds-grid-gap-lg: 1.2rem;
+  --ds-grid-gap-xl: 1.4rem;
+  --ds-grid-gap-2xl: 2rem;
+  --ds-grid-gap-split: 3rem;
+
+  /* Component dimensions */
+  --ds-header-height: 4.5rem;
+  --ds-logo-header-size: 2.625rem;
+  --ds-logo-footer-size: 3.75rem;
+  --ds-avatar-size: 4.5rem;
+  --ds-team-avatar-size: 8rem;
+  --ds-logo-media-height: 4.5rem;
+  --ds-card-media-height: 13.125rem;
+  --ds-article-hero-height: 32.5rem;
+  --ds-media-max-height: 42.5rem;
+  --ds-hero-min-height: 42.5rem;
+  --ds-hero-min-height-mobile: 37.5rem;
+  --ds-cms-hero-min-height: 38.75rem;
+  --ds-cms-hero-min-height-mobile: 35rem;
+  --ds-banner-min-height: 20rem;
+  --ds-stats-panel-min-height: 16.25rem;
+  --ds-aspect-media-card: 4 / 3;
+  --ds-logo-opacity: 0.82;
+  --ds-backdrop-blur: 0.875rem;
+
+  /* Buttons and controls */
+  --ds-button-padding-y: 0.82rem;
+  --ds-button-padding-x: 1.15rem;
+  --ds-control-padding-y: 0.8rem;
+  --ds-control-padding-x: 0.9rem;
+
+  /* Layering */
+  --ds-z-content: 1;
+  --ds-z-hero: 2;
+  --ds-z-sticky: 50;
+
+  /* Breakpoints. CSS media rules mirror these values because custom properties
+     cannot currently be used in media-query conditions. */
+  --ds-breakpoint-mobile: 38.75rem;
+  --ds-breakpoint-tablet: 56.25rem;
+  --ds-breakpoint-desktop: 73.75rem;
+  --ds-breakpoint-wide: 90rem;
+
+  /* Shared gradients */
+  --ds-gradient-primary: linear-gradient(135deg, var(--ds-color-primary), #7f0d12);
+  --ds-gradient-hero: linear-gradient(90deg, var(--ds-color-overlay-strong), var(--ds-color-overlay-medium) 58%, var(--ds-color-overlay-soft));
+  --ds-gradient-cms-hero: linear-gradient(90deg, var(--ds-color-overlay-strong), var(--ds-color-overlay-medium) 62%, rgba(0, 0, 0, 0.18));
+  --ds-gradient-banner: linear-gradient(90deg, var(--ds-color-overlay-strong), var(--ds-color-overlay-banner));
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: var(--ds-space-0);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-text);
+  font-family: var(--ds-font-family-sans);
+  font-size: var(--ds-font-size-base);
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--ds-color-primary);
+  outline-offset: 3px;
+}
+
+.container {
+  width: min(var(--ds-container-max), calc(100% - (var(--ds-container-gutter) * 2)));
+  margin-inline: auto;
+}
+.narrow { max-width: var(--ds-content-narrow); }
+.centered { text-align: center; }
+.site-main { min-height: 70vh; }
+.section { padding-block: var(--ds-space-22); }
+.page-top { padding-top: var(--ds-space-20); }
+.soft { background: var(--ds-color-surface-soft); }
+
+.section-heading {
+  max-width: var(--ds-content-heading);
+  margin: var(--ds-space-0) auto var(--ds-space-10);
+  text-align: center;
+}
+.section-heading h1,
+.section-heading h2 {
+  margin: var(--ds-space-2) var(--ds-space-0) var(--ds-space-3);
+  font-size: var(--ds-font-size-title-md);
+  line-height: var(--ds-line-height-heading);
+  letter-spacing: var(--ds-letter-spacing-title);
+}
+.section-heading p,
+.lead {
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-font-size-lead);
+  line-height: var(--ds-line-height-relaxed);
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--ds-color-primary);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-black);
+  letter-spacing: var(--ds-letter-spacing-eyebrow);
+}
+.eyebrow.light { color: var(--ds-color-on-inverse); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--ds-radius-md);
+  padding: var(--ds-button-padding-y) var(--ds-button-padding-x);
+  font-weight: var(--ds-font-weight-extrabold);
+  cursor: pointer;
+}
+.btn.primary { background: var(--ds-color-primary); color: var(--ds-color-on-primary); }
+.btn.primary:hover { background: var(--ds-color-primary-hover); }
+.btn.ghost { border-color: var(--ds-color-border-inverse); color: var(--ds-color-on-inverse); }
+.btn.disabled { pointer-events: none; opacity: 0.45; }
+.text-link { color: var(--ds-color-primary); font-weight: var(--ds-font-weight-extrabold); }
+
+.card-grid,
+.ds-grid { display: grid; gap: var(--ds-grid-gap-lg); }
+.card-grid.three,
+.ds-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+@media (max-width: 56.25rem) {
+  .card-grid.three,
+  .ds-grid.three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 38.75rem) {
+  .section { padding-block: var(--ds-space-16); }
+  .card-grid.three,
+  .ds-grid.three { grid-template-columns: 1fr; }
+}

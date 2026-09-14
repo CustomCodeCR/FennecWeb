@@ -8,8 +8,9 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview --host 0.0.0.0",
+    "lint": "node scripts/lint-design-system.mjs",
     "typecheck": "nuxt typecheck",
-    "test": "node --test tests/phase26.test.mjs tests/phase27.test.mjs tests/phase28.test.mjs tests/phase32.test.mjs",
+    "test": "node --test tests/phase26.test.mjs tests/phase27.test.mjs tests/phase28.test.mjs tests/phase32.test.mjs tests/phase33.test.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -20,5 +21,7 @@
     "typescript": "^5.9.0",
     "vue-tsc": "^3.0.0"
   },
-  "engines": { "node": ">=22.18.0" }
+  "engines": {
+    "node": ">=22.18.0"
+  }
 }
