@@ -1,0 +1,94 @@
+/* Fennec Motion System — FASE 34
+   Central source of truth for public motion. Components must not define
+   independent transitions, keyframes or animation timings. Runtime triggering
+   is intentionally left to the dedicated motion runtime phase. */
+:root {
+  --motion-duration-default: 600ms;
+  --motion-delay-default: 0ms;
+  --motion-stagger-default: 100ms;
+  --motion-distance-default: 2rem;
+  --motion-scale-in: 0.94;
+  --motion-scale-out: 1.06;
+  --motion-scale-subtle: 0.97;
+  --motion-blur: 0.75rem;
+  --motion-easing-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --motion-easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --motion-easing-linear: linear;
+}
+
+.fennec-motion {
+  --motion-duration: var(--motion-duration-default);
+  --motion-delay: var(--motion-delay-default);
+  --motion-stagger: var(--motion-stagger-default);
+  --motion-stagger-index: 0;
+  --motion-distance: var(--motion-distance-default);
+  --motion-easing: var(--motion-easing-standard);
+  transition-property: opacity, transform, filter;
+  transition-duration: var(--motion-duration);
+  transition-delay: calc(var(--motion-delay) + (var(--motion-stagger-index) * var(--motion-stagger)));
+  transition-timing-function: var(--motion-easing);
+  will-change: opacity, transform, filter;
+}
+
+.fennec-motion[data-motion-state='entered'],
+.fennec-motion[data-motion-preset='none'] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='fade'] {
+  opacity: 0;
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='fade-up'] {
+  opacity: 0;
+  transform: translate3d(0, var(--motion-distance), 0);
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='fade-down'] {
+  opacity: 0;
+  transform: translate3d(0, calc(var(--motion-distance) * -1), 0);
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='fade-left'] {
+  opacity: 0;
+  transform: translate3d(var(--motion-distance), 0, 0);
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='fade-right'] {
+  opacity: 0;
+  transform: translate3d(calc(var(--motion-distance) * -1), 0, 0);
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='slide-up'] {
+  transform: translate3d(0, var(--motion-distance), 0);
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='slide-left'] {
+  transform: translate3d(var(--motion-distance), 0, 0);
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='slide-right'] {
+  transform: translate3d(calc(var(--motion-distance) * -1), 0, 0);
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='zoom-in'] {
+  opacity: 0;
+  transform: scale(var(--motion-scale-in));
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='zoom-out'] {
+  opacity: 0;
+  transform: scale(var(--motion-scale-out));
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='scale'] {
+  transform: scale(var(--motion-scale-subtle));
+}
+
+.fennec-motion[data-motion-state='initial'][data-motion-preset='blur-in'] {
+  opacity: 0;
+  filter: blur(var(--motion-blur));
+}
