@@ -45,6 +45,15 @@ for (const file of files) {
     assertTokenizedProperty(source, rel, 'box-shadow', 'shadows must use a design-system token.')
     assertTokenizedProperty(source, rel, 'font-family', 'font families must use a design-system token.')
   }
+
+  if (extension === '.css' && rel !== 'app/assets/css/motion-system.css') {
+    if (/(^|[;{]\s*)animation(?:-[a-z-]+)?\s*:/im.test(source) || /@keyframes\b/i.test(source)) {
+      violations.push(`${rel}: animations must be defined in motion-system.css.`)
+    }
+    if (/(^|[;{]\s*)transition(?:-[a-z-]+)?\s*:/im.test(source)) {
+      violations.push(`${rel}: transitions must be defined in motion-system.css.`)
+    }
+  }
 }
 
 if (violations.length) {
@@ -52,4 +61,4 @@ if (violations.length) {
   process.exit(1)
 }
 
-console.log('Fennec Design System lint passed.')
+console.log('Fennec Design System and Motion System lint passed.')
