@@ -16,6 +16,14 @@ async function collect(dir) {
   return files
 }
 
+function assertTokenizedProperty(source, rel, property, message) {
+  const pattern = new RegExp(`${property}\\s*:\\s*([^;}\\n]+)`, 'gi')
+  for (const match of source.matchAll(pattern)) {
+    const value = match[1]?.trim() ?? ''
+    if (!value.startsWith('var(')) violations.push(`${rel}: ${message} Found: ${property}: ${value}`)
+  }
+}
+
 const files = await collect(appRoot)
 for (const file of files) {
   const rel = relative(root, file).replaceAll('\\', '/')
@@ -33,9 +41,9 @@ for (const file of files) {
     if (/#[0-9a-f]{3,8}\b/i.test(source) || /rgba?\s*\(/i.test(source)) {
       violations.push(`${rel}: colors must come from design-system.css tokens.`)
     }
-    if (/border-radius\s*:\s*(?!var\()/i.test(source)) violations.push(`${rel}: border radius must use a design-system token.`)
-    if (/box-shadow\s*:\s*(?!var\()/i.test(source)) violations.push(`${rel}: shadows must use a design-system token.`)
-    if (/font-family\s*:\s*(?!var\()/i.test(source)) violations.push(`${rel}: font families must use a design-system token.`)
+    assertTokenizedProperty(source, rel, 'border-radius', 'border radius must use a design-system token.')
+    assertTokenizedProperty(source, rel, 'box-shadow', 'shadows must use a design-system token.')
+    assertTokenizedProperty(source, rel, 'font-family', 'font families must use a design-system token.')
   }
 }
 
