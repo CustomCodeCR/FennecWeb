@@ -1,3 +1,5 @@
+import type { MotionConfig } from '~/motion/presets'
+
 export interface PublicSeo {
   title?: string | null
   description?: string | null
@@ -24,6 +26,7 @@ export interface CmsBlock {
   type: string
   isVisible: boolean
   data: Record<string, unknown>
+  animation: MotionConfig
 }
 
 export interface PublicContentPage {
