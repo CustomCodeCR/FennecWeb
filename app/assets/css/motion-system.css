@@ -1,7 +1,7 @@
 /* Fennec Motion System — FASE 34
    Central source of truth for public motion. Components must not define
    independent transitions, keyframes or animation timings. Runtime triggering
-   is intentionally left for FASE 36 (CmsMotion). */
+   is intentionally left to the dedicated motion runtime phase. */
 :root {
   --motion-duration-default: 600ms;
   --motion-delay-default: 0ms;
