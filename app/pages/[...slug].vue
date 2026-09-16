@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PublicContentMedia, PublicContentResponse } from '~/types/content'
+import type { CmsBlock, PublicContentMedia, PublicContentResponse } from '~/types/content'
 import {
   buildResolveUrl,
   normalizePublicPath,
@@ -10,7 +10,7 @@ import {
 
 const route = useRoute()
 const config = useRuntimeConfig()
-const { fetchPublic } = useContentApi()
+const { fetchPublic, mediaUrl } = useContentApi()
 const { trackPageView } = useContentAnalytics()
 
 const requestedPath = normalizePublicPath(route.path)
@@ -42,7 +42,45 @@ if (!page.value) throw createError({ statusCode: 404, statusMessage: 'Contenido 
 
 const blocks = computed(() => parseCmsBlocks(page.value?.blocksJson || '[]'))
 const hasHero = computed(() => blocks.value.some(block => block.type === 'Hero'))
-const media = computed(() => page.value?.media || [])
+
+const MEDIA_ID_KEYS = new Set(['editorMediaId', 'mediaId', 'mediaReferenceId', 'imageMediaId', 'videoMediaId'])
+
+function collectMediaIds(value: unknown, result: Set<string>) {
+  if (Array.isArray(value)) {
+    for (const item of value) collectMediaIds(item, result)
+    return
+  }
+  if (!value || typeof value !== 'object') return
+
+  for (const [key, entry] of Object.entries(value as Record<string, unknown>)) {
+    if (MEDIA_ID_KEYS.has(key) && typeof entry === 'string' && entry.trim()) result.add(entry.trim())
+    else collectMediaIds(entry, result)
+  }
+}
+
+function blockMediaIds(items: CmsBlock[]) {
+  const ids = new Set<string>()
+  for (const block of items) collectMediaIds(block.data, ids)
+  return ids
+}
+
+const media = computed<PublicContentMedia[]>(() => {
+  const existing = page.value?.media || []
+  const referenced = blockMediaIds(blocks.value)
+  if (page.value?.featuredMediaId) referenced.add(page.value.featuredMediaId)
+  if (page.value?.seo.openGraphMediaId) referenced.add(page.value.seo.openGraphMediaId)
+
+  const known = new Set(existing.flatMap(item => [item.id, item.mediaReferenceId].filter((id): id is string => Boolean(id))))
+  const synthetic = [...referenced]
+    .filter(id => !known.has(id))
+    .map(id => ({
+      id,
+      mediaReferenceId: id,
+      publicUrl: mediaUrl(id),
+    }))
+
+  return [...existing, ...synthetic]
+})
 
 function publicMediaUrl(item?: PublicContentMedia) {
   return item?.publicUrl || item?.url || item?.storageUrl || undefined
