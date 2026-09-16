@@ -63,7 +63,7 @@ export function resolveBlockMedia(
 ) {
   const url = safeMediaUrl(firstString(block.data, options.urlKeys || ['imageUrl', 'videoUrl', 'src', 'url']))
   if (url) return { url, media: undefined as PublicContentMedia | undefined }
-  const id = firstString(block.data, options.idKeys || ['mediaId', 'mediaReferenceId', 'imageMediaId', 'videoMediaId'])
+  const id = firstString(block.data, options.idKeys || ['editorMediaId', 'mediaId', 'mediaReferenceId', 'imageMediaId', 'videoMediaId'])
   const item = findMedia(media, id, options.roles)
   return { url: publicMediaUrl(item), media: item }
 }
@@ -71,7 +71,7 @@ export function resolveBlockMedia(
 export function resolveItemMedia(item: CmsRecord, media: PublicContentMedia[]) {
   const direct = safeMediaUrl(firstString(item, ['imageUrl', 'videoUrl', 'src', 'url', 'logoUrl', 'avatarUrl']))
   if (direct) return direct
-  const id = firstString(item, ['mediaId', 'mediaReferenceId', 'imageMediaId', 'videoMediaId'])
+  const id = firstString(item, ['editorMediaId', 'mediaId', 'mediaReferenceId', 'imageMediaId', 'videoMediaId'])
   return publicMediaUrl(findMedia(media, id))
 }
 
