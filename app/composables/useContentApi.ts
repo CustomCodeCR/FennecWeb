@@ -10,14 +10,22 @@ export function useContentApi() {
   const config = useRuntimeConfig()
   const baseUrl = normalizeBase(config.public.contentApiBase)
 
+  function absoluteUrl(path: string) {
+    return `${baseUrl}${normalizePath(path)}`
+  }
+
   function request<T>(path: string) {
-    const url = `${baseUrl}${normalizePath(path)}`
-    return useFetch<T>(url, { key: `content:${path}` })
+    return useFetch<T>(absoluteUrl(path), { key: `content:${path}` })
   }
 
   async function fetchPublic<T>(path: string) {
-    return await $fetch<T>(`${baseUrl}${normalizePath(path)}`)
+    return await $fetch<T>(absoluteUrl(path))
   }
 
-  return { baseUrl, request, fetchPublic }
+  function mediaUrl(mediaReferenceId?: string | null) {
+    const id = String(mediaReferenceId || '').trim()
+    return id ? absoluteUrl(`/api/public/media/${encodeURIComponent(id)}/content`) : undefined
+  }
+
+  return { baseUrl, absoluteUrl, mediaUrl, request, fetchPublic }
 }
